@@ -63,12 +63,12 @@ function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const button = document.getElementById('mobileMenuButton');
             if (!menu) return;
-            const isHidden = menu.classList.toggle('hidden');
+            const isOpen = menu.classList.toggle('open');
             if (button) {
-                button.setAttribute('aria-expanded', String(!isHidden));
-                button.setAttribute('aria-label', isHidden ? 'Open menu' : 'Close menu');
+                button.setAttribute('aria-expanded', String(isOpen));
+                button.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
                 const icon = button.querySelector('i');
-                if (icon) icon.className = isHidden ? 'fa-solid fa-bars text-xl' : 'fa-solid fa-xmark text-xl';
+                if (icon) icon.className = isOpen ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
             }
         }
 
