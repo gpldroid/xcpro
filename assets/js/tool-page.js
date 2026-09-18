@@ -33,9 +33,19 @@ Object.assign(window, {
   updateResizeDim
 });
 
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/xcpro/sw.js', { scope: '/xcpro/' })
+      .catch((error) => console.warn('XConvert Pro service worker registration failed:', error));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
   state.activeTool = TOOL_KEY;
   openToolWorkspace(TOOL_KEY);
   document.body.style.overflow = 'auto';\n  initCropInteraction();
+  registerServiceWorker();
 });
