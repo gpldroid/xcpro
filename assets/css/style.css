@@ -88,3 +88,30 @@ body {
 @media(max-width:1100px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:900px){.footer-grid{grid-template-columns:repeat(2,1fr);}.footer-legal-inline{justify-content:flex-start;}}
 @media(max-width:600px){.footer-grid{grid-template-columns:1fr;}.footer-bottom{align-items:flex-start;}.footer-legal-inline{gap:8px 12px;}}
+
+/* XConvert Pro 2026 UI refinement */
+html{scroll-behavior:smooth}
+body{min-width:320px;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:3px solid rgba(14,165,233,.55);outline-offset:3px}
+button,a{touch-action:manipulation}
+.site-header{box-shadow:0 8px 30px rgba(2,8,23,.08)}
+.site-nav details>summary{list-style:none}
+.site-nav details>summary::-webkit-details-marker{display:none}
+.site-nav details[open] .nav-dropdown{display:block}
+.nav-dropdown{max-height:70vh;overflow:auto}
+.header-icon svg,.social-icon svg{width:18px;height:18px;display:block}
+.header-icon,.theme-toggle,.menu-toggle{font-family:inherit}
+.social-icon{font-size:.82rem;font-weight:900;letter-spacing:-.03em;transition:transform .18s ease,background .18s ease,border-color .18s ease,color .18s ease}
+.social-icon:hover{transform:translateY(-2px);background:#0ea5e9;border-color:#0ea5e9;color:#fff!important}
+.social-pinterest,.social-facebook{font-family:Arial,sans-serif;font-size:1.05rem}
+.social-linkedin{font-family:Arial,sans-serif;font-size:.8rem}
+.social-threads{font-family:Arial,sans-serif}
+.mobile-menu-label{display:block;padding:7px 12px 2px;color:#64748b;font-size:.68rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.site-footer{contain:layout paint}
+.footer-brand-col p{max-width:360px}
+.footer-links a,.footer-legal-inline a,.cookie-settings-link{transition:color .18s ease,transform .18s ease}
+.cookie-settings-link{border:0;background:transparent;color:#94a3b8;padding:0;cursor:pointer;font:inherit}
+.cookie-settings-link:hover{color:#38bdf8}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tool-card,.tool-card-pro,.social-icon{transition:none;transform:none!important}}
+@media(max-width:900px){.site-header-inner{min-height:64px}.footer-grid{gap:26px}.site-nav{display:none}.menu-toggle{display:grid}}
+@media(max-width:600px){.site-container{width:calc(100% - 24px)}.footer-grid{gap:22px}.footer-socials{margin-top:10px}.footer-bottom{padding:16px 0}}
