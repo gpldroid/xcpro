@@ -20,16 +20,16 @@
         };
 
         const toolsMeta = {
-            compress: { title: 'Compress IMAGE', desc: 'Compress JPG, PNG, SVG or GIF with the best quality and compression.', icon: 'fa-file-arrow-down', actionText: 'Compress IMAGES' },
-            resize: { title: 'Resize IMAGE', desc: 'Define your dimensions, by percent or pixel, and resize your images.', icon: 'fa-expand', actionText: 'Resize IMAGES' },
-            crop: { title: 'Crop IMAGE', desc: 'Crop JPG, PNG or GIFs by defining an area in pixels.', icon: 'fa-crop-simple', actionText: 'Crop IMAGE' },
-            convert: { title: 'Convert to JPG', desc: 'Turn PNG, GIF, WEBP or SVG images easily to JPG format.', icon: 'fa-right-left', actionText: 'Convert to JPG' },
-            editor: { title: 'Photo Editor', desc: 'Adjust brightness, contrast, saturation, and apply filters.', icon: 'fa-sliders', actionText: 'Save edited IMAGE' },
-            removebg: { title: 'Remove Background', desc: 'Automatically erase background colors with instant transparent output.', icon: 'fa-wand-magic-sparkles', actionText: 'Remove Background' },
-            upscale: { title: 'Upscale IMAGE', desc: 'Enlarge image resolution with detail enhancement.', icon: 'fa-angles-up', actionText: 'Upscale IMAGES' },
-            watermark: { title: 'Watermark IMAGE', desc: 'Stamp an image or text over your images in seconds.', icon: 'fa-stamp', actionText: 'Watermark IMAGES' },
-            meme: { title: 'Meme Generator', desc: 'Caption memes or upload your own images to make custom memes.', icon: 'fa-face-laugh-squint', actionText: 'Generate Meme' },
-            rotate: { title: 'Rotate IMAGE', desc: 'Rotate many images at once. Choose landscape or portrait.', icon: 'fa-rotate', actionText: 'Rotate IMAGES' }
+            compress: { title: 'Compress IMAGE', desc: 'Compress JPG, PNG, SVG or GIF with the best quality and compression.', icon: '↓', actionText: 'Compress IMAGES' },
+            resize: { title: 'Resize IMAGE', desc: 'Define your dimensions, by percent or pixel, and resize your images.', icon: '↗', actionText: 'Resize IMAGES' },
+            crop: { title: 'Crop IMAGE', desc: 'Crop JPG, PNG or GIFs by defining an area in pixels.', icon: '⌗', actionText: 'Crop IMAGE' },
+            convert: { title: 'Convert to JPG', desc: 'Turn PNG, GIF, WEBP or SVG images easily to JPG format.', icon: '⇄', actionText: 'Convert to JPG' },
+            editor: { title: 'Photo Editor', desc: 'Adjust brightness, contrast, saturation, and apply filters.', icon: '☷', actionText: 'Save edited IMAGE' },
+            removebg: { title: 'Remove Background', desc: 'Automatically erase background colors with instant transparent output.', icon: '✦', actionText: 'Remove Background' },
+            upscale: { title: 'Upscale IMAGE', desc: 'Enlarge image resolution with detail enhancement.', icon: '↑', actionText: 'Upscale IMAGES' },
+            watermark: { title: 'Watermark IMAGE', desc: 'Stamp an image or text over your images in seconds.', icon: '◆', actionText: 'Watermark IMAGES' },
+            meme: { title: 'Meme Generator', desc: 'Caption memes or upload your own images to make custom memes.', icon: '☺', actionText: 'Generate Meme' },
+            rotate: { title: 'Rotate IMAGE', desc: 'Rotate many images at once. Choose landscape or portrait.', icon: '↻', actionText: 'Rotate IMAGES' }
         };
 
 export { state, toolsMeta };
