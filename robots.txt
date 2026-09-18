@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gpldroid.github.io/xcpro/sitemap.xml
+Sitemap: https://xconvert.pro/sitemap.xml
