@@ -47,17 +47,28 @@ function navigateTo(target) {
             }
         }
 
+function syncThemeIcon() {
+    const icon = document.getElementById('themeToggleIcon');
+    if (!icon) return;
+    icon.className = document.documentElement.classList.contains('dark')
+        ? 'fa-solid fa-sun text-base text-amber-400'
+        : 'fa-solid fa-moon text-base text-slate-700';
+}
 function toggleDarkMode() {
-            const html = document.documentElement;
-            const icon = document.getElementById('themeToggleIcon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                if (icon) icon.className = 'fa-solid fa-moon text-base text-slate-700';
-            } else {
-                html.classList.add('dark');
-                if (icon) icon.className = 'fa-solid fa-sun text-base text-amber-400';
-            }
-        }
+    const html = document.documentElement;
+    const dark = !html.classList.contains('dark');
+    html.classList.toggle('dark', dark);
+    try { localStorage.setItem('xconvert-theme', dark ? 'dark' : 'light'); } catch {}
+    syncThemeIcon();
+}
+function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem('xconvert-theme'); } catch {}
+    const dark = saved === 'dark' || (saved === null && window.matchMedia?.('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', dark);
+    syncThemeIcon();
+}
+initTheme();
 
 function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
