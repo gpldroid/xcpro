@@ -57,6 +57,16 @@ Object.assign(window, {
   ...lazyApi
 });
 
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/xcpro/sw.js', { scope: '/xcpro/' })
+      .catch((error) => console.warn('XConvert Pro service worker registration failed:', error));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   navigateTo(state.currentPage);
+  registerServiceWorker();
 });
