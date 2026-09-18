@@ -33,5 +33,5 @@ Object.assign(window, {
 document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
   state.activeTool = TOOL_KEY;
-  openToolWorkspace(TOOL_KEY);
+  openToolWorkspace(TOOL_KEY);\n  document.body.style.overflow = 'auto';
 });
