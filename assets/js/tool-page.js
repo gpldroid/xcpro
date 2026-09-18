@@ -10,7 +10,7 @@ import {
   resetWorkspaceImage
 } from './modules/workspace.js';
 import { processAndDownload, closeDownloadModal } from './modules/download.js';
-import { renderCanvas } from './modules/canvas.js';
+import { renderCanvas, initCropInteraction } from './modules/canvas.js';
 import { renderToolControls, setCompressPreset, updateResizeDim } from './modules/controls.js';
 
 const TOOL_KEY = document.body.dataset.tool;
@@ -27,7 +27,7 @@ Object.assign(window, {
   resetWorkspaceImage,
   processAndDownload,
   closeDownloadModal,
-  renderCanvas,
+  renderCanvas,\n  initCropInteraction,
   renderToolControls,
   setCompressPreset,
   updateResizeDim
@@ -37,5 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
   state.activeTool = TOOL_KEY;
   openToolWorkspace(TOOL_KEY);
-  document.body.style.overflow = 'auto';
+  document.body.style.overflow = 'auto';\n  initCropInteraction();
 });
