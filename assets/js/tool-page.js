@@ -44,7 +44,7 @@ function registerServiceWorker() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
+  // Theme state is initialized by the shared navigation module.
   state.activeTool = TOOL_KEY;
   openToolWorkspace(TOOL_KEY);
   document.body.style.overflow = 'auto';
