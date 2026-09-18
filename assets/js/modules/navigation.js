@@ -35,10 +35,10 @@ function toggleDarkMode() {
             const icon = document.getElementById('themeToggleIcon');
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
-                icon.className = 'fa-solid fa-moon text-base text-slate-700';
+                if (icon) icon.className = 'fa-solid fa-moon text-base text-slate-700';
             } else {
                 html.classList.add('dark');
-                icon.className = 'fa-solid fa-sun text-base text-amber-400';
+                if (icon) icon.className = 'fa-solid fa-sun text-base text-amber-400';
             }
         }
 
