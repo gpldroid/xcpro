@@ -67,23 +67,58 @@ function renderCanvas() {
 function processRemoveBg(ctx, cw, ch) {
             const imgData = ctx.getImageData(0, 0, cw, ch);
             const data = imgData.data;
-            const tol = state.removebg.tolerance;
+            const tol = Math.max(5, state.removebg.tolerance) * 2;
+            const visited = new Uint8Array(cw * ch);
+            const queue = [];
 
-            const bgR = data[0];
-            const bgG = data[1];
-            const bgB = data[2];
+            const colorAt = (x, y) => {
+                const i = (y * cw + x) * 4;
+                return [data[i], data[i + 1], data[i + 2]];
+            };
 
-            for (let i = 0; i < data.length; i += 4) {
-                const diff = Math.sqrt(
-                    Math.pow(data[i] - bgR, 2) +
-                    Math.pow(data[i + 1] - bgG, 2) +
-                    Math.pow(data[i + 2] - bgB, 2)
-                );
+            const distance = (a, b) => Math.sqrt(
+                Math.pow(a[0] - b[0], 2) +
+                Math.pow(a[1] - b[1], 2) +
+                Math.pow(a[2] - b[2], 2)
+            );
 
-                if (diff < tol * 2) {
+            const addSeed = (x, y) => {
+                const idx = y * cw + x;
+                if (!visited[idx]) {
+                    visited[idx] = 1;
+                    queue.push([x, y, colorAt(x, y)]);
+                }
+            };
+
+            for (let x = 0; x < cw; x++) {
+                addSeed(x, 0);
+                if (ch > 1) addSeed(x, ch - 1);
+            }
+            for (let y = 1; y < ch - 1; y++) {
+                addSeed(0, y);
+                if (cw > 1) addSeed(cw - 1, y);
+            }
+
+            while (queue.length) {
+                const [x, y, seedColor] = queue.shift();
+                const i = (y * cw + x) * 4;
+
+                if (distance(colorAt(x, y), seedColor) <= tol) {
                     data[i + 3] = 0;
+                    const neighbors = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]];
+
+                    for (const [nx, ny] of neighbors) {
+                        if (nx >= 0 && nx < cw && ny >= 0 && ny < ch) {
+                            const ni = ny * cw + nx;
+                            if (!visited[ni]) {
+                                visited[ni] = 1;
+                                queue.push([nx, ny, seedColor]);
+                            }
+                        }
+                    }
                 }
             }
+
             ctx.putImageData(imgData, 0, 0);
         }
 
@@ -167,4 +202,47 @@ function drawMemeOverlay(ctx, cw, ch) {
             ctx.restore();
         }
 
-export { renderCanvas, processRemoveBg, drawCropOverlay, drawWatermarkOverlay, drawMemeOverlay };
+function updateCropFromPointer(clientX, clientY) {
+            if (state.activeTool !== 'crop' || !state.originalImage) return;
+            const canvas = document.getElementById('mainCanvas');
+            const rect = canvas.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const px = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+            const py = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+
+            const c = state.crop;
+            const maxX = Math.max(0, 100 - c.width);
+            const maxY = Math.max(0, 100 - c.height);
+            c.x = Math.round(Math.min(px, maxX));
+            c.y = Math.round(Math.min(py, maxY));
+            renderCanvas();
+        }
+
+function initCropInteraction() {
+            const canvas = document.getElementById('mainCanvas');
+            if (!canvas || canvas.dataset.cropInteraction === 'ready') return;
+            canvas.dataset.cropInteraction = 'ready';
+
+            let dragging = false;
+
+            canvas.addEventListener('pointerdown', (event) => {
+                if (state.activeTool !== 'crop' || !state.originalImage) return;
+                dragging = true;
+                canvas.setPointerCapture?.(event.pointerId);
+                updateCropFromPointer(event.clientX - (state.crop.width / 200) * canvas.getBoundingClientRect().width,
+                    event.clientY - (state.crop.height / 200) * canvas.getBoundingClientRect().height);
+            });
+
+            canvas.addEventListener('pointermove', (event) => {
+                if (dragging) {
+                    updateCropFromPointer(event.clientX - (state.crop.width / 200) * canvas.getBoundingClientRect().width,
+                        event.clientY - (state.crop.height / 200) * canvas.getBoundingClientRect().height);
+                }
+            });
+
+            canvas.addEventListener('pointerup', () => { dragging = false; });
+            canvas.addEventListener('pointercancel', () => { dragging = false; });
+        }
+
+export { renderCanvas, processRemoveBg, drawCropOverlay, drawWatermarkOverlay, drawMemeOverlay , updateCropFromPointer, initCropInteraction };
