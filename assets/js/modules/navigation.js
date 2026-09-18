@@ -60,7 +60,16 @@ function toggleDarkMode() {
         }
 
 function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('hidden');
+            const menu = document.getElementById('mobileMenu');
+            const button = document.getElementById('mobileMenuButton');
+            if (!menu) return;
+            const isHidden = menu.classList.toggle('hidden');
+            if (button) {
+                button.setAttribute('aria-expanded', String(!isHidden));
+                button.setAttribute('aria-label', isHidden ? 'Open menu' : 'Close menu');
+                const icon = button.querySelector('i');
+                if (icon) icon.className = isHidden ? 'fa-solid fa-bars text-xl' : 'fa-solid fa-xmark text-xl';
+            }
         }
 
 export { navigateTo, toggleDarkMode, toggleMobileMenu };
