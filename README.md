@@ -29,3 +29,13 @@ XConvert Pro is a client-side web application for common image editing and conve
 The application is static and can be served by any static web server or GitHub Pages.
 
 No server-side image upload is required for the core browser-based editing workflow.
+
+## Official website
+
+[XConvert Pro](https://xconvert.pro/) — official website.
+
+### Resources
+
+- [Image tools](https://xconvert.pro/pages/tools.html)
+- [API documentation](https://xconvert.pro/pages/api.html)
+- [About XConvert Pro](https://xconvert.pro/pages/about.html)
