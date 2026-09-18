@@ -1,6 +1,23 @@
 // XConvert Pro — navigation and theme controls
 import { state, toolsMeta } from './state.js';
+const toolRoutes = {
+    compress: 'tools/compress-image.html',
+    resize: 'tools/resize-image.html',
+    crop: 'tools/crop-image.html',
+    convert: 'tools/convert-image.html',
+    editor: 'tools/photo-editor.html',
+    removebg: 'tools/remove-background.html',
+    upscale: 'tools/upscale-image.html',
+    watermark: 'tools/watermark-image.html',
+    meme: 'tools/meme-generator.html',
+    rotate: 'tools/rotate-image.html'
+};
+
 function navigateTo(target) {
+            if (toolRoutes[target]) {
+                window.location.href = toolRoutes[target];
+                return;
+            }
             state.currentPage = target;
             
             // Hide all page views
