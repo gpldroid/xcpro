@@ -11,6 +11,1521 @@
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <script src="assets/js/app.js" defer></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ilove: {
+                            navy: '#18243b',
+                            navyDark: '#0f172a',
+                            navyLight: '#243452',
+                            brandBlue: '#00a8e8',
+                            brandBlueHover: '#0092cc',
+                            brandRed: '#ff3e55',
+                            bgGray: '#f8fafc',
+                            borderGray: '#e2e8f0',
+                            cardText: '#475569'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .dark body {
+            background-color: #0b1329;
+            color: #f8fafc;
+        }
+
+        .tool-card {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05), 0 2px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(0, 168, 232, 0.22), 0 10px 20px -5px rgba(0, 0, 0, 0.06);
+        }
+
+        .canvas-grid-bg {
+            background-color: #e2e8f0;
+            background-image: 
+                linear-gradient(45deg, #cbd5e1 25%, transparent 25%), 
+                linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #cbd5e1 75%), 
+                linear-gradient(-45deg, transparent 75%, #cbd5e1 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .dark .canvas-grid-bg {
+            background-color: #1e293b;
+            background-image: 
+                linear-gradient(45deg, #334155 25%, transparent 25%), 
+                linear-gradient(-45deg, #334155 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #334155 75%), 
+                linear-gradient(-45deg, transparent 75%, #334155 75%);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .dropdown-menu {
+            display: none;
+        }
+        .dropdown-container:hover .dropdown-menu {
+            display: block;
+        }
+
+        .nav-link.active {
+            background-color: #243452;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-ilove-brandBlue selection:text-white bg-slate-50 dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 transition-colors duration-300">
+
+    <header class="bg-ilove-navy text-white sticky top-0 z-40 shadow-xl border-b border-slate-700/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="navigateTo('home')">
+                    <span class="text-2xl font-black tracking-tight text-white flex items-center gap-1">
+                        XConvert<span class="text-ilove-brandBlue flex items-center">PRO <i class="fa-solid fa-bolt text-ilove-brandRed text-xl ml-1 animate-pulse"></i></span>
+                    </span>
+                </div>
+
+                <!-- Main Navigation Links -->
+                <nav class="hidden xl:flex items-center space-x-1 text-xs font-bold uppercase tracking-wider">
+                    <button onclick="navigateTo('compress')" id="nav-compress" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Compress IMAGE</button>
+                    <button onclick="navigateTo('resize')" id="nav-resize" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Resize IMAGE</button>
+                    <button onclick="navigateTo('crop')" id="nav-crop" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Crop IMAGE</button>
+                    <button onclick="navigateTo('convert')" id="nav-convert" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Convert to JPG</button>
+                    <button onclick="navigateTo('editor')" id="nav-editor" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Photo Editor</button>
+                    <button onclick="navigateTo('removebg')" id="nav-removebg" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Remove BG</button>
+                    
+                    <!-- All Tools Dropdown Menu -->
+                    <div class="relative dropdown-container py-2">
+                        <button class="px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition flex items-center gap-1.5">
+                            <span>ALL TOOLS</span>
+                            <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                        </button>
+                        <div class="dropdown-menu absolute right-0 top-full w-64 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700/80 py-2.5 z-50">
+                            <a href="#" onclick="navigateTo('compress'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-file-arrow-down text-blue-500 w-5 text-center text-base"></i> Compress IMAGE
+                            </a>
+                            <a href="#" onclick="navigateTo('resize'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-expand text-teal-500 w-5 text-center text-base"></i> Resize IMAGE
+                            </a>
+                            <a href="#" onclick="navigateTo('crop'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-crop-simple text-amber-500 w-5 text-center text-base"></i> Crop IMAGE
+                            </a>
+                            <a href="#" onclick="navigateTo('convert'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-right-left text-purple-500 w-5 text-center text-base"></i> Convert to JPG
+                            </a>
+                            <a href="#" onclick="navigateTo('editor'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-sliders text-rose-500 w-5 text-center text-base"></i> Photo Editor
+                            </a>
+                            <a href="#" onclick="navigateTo('removebg'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-wand-magic-sparkles text-emerald-500 w-5 text-center text-base"></i> Remove Background
+                            </a>
+                            <a href="#" onclick="navigateTo('upscale'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-angles-up text-violet-500 w-5 text-center text-base"></i> Upscale IMAGE
+                            </a>
+                            <a href="#" onclick="navigateTo('watermark'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-stamp text-indigo-500 w-5 text-center text-base"></i> Watermark IMAGE
+                            </a>
+                            <a href="#" onclick="navigateTo('meme'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-face-laugh-squint text-yellow-500 w-5 text-center text-base"></i> Meme Generator
+                            </a>
+                            <a href="#" onclick="navigateTo('rotate'); return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <i class="fa-solid fa-rotate text-cyan-500 w-5 text-center text-base"></i> Rotate IMAGE
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Additional Section Pages -->
+                    <button onclick="navigateTo('pricing')" id="nav-pricing" class="nav-link px-3.5 py-2 rounded-xl text-amber-400 hover:text-amber-300 hover:bg-ilove-navyLight transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-crown text-xs"></i> PRICING
+                    </button>
+                    <button onclick="navigateTo('api')" id="nav-api" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">API DOCS</button>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('pricing')" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition uppercase tracking-wider">
+                        <i class="fa-solid fa-bolt"></i> GO PRO
+                    </button>
+                    
+                    <!-- Dark / Light Mode Toggle Button -->
+                    <button id="themeToggleBtn" onclick="toggleDarkMode()" title="Toggle Dark / Light Mode" class="bg-ilove-navyLight hover:bg-slate-700 text-amber-400 hover:text-amber-300 text-sm p-2.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center justify-center border border-slate-700/80">
+                        <i id="themeToggleIcon" class="fa-solid fa-sun text-base"></i>
+                    </button>
+
+                    <button onclick="toggleMobileMenu()" class="xl:hidden text-white p-2 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden xl:hidden bg-ilove-navyDark border-t border-slate-800 px-4 py-4 space-y-2">
+            <button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Home</button>
+            <button onclick="navigateTo('compress'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Compress IMAGE</button>
+            <button onclick="navigateTo('resize'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Resize IMAGE</button>
+            <button onclick="navigateTo('crop'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Crop IMAGE</button>
+            <button onclick="navigateTo('convert'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Convert to JPG</button>
+            <button onclick="navigateTo('editor'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Photo Editor</button>
+            <button onclick="navigateTo('removebg'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Remove Background</button>
+            <button onclick="navigateTo('upscale'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Upscale IMAGE</button>
+            <button onclick="navigateTo('watermark'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Watermark IMAGE</button>
+            <button onclick="navigateTo('meme'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Meme Generator</button>
+            <button onclick="navigateTo('rotate'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Rotate IMAGE</button>
+            <button onclick="navigateTo('pricing'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-bold text-amber-400">Pricing / Go Pro</button>
+            <button onclick="navigateTo('api'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">API Documentation</button>
+        </div>
+    </header>
+
+    <main id="mainContent" class="flex-grow">
+        
+        <div id="view-home" class="page-view">
+            <!-- Hero Banner Section -->
+            <section class="bg-ilove-navy text-white pt-14 pb-28 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden border-b border-slate-800">
+                <div class="max-w-4xl mx-auto relative z-10">
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black mb-4 tracking-tight leading-tight text-white">
+                        Every tool you could want to edit images in bulk
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-xl font-normal max-w-2xl mx-auto leading-relaxed">
+                        Your online photo editor is <span class="text-white font-bold underline decoration-ilove-brandBlue decoration-4 underline-offset-4">100% FREE</span> and easy to use! Compress, resize, crop, convert images and more in seconds.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Tool Cards Grid Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-24 relative z-20">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Compress -->
+                    <div onclick="navigateTo('compress')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-blue-500 dark:text-blue-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-file-arrow-down"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">Compress IMAGE</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Compress JPG, PNG, SVG or GIF with the best quality and compression. Reduce file size at once.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-blue-500 dark:text-blue-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Resize -->
+                    <div onclick="navigateTo('resize')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-teal-50 dark:bg-teal-950/50 text-teal-500 dark:text-teal-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-expand"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-teal-500 dark:group-hover:text-teal-400 transition-colors">Resize IMAGE</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Define your dimensions by percentage or pixel, and resize your JPG, PNG, SVG or GIF images.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-teal-500 dark:text-teal-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Crop -->
+                    <div onclick="navigateTo('crop')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-amber-500 dark:text-amber-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-crop-simple"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-amber-500 dark:group-hover:text-amber-400 transition-colors">Crop IMAGE</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Crop JPG, PNG or GIFs by defining a rectangle in pixels or use our interactive crop tool.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-amber-500 dark:text-amber-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Convert to JPG -->
+                    <div onclick="navigateTo('convert')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-purple-50 dark:bg-purple-950/50 text-purple-500 dark:text-purple-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-purple-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-right-left"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors">Convert to JPG</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Turn PNG, GIF, WEBP or SVG images easily to JPG format in seconds online.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-purple-500 dark:text-purple-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Photo Editor -->
+                    <div onclick="navigateTo('editor')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/50 text-rose-500 dark:text-rose-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-rose-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-rose-500 dark:group-hover:text-rose-400 transition-colors">Photo Editor</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Spice up your pictures with brightness, contrast, saturation, blur, grayscale, sepia and custom filters.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-rose-500 dark:text-rose-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Remove Background -->
+                    <div onclick="navigateTo('removebg')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 dark:text-emerald-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors">Remove BG</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Automatically isolate subjects and erase background colors with instant transparent PNG output.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-emerald-500 dark:text-emerald-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Upscale IMAGE -->
+                    <div onclick="navigateTo('upscale')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-violet-50 dark:bg-violet-950/50 text-violet-500 dark:text-violet-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-violet-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-angles-up"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-violet-500 dark:group-hover:text-violet-400 transition-colors">Upscale IMAGE</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Enlarge images and increase resolution while preserving crisp edges and detail sharpness.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-violet-500 dark:text-violet-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Watermark IMAGE -->
+                    <div onclick="navigateTo('watermark')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-500 dark:text-indigo-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-stamp"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">Watermark IMAGE</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Stamp custom text or copyright marks over your images in seconds. Adjust opacity, font and position.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-indigo-500 dark:text-indigo-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Meme Generator -->
+                    <div onclick="navigateTo('meme')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-yellow-50 dark:bg-yellow-950/50 text-yellow-600 dark:text-yellow-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-face-laugh-squint"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">Meme Generator</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Caption memes online or upload your own images to make custom memes with classic Impact styling.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-yellow-600 dark:text-yellow-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Rotate IMAGE -->
+                    <div onclick="navigateTo('rotate')" class="tool-card bg-white dark:bg-slate-800/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700/60 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-cyan-50 dark:bg-cyan-950/50 text-cyan-500 dark:text-cyan-400 flex items-center justify-center text-2xl mb-5 group-hover:bg-cyan-500 group-hover:text-white transition-colors duration-300">
+                                <i class="fa-solid fa-rotate"></i>
+                            </div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors">Rotate IMAGE</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Rotate JPG, PNG or GIFs at once. Choose landscape or portrait orientations and horizontal or vertical flips.</p>
+                        </div>
+                        <div class="mt-6 flex items-center text-cyan-500 dark:text-cyan-400 font-extrabold text-xs uppercase tracking-wider group-hover:translate-x-1.5 transition-transform">
+                            <span>Open Tool</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Features Overview Section -->
+            <section class="bg-white dark:bg-slate-900 py-20 border-t border-slate-200/60 dark:border-slate-800 transition-colors">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-4">The picture editor trusted by millions</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-base max-w-2xl mx-auto">XConvert Pro brings all your image editing needs together into one clean, fast, and simple web application.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/50 shadow-sm">
+                            <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5">
+                                <i class="fa-solid fa-bolt-lightning"></i>
+                            </div>
+                            <h3 class="font-black text-slate-900 dark:text-white text-xl mb-3">Ultra Fast Processing</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Client-side web engine processes your images instantly inside your browser without server queues.</p>
+                        </div>
+                        <div class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/50 shadow-sm">
+                            <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="font-black text-slate-900 dark:text-white text-xl mb-3">Privacy & Security First</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Your files never leave your computer. Complete privacy and maximum security for sensitive graphics.</p>
+                        </div>
+                        <div class="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/50 shadow-sm">
+                            <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="font-black text-slate-900 dark:text-white text-xl mb-3">High Quality Output</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Advanced canvas algorithms ensure crisp detail, smooth color reproduction and optimal output files.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-tool" class="page-view hidden">
+            <!-- Dynamic Tool Hero -->
+            <section class="bg-ilove-navy text-white pt-12 pb-24 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden border-b border-slate-800">
+                <div class="max-w-4xl mx-auto relative z-10">
+                    <div class="w-16 h-16 rounded-3xl bg-ilove-brandBlue/20 text-ilove-brandBlue flex items-center justify-center text-3xl mx-auto mb-4 border border-ilove-brandBlue/30">
+                        <i id="toolPageIcon" class="fa-solid fa-file-arrow-down"></i>
+                    </div>
+                    <h1 id="toolPageTitle" class="text-3xl sm:text-5xl font-black mb-3 tracking-tight text-white">Compress IMAGE</h1>
+                    <p id="toolPageDesc" class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">Compress JPG, PNG, SVG or GIF with the best quality and compression. Reduce file size at once.</p>
+                </div>
+            </section>
+
+            <!-- Dedicated Upload Container -->
+            <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-20 relative z-20">
+                <div id="toolPageDropzone" onclick="triggerToolUpload()" class="bg-white dark:bg-slate-800 rounded-3xl p-8 sm:p-14 shadow-2xl text-center border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-ilove-brandBlue transition cursor-pointer group">
+                    <input type="file" id="toolFileInput" accept="image/*" class="hidden" onchange="handleToolPageUpload(event)">
+                    
+                    <h2 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">Select image to edit</h2>
+                    
+                    <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                        <button class="bg-ilove-brandBlue hover:bg-ilove-brandBlueHover text-white text-lg sm:text-xl font-black py-4 px-8 sm:px-12 rounded-2xl shadow-xl hover:shadow-2xl transition transform active:scale-95 flex items-center gap-3">
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Select images</span>
+                        </button>
+                        
+                        <div class="flex items-center gap-2" onclick="event.stopPropagation()">
+                            <button onclick="showToast('Google Drive connector ready.')" title="Select from Google Drive" class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center text-2xl shadow transition">
+                                <i class="fa-brands fa-google-drive"></i>
+                            </button>
+                            <button onclick="showToast('Dropbox connector ready.')" title="Select from Dropbox" class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center text-2xl shadow transition">
+                                <i class="fa-brands fa-dropbox"></i>
+                            </button>
+                            <button onclick="loadSampleImageAndLaunch()" title="Try a Sample Image" class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center text-xl shadow transition">
+                                <i class="fa-solid fa-image"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-400 dark:text-slate-400 text-sm font-semibold">or drop images here</p>
+                </div>
+            </section>
+
+            <!-- SEO & How-To Section -->
+            <section class="bg-white dark:bg-slate-900 py-16 border-t border-slate-200/60 dark:border-slate-800">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white text-center mb-12">How to use this tool in 3 easy steps</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-center">
+                            <div class="w-10 h-10 rounded-full bg-ilove-brandBlue text-white font-black flex items-center justify-center mx-auto mb-4 text-lg">1</div>
+                            <h3 class="font-extrabold text-slate-900 dark:text-white mb-2">Upload File</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Choose an image from your computer, Google Drive, Dropbox, or try a sample image.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-center">
+                            <div class="w-10 h-10 rounded-full bg-ilove-brandBlue text-white font-black flex items-center justify-center mx-auto mb-4 text-lg">2</div>
+                            <h3 class="font-extrabold text-slate-900 dark:text-white mb-2">Adjust Settings</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Customize quality, dimensions, overlays, or filters using our live sidebar options.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-center">
+                            <div class="w-10 h-10 rounded-full bg-ilove-brandBlue text-white font-black flex items-center justify-center mx-auto mb-4 text-lg">3</div>
+                            <h3 class="font-extrabold text-slate-900 dark:text-white mb-2">Download Result</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Click process and instantly save your high quality optimized image directly to your device.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-pricing" class="page-view hidden">
+            <!-- Pricing Hero -->
+            <section class="bg-ilove-navy text-white pt-14 pb-20 px-4 sm:px-6 lg:px-8 text-center border-b border-slate-800">
+                <div class="max-w-4xl mx-auto">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider mb-4 border border-amber-500/30">
+                        <i class="fa-solid fa-crown mr-1"></i> XConvert Pro Membership
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-black mb-4 tracking-tight">Get more done with XConvert Pro</h1>
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto">Unlock unlimited bulk file processing, higher file size limits, faster processing speed, and developer API access.</p>
+                </div>
+            </section>
+
+            <!-- Pricing Cards Section -->
+            <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 mb-20 relative z-20">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Free Plan -->
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2">Free Plan</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mb-6">Basic image tools for casual users.</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-slate-900 dark:text-white">$0</span>
+                                <span class="text-slate-400 text-sm">/ forever</span>
+                            </div>
+                            <ul class="space-y-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Access to all 10 core tools</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Up to 15MB file size limit</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> 100% Client-side processing</li>
+                                <li class="flex items-center gap-2.5 text-slate-400"><i class="fa-solid fa-xmark text-slate-300 dark:text-slate-600"></i> Batch multi-file download zip</li>
+                                <li class="flex items-center gap-2.5 text-slate-400"><i class="fa-solid fa-xmark text-slate-300 dark:text-slate-600"></i> Developer API Key</li>
+                            </ul>
+                        </div>
+                        <button onclick="navigateTo('home')" class="w-full mt-8 py-3.5 rounded-2xl border-2 border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition">Current Plan</button>
+                    </div>
+
+                    <!-- Premium Pro Plan (Featured) -->
+                    <div class="bg-slate-900 text-white rounded-3xl p-8 border-2 border-ilove-brandBlue shadow-2xl flex flex-col justify-between relative transform md:-translate-y-4">
+                        <span class="absolute -top-3.5 right-6 bg-ilove-brandBlue text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider shadow">Most Popular</span>
+                        <div>
+                            <h3 class="text-xl font-black mb-2 flex items-center gap-2">XConvert Pro <i class="fa-solid fa-bolt text-amber-400"></i></h3>
+                            <p class="text-slate-400 text-xs mb-6">For designers, creators & power users.</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-white">$6</span>
+                                <span class="text-slate-400 text-sm">/ month</span>
+                            </div>
+                            <ul class="space-y-3 text-xs font-semibold text-slate-300">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-ilove-brandBlue"></i> Everything in Free</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-ilove-brandBlue"></i> Unlimited file size capacity</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-ilove-brandBlue"></i> Batch bulk processing (100+ files)</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-ilove-brandBlue"></i> Priority GPU hardware acceleration</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-ilove-brandBlue"></i> 5,000 API calls / month</li>
+                            </ul>
+                        </div>
+                        <button onclick="showProCheckoutModal('Pro Monthly', '$6')" class="w-full mt-8 py-4 rounded-2xl bg-ilove-brandBlue hover:bg-ilove-brandBlueHover font-extrabold text-sm text-white shadow-xl transition transform active:scale-95">Upgrade to Pro</button>
+                    </div>
+
+                    <!-- Business Plan -->
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2">Business</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs mb-6">For agencies, teams and enterprises.</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-black text-slate-900 dark:text-white">$24</span>
+                                <span class="text-slate-400 text-sm">/ month</span>
+                            </div>
+                            <ul class="space-y-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Everything in Pro</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Multi-seat team license (10 users)</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> 100,000 API calls / month</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Dedicated account manager</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> 99.9% uptime SLA</li>
+                            </ul>
+                        </div>
+                        <button onclick="showProCheckoutModal('Business', '$24')" class="w-full mt-8 py-3.5 rounded-2xl bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white font-bold text-sm transition">Contact Sales</button>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <div id="view-api" class="page-view hidden">
+            <!-- API Hero -->
+            <section class="bg-ilove-navy text-white pt-14 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+                <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div>
+                        <span class="inline-block px-3.5 py-1.5 rounded-full bg-purple-500/20 text-purple-300 font-extrabold text-xs uppercase tracking-wider mb-4 border border-purple-500/30">
+                            <i class="fa-solid fa-code mr-1"></i> REST API v1.0
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-black mb-4 tracking-tight">Image Processing API</h1>
+                        <p class="text-slate-300 text-base max-w-xl leading-relaxed">Integrate XConvert Pro engine directly into your web or mobile applications with simple HTTP REST endpoints.</p>
+                    </div>
+                    <div>
+                        <button onclick="openApiKeyModal()" class="bg-ilove-brandBlue hover:bg-ilove-brandBlueHover text-white font-extrabold px-6 py-4 rounded-2xl shadow-xl transition flex items-center gap-3 text-sm">
+                            <i class="fa-solid fa-key"></i> Generate Free API Key
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Docs Content -->
+            <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+                
+                <!-- Quick Start Code Snippets -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-xl">
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white mb-4">Quick Start Example</h2>
+                    
+                    <div class="flex gap-2 border-b border-slate-200 dark:border-slate-700 pb-3 mb-4 text-xs font-bold">
+                        <button onclick="switchApiTab('curl')" id="tab-curl" class="api-tab px-4 py-2 rounded-xl bg-ilove-navy text-white">cURL</button>
+                        <button onclick="switchApiTab('js')" id="tab-js" class="api-tab px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">JavaScript</button>
+                        <button onclick="switchApiTab('python')" id="tab-python" class="api-tab px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">Python</button>
+                    </div>
+
+                    <pre id="codeSnippet" class="bg-slate-900 text-slate-100 p-5 rounded-2xl overflow-x-auto text-xs font-mono leading-relaxed">
+curl -X POST https://api.xconvertpro.com/v1/compress \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "image=@photo.jpg" \
+  -F "quality=80"
+                    </pre>
+                </div>
+
+                <!-- API Endpoints Overview -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-black text-slate-900 dark:text-white">API Endpoints</h2>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-extrabold text-xs rounded-lg">POST</span>
+                                <code class="text-xs font-mono font-bold text-slate-800 dark:text-slate-200">/v1/compress</code>
+                            </div>
+                            <span class="text-xs text-slate-500">Compress JPG, PNG, WEBP</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-extrabold text-xs rounded-lg">POST</span>
+                                <code class="text-xs font-mono font-bold text-slate-800 dark:text-slate-200">/v1/resize</code>
+                            </div>
+                            <span class="text-xs text-slate-500">Resize by pixel or percent</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-extrabold text-xs rounded-lg">POST</span>
+                                <code class="text-xs font-mono font-bold text-slate-800 dark:text-slate-200">/v1/remove-bg</code>
+                            </div>
+                            <span class="text-xs text-slate-500">Automatic background removal</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+    </main>
+
+    <div id="toolWorkspace" class="hidden fixed inset-0 bg-slate-900/95 backdrop-blur-md z-50 flex flex-col justify-between overflow-hidden">
+        
+        <!-- Workspace Header -->
+        <div class="bg-ilove-navy text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
+            <div class="flex items-center space-x-4">
+                <button onclick="closeTool()" class="text-slate-400 hover:text-white transition text-lg pr-4 border-r border-slate-700">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <span id="activeToolIcon" class="text-ilove-brandBlue text-2xl"></span>
+                <div>
+                    <h2 id="activeToolTitle" class="text-lg font-black leading-tight">Compress IMAGE</h2>
+                    <p id="activeToolDesc" class="text-xs text-slate-400">Reduce file size while optimizing quality</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="resetWorkspaceImage()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-2 border border-slate-700">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span class="hidden sm:inline">Reset Changes</span>
+                </button>
+                <button onclick="closeTool()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-ilove-brandRed text-slate-300 hover:text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Workspace Main Body -->
+        <div class="flex-grow flex flex-col lg:flex-row overflow-hidden relative">
+            
+            <!-- Left/Center Canvas View & Dropzone -->
+            <div class="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 canvas-grid-bg relative overflow-auto">
+                
+                <!-- Dropzone UI inside workspace -->
+                <div id="dropzone" class="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-3xl p-8 sm:p-14 shadow-2xl text-center border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-ilove-brandBlue transition cursor-pointer group">
+                    <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+                    
+                    <h2 id="dropzoneHeading" class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">Select images</h2>
+                    
+                    <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+                        <button onclick="document.getElementById('fileInput').click()" class="bg-ilove-brandBlue hover:bg-ilove-brandBlueHover text-white text-lg sm:text-xl font-black py-4 px-8 sm:px-12 rounded-2xl shadow-xl hover:shadow-2xl transition transform active:scale-95 flex items-center gap-3">
+                            <span>Select images</span>
+                        </button>
+                        
+                        <div class="flex items-center gap-2">
+                            <button onclick="showToast('Google Drive connector ready.')" title="Select from Google Drive" class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center text-2xl shadow transition">
+                                <i class="fa-brands fa-google-drive"></i>
+                            </button>
+                            <button onclick="showToast('Dropbox connector ready.')" title="Select from Dropbox" class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center text-2xl shadow transition">
+                                <i class="fa-brands fa-dropbox"></i>
+                            </button>
+                            <button onclick="loadSampleImage()" title="Try a Sample Image" class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 flex items-center justify-center text-xl shadow transition">
+                                <i class="fa-solid fa-image"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-400 dark:text-slate-400 text-sm font-semibold">or drop images here</p>
+                </div>
+
+                <!-- Preview Canvas UI -->
+                <div id="previewContainer" class="hidden flex-col items-center justify-center max-w-full max-h-full">
+                    <div class="relative shadow-2xl rounded-2xl overflow-hidden border border-slate-300 dark:border-slate-700 max-w-full">
+                        <canvas id="mainCanvas" class="max-w-full max-h-[60vh] object-contain block"></canvas>
+                    </div>
+
+                    <div class="mt-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur rounded-full px-6 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 shadow-xl border border-slate-200 dark:border-slate-700 flex items-center gap-4">
+                        <span>Dimensions: <strong id="origDimensions" class="text-slate-900 dark:text-white">0 x 0 px</strong></span>
+                        <span class="text-slate-300 dark:text-slate-600">|</span>
+                        <span>Estimated Output: <strong id="fileSizeEst" class="text-ilove-brandBlue">~0 KB</strong></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Controls Sidebar -->
+            <div id="controlsSidebar" class="hidden w-full lg:w-96 bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 p-6 flex-col justify-between overflow-y-auto shadow-2xl z-20">
+                <div>
+                    <div id="sidebarToolHeader" class="border-b border-slate-200/80 dark:border-slate-700 pb-4 mb-6">
+                        <h3 id="sidebarToolTitle" class="text-xl font-black text-slate-900 dark:text-white">Options</h3>
+                        <p id="sidebarToolSubtitle" class="text-xs text-slate-400">Customize settings for processing</p>
+                    </div>
+
+                    <div id="activeToolControls" class="space-y-6">
+                        <!-- Dynamic tool controls injected here -->
+                    </div>
+                </div>
+
+                <div class="pt-6 mt-6 border-t border-slate-200/80 dark:border-slate-700">
+                    <button id="actionButton" onclick="processAndDownload()" class="w-full bg-ilove-brandBlue hover:bg-ilove-brandBlueHover text-white font-black py-4 px-6 rounded-2xl shadow-xl hover:shadow-2xl transition flex items-center justify-center gap-3 text-lg transform active:scale-95">
+                        <span id="actionButtonText">Compress IMAGES</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Download Success Modal -->
+    <div id="downloadModal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-100 dark:border-slate-700 text-center relative">
+            <button onclick="closeDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950/60 text-emerald-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-2">IMAGE Processed!</h3>
+            <p id="savingsNotice" class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">Your image has been processed successfully.</p>
+            
+            <a id="downloadLink" href="#" class="block w-full bg-ilove-brandBlue hover:bg-ilove-brandBlueHover text-white font-black py-4 px-6 rounded-2xl shadow-xl transition text-center text-lg mb-3">
+                <i class="fa-solid fa-download mr-2"></i> Download Image
+            </a>
+            
+            <button onclick="closeDownloadModal()" class="w-full bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-bold py-3.5 px-6 rounded-2xl text-sm transition">
+                Continue Editing
+            </button>
+        </div>
+    </div>
+
+    <!-- API Key Generator Modal -->
+    <div id="apiKeyModal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl border border-slate-100 dark:border-slate-700 text-center relative">
+            <button onclick="closeApiKeyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2">Your API Key</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-xs mb-4">Use this token in your Authorization header for requests.</p>
+            <div class="bg-slate-100 dark:bg-slate-700 p-3.5 rounded-xl font-mono text-xs font-bold text-slate-800 dark:text-slate-100 mb-6 flex items-center justify-between">
+                <span id="generatedApiKey">xc_live_8f93a12k9048a129f</span>
+                <button onclick="copyText('generatedApiKey')" title="Copy to clipboard" class="text-ilove-brandBlue hover:underline text-xs">Copy</button>
+            </div>
+            <button onclick="closeApiKeyModal()" class="w-full bg-ilove-brandBlue text-white font-bold py-3.5 px-6 rounded-2xl text-sm transition">Done</button>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-sm font-semibold z-50 flex items-center gap-3 border border-slate-800">
+        <i class="fa-solid fa-circle-info text-ilove-brandBlue text-lg"></i>
+        <span id="toastMsg">Notification message</span>
+    </div>
+
+    <footer class="bg-ilove-navy text-slate-400 text-xs py-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl font-black text-white">XConvert<span class="text-ilove-brandBlue">PRO</span></span>
+                <span class="text-xs text-slate-400 ml-4">© 2026 XConvert Pro. All rights reserved.</span>
+            </div>
+            <div class="flex flex-wrap gap-6 text-xs font-semibold text-slate-400">
+                <a href="#" onclick="navigateTo('home'); return false;" class="hover:text-white transition">All Tools</a>
+                <a href="#" onclick="navigateTo('pricing'); return false;" class="hover:text-white transition">Pricing</a>
+                <a href="#" onclick="navigateTo('api'); return false;" class="hover:text-white transition">Developer API</a>
+                <a href="#" onclick="showToast('Processed 100% locally in browser.'); return false;" class="hover:text-white transition">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Application Global State
+        const state = {
+            currentPage: 'home',
+            activeTool: 'compress',
+            originalImage: null,
+            loadedImageName: 'image.jpg',
+            originalFileSize: 0,
+            
+            compress: { quality: 0.70 },
+            resize: { width: 1200, height: 800, lockAspect: true, percentage: 80, mode: 'pixels' },
+            crop: { x: 10, y: 10, width: 80, height: 80 },
+            convert: { format: 'jpeg', quality: 0.9 },
+            editor: { brightness: 100, contrast: 100, saturation: 100, blur: 0, grayscale: 0, sepia: 0, hue: 0 },
+            removebg: { tolerance: 30 },
+            upscale: { scale: 2 },
+            watermark: { text: '© XConvert Pro', fontSize: 36, opacity: 0.7, color: '#ffffff', position: 'bottom-right' },
+            meme: { topText: 'WHEN YOU USE', bottomText: 'XCONVERT PRO FOR YOUR PHOTOS', fontSize: 42, textColor: '#ffffff' },
+            rotate: { angle: 0, flipH: false, flipV: false }
+        };
+
+        const toolsMeta = {
+            compress: { title: 'Compress IMAGE', desc: 'Compress JPG, PNG, SVG or GIF with the best quality and compression.', icon: 'fa-file-arrow-down', actionText: 'Compress IMAGES' },
+            resize: { title: 'Resize IMAGE', desc: 'Define your dimensions, by percent or pixel, and resize your images.', icon: 'fa-expand', actionText: 'Resize IMAGES' },
+            crop: { title: 'Crop IMAGE', desc: 'Crop JPG, PNG or GIFs by defining an area in pixels.', icon: 'fa-crop-simple', actionText: 'Crop IMAGE' },
+            convert: { title: 'Convert to JPG', desc: 'Turn PNG, GIF, WEBP or SVG images easily to JPG format.', icon: 'fa-right-left', actionText: 'Convert to JPG' },
+            editor: { title: 'Photo Editor', desc: 'Adjust brightness, contrast, saturation, and apply filters.', icon: 'fa-sliders', actionText: 'Save edited IMAGE' },
+            removebg: { title: 'Remove Background', desc: 'Automatically erase background colors with instant transparent output.', icon: 'fa-wand-magic-sparkles', actionText: 'Remove Background' },
+            upscale: { title: 'Upscale IMAGE', desc: 'Enlarge image resolution with detail enhancement.', icon: 'fa-angles-up', actionText: 'Upscale IMAGES' },
+            watermark: { title: 'Watermark IMAGE', desc: 'Stamp an image or text over your images in seconds.', icon: 'fa-stamp', actionText: 'Watermark IMAGES' },
+            meme: { title: 'Meme Generator', desc: 'Caption memes or upload your own images to make custom memes.', icon: 'fa-face-laugh-squint', actionText: 'Generate Meme' },
+            rotate: { title: 'Rotate IMAGE', desc: 'Rotate many images at once. Choose landscape or portrait.', icon: 'fa-rotate', actionText: 'Rotate IMAGES' }
+        };
+
+        function navigateTo(target) {
+            state.currentPage = target;
+            
+            // Hide all page views
+            document.querySelectorAll('.page-view').forEach(view => view.classList.add('hidden'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (target === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+            } else if (target === 'pricing') {
+                document.getElementById('view-pricing').classList.remove('hidden');
+                document.getElementById('nav-pricing')?.classList.add('active');
+            } else if (target === 'api') {
+                document.getElementById('view-api').classList.remove('hidden');
+                document.getElementById('nav-api')?.classList.add('active');
+            } else if (toolsMeta[target]) {
+                // Dedicated Tool View Page
+                state.activeTool = target;
+                const meta = toolsMeta[target];
+                document.getElementById('toolPageTitle').innerText = meta.title;
+                document.getElementById('toolPageDesc').innerText = meta.desc;
+                document.getElementById('toolPageIcon').className = `fa-solid ${meta.icon}`;
+                
+                document.getElementById('view-tool').classList.remove('hidden');
+                document.getElementById(`nav-${target}`)?.classList.add('active');
+            }
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeToggleIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon text-base text-slate-700';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun text-base text-amber-400';
+            }
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function openToolWorkspace(toolKey) {
+            state.activeTool = toolKey || state.activeTool;
+            const meta = toolsMeta[state.activeTool] || toolsMeta.compress;
+            
+            document.getElementById('activeToolTitle').innerText = meta.title;
+            document.getElementById('activeToolDesc').innerText = meta.desc;
+            document.getElementById('activeToolIcon').className = `fa-solid ${meta.icon} text-ilove-brandBlue text-2xl`;
+            document.getElementById('actionButtonText').innerText = meta.actionText;
+
+            document.getElementById('sidebarToolTitle').innerText = meta.title + ' Options';
+            document.getElementById('sidebarToolSubtitle').innerText = meta.desc;
+            
+            document.getElementById('toolWorkspace').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            renderToolControls();
+            
+            if (state.originalImage) {
+                showPreviewUI();
+                renderCanvas();
+            } else {
+                showDropzoneUI();
+            }
+        }
+
+        function closeTool() {
+            document.getElementById('toolWorkspace').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function triggerToolUpload() {
+            document.getElementById('toolFileInput').click();
+        }
+
+        function handleToolPageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                state.originalFileSize = file.size;
+                loadImageFromFile(file, true);
+            }
+        }
+
+        function showDropzoneUI() {
+            document.getElementById('dropzone').classList.remove('hidden');
+            document.getElementById('previewContainer').classList.add('hidden');
+            document.getElementById('previewContainer').classList.remove('flex');
+            document.getElementById('controlsSidebar').classList.add('hidden');
+            document.getElementById('controlsSidebar').classList.remove('flex');
+        }
+
+        function showPreviewUI() {
+            document.getElementById('dropzone').classList.add('hidden');
+            document.getElementById('previewContainer').classList.remove('hidden');
+            document.getElementById('previewContainer').classList.add('flex');
+            document.getElementById('controlsSidebar').classList.remove('hidden');
+            document.getElementById('controlsSidebar').classList.add('flex');
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                state.originalFileSize = file.size;
+                loadImageFromFile(file, false);
+            }
+        }
+
+        function loadImageFromFile(file, autoOpenWorkspace = false) {
+            state.loadedImageName = file.name || 'image.jpg';
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    state.originalImage = img;
+                    state.resize.width = img.width;
+                    state.resize.height = img.height;
+                    
+                    if (autoOpenWorkspace) {
+                        openToolWorkspace();
+                    } else {
+                        showPreviewUI();
+                        renderToolControls();
+                        renderCanvas();
+                    }
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadSampleImageAndLaunch() {
+            loadSampleImage(true);
+        }
+
+        function loadSampleImage(autoOpen = false) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1600;
+            canvas.height = 1000;
+            const ctx = canvas.getContext('2d');
+            
+            const gradient = ctx.createLinearGradient(0, 0, 1600, 1000);
+            gradient.addColorStop(0, '#18243b');
+            gradient.addColorStop(0.5, '#00a8e8');
+            gradient.addColorStop(1, '#0f172a');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1600, 1000);
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.beginPath();
+            ctx.arc(400, 500, 350, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 72px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('XConvert Pro Sample Image', 800, 520);
+
+            const img = new Image();
+            img.onload = function() {
+                state.originalImage = img;
+                state.loadedImageName = 'sample-image.jpg';
+                state.originalFileSize = 850000;
+                state.resize.width = img.width;
+                state.resize.height = img.height;
+                
+                if (autoOpen) {
+                    openToolWorkspace();
+                } else {
+                    showPreviewUI();
+                    renderToolControls();
+                    renderCanvas();
+                }
+            };
+            img.src = canvas.toDataURL('image/jpeg');
+        }
+
+        function resetWorkspaceImage() {
+            if (!state.originalImage) return;
+            state.editor = { brightness: 100, contrast: 100, saturation: 100, blur: 0, grayscale: 0, sepia: 0, hue: 0 };
+            state.rotate = { angle: 0, flipH: false, flipV: false };
+            state.resize.width = state.originalImage.width;
+            state.resize.height = state.originalImage.height;
+            state.resize.percentage = 80;
+            state.crop = { x: 10, y: 10, width: 80, height: 80 };
+            renderToolControls();
+            renderCanvas();
+        }
+
+        function renderCanvas() {
+            if (!state.originalImage) return;
+            
+            const canvas = document.getElementById('mainCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = state.originalImage;
+
+            let targetWidth = img.width;
+            let targetHeight = img.height;
+
+            if (state.activeTool === 'resize') {
+                if (state.resize.mode === 'percentage') {
+                    targetWidth = Math.round(img.width * (state.resize.percentage / 100));
+                    targetHeight = Math.round(img.height * (state.resize.percentage / 100));
+                } else {
+                    targetWidth = parseInt(state.resize.width) || img.width;
+                    targetHeight = parseInt(state.resize.height) || img.height;
+                }
+            } else if (state.activeTool === 'upscale') {
+                targetWidth = img.width * state.upscale.scale;
+                targetHeight = img.height * state.upscale.scale;
+            }
+
+            const isRotated90 = (state.rotate.angle % 180 !== 0);
+            canvas.width = isRotated90 ? targetHeight : targetWidth;
+            canvas.height = isRotated90 ? targetWidth : targetHeight;
+
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((state.rotate.angle * Math.PI) / 180);
+            ctx.scale(state.rotate.flipH ? -1 : 1, state.rotate.flipV ? -1 : 1);
+
+            const ed = state.editor;
+            ctx.filter = `brightness(${ed.brightness}%) contrast(${ed.contrast}%) saturate(${ed.saturation}%) blur(${ed.blur}px) grayscale(${ed.grayscale}%) sepia(${ed.sepia}%) hue-rotate(${ed.hue}deg)`;
+
+            ctx.drawImage(img, -targetWidth / 2, -targetHeight / 2, targetWidth, targetHeight);
+            ctx.restore();
+
+            if (state.activeTool === 'removebg') {
+                processRemoveBg(ctx, canvas.width, canvas.height);
+            }
+
+            if (state.activeTool === 'crop') {
+                drawCropOverlay(ctx, canvas.width, canvas.height);
+            }
+
+            if (state.activeTool === 'watermark' && state.watermark.text) {
+                drawWatermarkOverlay(ctx, canvas.width, canvas.height);
+            }
+
+            if (state.activeTool === 'meme') {
+                drawMemeOverlay(ctx, canvas.width, canvas.height);
+            }
+
+            document.getElementById('origDimensions').innerText = `${canvas.width} x ${canvas.height} px`;
+            
+            const qual = state.activeTool === 'compress' ? state.compress.quality : 0.85;
+            const dataUrl = canvas.toDataURL('image/jpeg', qual);
+            const estKb = Math.round((dataUrl.length * 3 / 4) / 1024);
+            document.getElementById('fileSizeEst').innerText = `~${estKb} KB`;
+        }
+
+        function processRemoveBg(ctx, cw, ch) {
+            const imgData = ctx.getImageData(0, 0, cw, ch);
+            const data = imgData.data;
+            const tol = state.removebg.tolerance;
+
+            const bgR = data[0];
+            const bgG = data[1];
+            const bgB = data[2];
+
+            for (let i = 0; i < data.length; i += 4) {
+                const diff = Math.sqrt(
+                    Math.pow(data[i] - bgR, 2) +
+                    Math.pow(data[i + 1] - bgG, 2) +
+                    Math.pow(data[i + 2] - bgB, 2)
+                );
+
+                if (diff < tol * 2) {
+                    data[i + 3] = 0;
+                }
+            }
+            ctx.putImageData(imgData, 0, 0);
+        }
+
+        function drawCropOverlay(ctx, cw, ch) {
+            const c = state.crop;
+            const x = (c.x / 100) * cw;
+            const y = (c.y / 100) * ch;
+            const w = (c.width / 100) * cw;
+            const h = (c.height / 100) * ch;
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+            ctx.fillRect(0, 0, cw, ch);
+
+            ctx.clearRect(x, y, w, h);
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(x, y, w, h);
+            ctx.clip();
+            ctx.drawImage(state.originalImage, 0, 0, cw, ch);
+            ctx.restore();
+
+            ctx.strokeStyle = '#00a8e8';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x, y, w, h);
+        }
+
+        function drawWatermarkOverlay(ctx, cw, ch) {
+            const wm = state.watermark;
+            ctx.save();
+            ctx.font = `bold ${wm.fontSize}px Inter, sans-serif`;
+            ctx.fillStyle = wm.color;
+            ctx.globalAlpha = parseFloat(wm.opacity);
+
+            const metrics = ctx.measureText(wm.text);
+            const textWidth = metrics.width;
+            const padding = 30;
+
+            let x = padding;
+            let y = padding + wm.fontSize;
+
+            if (wm.position === 'top-center') {
+                x = (cw - textWidth) / 2;
+            } else if (wm.position === 'top-right') {
+                x = cw - textWidth - padding;
+            } else if (wm.position === 'center') {
+                x = (cw - textWidth) / 2;
+                y = ch / 2;
+            } else if (wm.position === 'bottom-left') {
+                y = ch - padding;
+            } else if (wm.position === 'bottom-right') {
+                x = cw - textWidth - padding;
+                y = ch - padding;
+            }
+
+            ctx.fillText(wm.text, x, y);
+            ctx.restore();
+        }
+
+        function drawMemeOverlay(ctx, cw, ch) {
+            const m = state.meme;
+            ctx.save();
+            ctx.font = `900 ${m.fontSize}px Impact, sans-serif`;
+            ctx.fillStyle = m.textColor;
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = Math.max(3, m.fontSize / 8);
+            ctx.textAlign = 'center';
+
+            if (m.topText) {
+                ctx.textBaseline = 'top';
+                ctx.strokeText(m.topText, cw / 2, 20);
+                ctx.fillText(m.topText, cw / 2, 20);
+            }
+
+            if (m.bottomText) {
+                ctx.textBaseline = 'bottom';
+                ctx.strokeText(m.bottomText, cw / 2, ch - 20);
+                ctx.fillText(m.bottomText, cw / 2, ch - 20);
+            }
+
+            ctx.restore();
+        }
+
+        function renderToolControls() {
+            const container = document.getElementById('activeToolControls');
+            let html = '';
+
+            switch (state.activeTool) {
+                case 'compress':
+                    html = `
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">Compression Presets</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="setCompressPreset(0.4)" class="py-2.5 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ilove-brandBlue ${state.compress.quality === 0.4 ? 'bg-ilove-brandBlue text-white border-ilove-brandBlue' : 'text-slate-700 dark:text-slate-200'}">Extreme</button>
+                                    <button onclick="setCompressPreset(0.7)" class="py-2.5 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ilove-brandBlue ${state.compress.quality === 0.7 ? 'bg-ilove-brandBlue text-white border-ilove-brandBlue' : 'text-slate-700 dark:text-slate-200'}">Recommended</button>
+                                    <button onclick="setCompressPreset(0.9)" class="py-2.5 text-xs font-bold rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ilove-brandBlue ${state.compress.quality === 0.9 ? 'bg-ilove-brandBlue text-white border-ilove-brandBlue' : 'text-slate-700 dark:text-slate-200'}">Low</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-2">
+                                    <span>Quality Level</span>
+                                    <span class="text-ilove-brandBlue">${Math.round(state.compress.quality * 100)}%</span>
+                                </div>
+                                <input type="range" min="0.1" max="1" step="0.05" value="${state.compress.quality}" oninput="state.compress.quality = parseFloat(this.value); renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue cursor-pointer">
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'resize':
+                    html = `
+                        <div class="space-y-5">
+                            <div class="flex bg-slate-100 dark:bg-slate-700 p-1 rounded-xl gap-1">
+                                <button onclick="state.resize.mode = 'pixels'; renderToolControls(); renderCanvas();" class="flex-1 py-2 text-xs font-bold rounded-lg transition ${state.resize.mode === 'pixels' ? 'bg-white dark:bg-slate-800 shadow text-ilove-brandBlue' : 'text-slate-600 dark:text-slate-300'}">By Pixels</button>
+                                <button onclick="state.resize.mode = 'percentage'; renderToolControls(); renderCanvas();" class="flex-1 py-2 text-xs font-bold rounded-lg transition ${state.resize.mode === 'percentage' ? 'bg-white dark:bg-slate-800 shadow text-ilove-brandBlue' : 'text-slate-600 dark:text-slate-300'}">By Percentage</button>
+                            </div>
+
+                            ${state.resize.mode === 'pixels' ? `
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Width (px)</label>
+                                        <input type="number" value="${state.resize.width}" oninput="updateResizeDim('w', this.value)" class="w-full border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-xl p-3 text-sm font-bold focus:ring-2 focus:ring-ilove-brandBlue outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Height (px)</label>
+                                        <input type="number" value="${state.resize.height}" oninput="updateResizeDim('h', this.value)" class="w-full border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-xl p-3 text-sm font-bold focus:ring-2 focus:ring-ilove-brandBlue outline-none">
+                                    </div>
+                                </div>
+                            ` : `
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2">Percentage: <span class="text-ilove-brandBlue font-black">${state.resize.percentage}%</span></label>
+                                    <div class="grid grid-cols-3 gap-2 mb-3">
+                                        <button onclick="state.resize.percentage = 25; renderCanvas(); renderToolControls();" class="py-2 text-xs font-bold border rounded-xl dark:border-slate-700 hover:border-ilove-brandBlue">25%</button>
+                                        <button onclick="state.resize.percentage = 50; renderCanvas(); renderToolControls();" class="py-2 text-xs font-bold border rounded-xl dark:border-slate-700 hover:border-ilove-brandBlue">50%</button>
+                                        <button onclick="state.resize.percentage = 75; renderCanvas(); renderToolControls();" class="py-2 text-xs font-bold border rounded-xl dark:border-slate-700 hover:border-ilove-brandBlue">75%</button>
+                                    </div>
+                                    <input type="range" min="10" max="200" step="5" value="${state.resize.percentage}" oninput="state.resize.percentage = parseInt(this.value); renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue cursor-pointer">
+                                </div>
+                            `}
+                        </div>
+                    `;
+                    break;
+
+                case 'crop':
+                    html = `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Position X (%)</label>
+                                <input type="range" min="0" max="80" value="${state.crop.x}" oninput="state.crop.x = parseInt(this.value); renderCanvas();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Position Y (%)</label>
+                                <input type="range" min="0" max="80" value="${state.crop.y}" oninput="state.crop.y = parseInt(this.value); renderCanvas();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Crop Width (%)</label>
+                                <input type="range" min="10" max="100" value="${state.crop.width}" oninput="state.crop.width = parseInt(this.value); renderCanvas();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Crop Height (%)</label>
+                                <input type="range" min="10" max="100" value="${state.crop.height}" oninput="state.crop.height = parseInt(this.value); renderCanvas();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'convert':
+                    html = `
+                        <div class="space-y-4">
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2">Target Format</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="state.convert.format = 'jpeg'; renderToolControls(); renderCanvas();" class="py-3 font-bold border rounded-xl text-center dark:border-slate-600 ${state.convert.format === 'jpeg' ? 'border-ilove-brandBlue bg-sky-50 dark:bg-sky-950/50 text-ilove-brandBlue' : 'border-slate-200 text-slate-700 dark:text-slate-200'}">JPG</button>
+                                <button onclick="state.convert.format = 'png'; renderToolControls(); renderCanvas();" class="py-3 font-bold border rounded-xl text-center dark:border-slate-600 ${state.convert.format === 'png' ? 'border-ilove-brandBlue bg-sky-50 dark:bg-sky-950/50 text-ilove-brandBlue' : 'border-slate-200 text-slate-700 dark:text-slate-200'}">PNG</button>
+                                <button onclick="state.convert.format = 'webp'; renderToolControls(); renderCanvas();" class="py-3 font-bold border rounded-xl text-center dark:border-slate-600 ${state.convert.format === 'webp' ? 'border-ilove-brandBlue bg-sky-50 dark:bg-sky-950/50 text-ilove-brandBlue' : 'border-slate-200 text-slate-700 dark:text-slate-200'}">WEBP</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'editor':
+                    html = `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Brightness: ${state.editor.brightness}%</label>
+                                <input type="range" min="0" max="200" value="${state.editor.brightness}" oninput="state.editor.brightness = this.value; renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Contrast: ${state.editor.contrast}%</label>
+                                <input type="range" min="0" max="200" value="${state.editor.contrast}" oninput="state.editor.contrast = this.value; renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Saturation: ${state.editor.saturation}%</label>
+                                <input type="range" min="0" max="200" value="${state.editor.saturation}" oninput="state.editor.saturation = this.value; renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Blur: ${state.editor.blur}px</label>
+                                <input type="range" min="0" max="20" value="${state.editor.blur}" oninput="state.editor.blur = this.value; renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'removebg':
+                    html = `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Color Sensitivity: ${state.removebg.tolerance}</label>
+                                <input type="range" min="5" max="80" value="${state.removebg.tolerance}" oninput="state.removebg.tolerance = parseInt(this.value); renderCanvas(); renderToolControls();" class="w-full accent-ilove-brandBlue">
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'upscale':
+                    html = `
+                        <div class="space-y-4">
+                            <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2">Resolution Scale Multiplier</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="state.upscale.scale = 2; renderToolControls(); renderCanvas();" class="py-3 font-bold border rounded-xl text-center dark:border-slate-600 ${state.upscale.scale === 2 ? 'border-ilove-brandBlue bg-sky-50 dark:bg-sky-950/50 text-ilove-brandBlue' : 'border-slate-200 text-slate-700 dark:text-slate-200'}">2x Upscale</button>
+                                <button onclick="state.upscale.scale = 4; renderToolControls(); renderCanvas();" class="py-3 font-bold border rounded-xl text-center dark:border-slate-600 ${state.upscale.scale === 4 ? 'border-ilove-brandBlue bg-sky-50 dark:bg-sky-950/50 text-ilove-brandBlue' : 'border-slate-200 text-slate-700 dark:text-slate-200'}">4x Upscale</button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'watermark':
+                    html = `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Watermark Text</label>
+                                <input type="text" value="${state.watermark.text}" oninput="state.watermark.text = this.value; renderCanvas();" class="w-full border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-ilove-brandBlue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Position</label>
+                                <select onchange="state.watermark.position = this.value; renderCanvas();" class="w-full border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-xl p-2.5 text-sm outline-none">
+                                    <option value="bottom-right" ${state.watermark.position==='bottom-right'?'selected':''}>Bottom Right</option>
+                                    <option value="bottom-left" ${state.watermark.position==='bottom-left'?'selected':''}>Bottom Left</option>
+                                    <option value="top-right" ${state.watermark.position==='top-right'?'selected':''}>Top Right</option>
+                                    <option value="top-center" ${state.watermark.position==='top-center'?'selected':''}>Top Center</option>
+                                    <option value="center" ${state.watermark.position==='center'?'selected':''}>Center</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'meme':
+                    html = `
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Top Text</label>
+                                <input type="text" value="${state.meme.topText}" oninput="state.meme.topText = this.value; renderCanvas();" class="w-full border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-ilove-brandBlue outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Bottom Text</label>
+                                <input type="text" value="${state.meme.bottomText}" oninput="state.meme.bottomText = this.value; renderCanvas();" class="w-full border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-xl p-2.5 text-sm focus:ring-2 focus:ring-ilove-brandBlue outline-none">
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'rotate':
+                    html = `
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="state.rotate.angle = (state.rotate.angle + 90) % 360; renderCanvas();" class="p-3 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 font-bold flex items-center justify-center gap-2 text-xs text-slate-700 dark:text-slate-200">
+                                    <i class="fa-solid fa-rotate-right"></i> Rotate 90°
+                                </button>
+                                <button onclick="state.rotate.angle = (state.rotate.angle - 90) % 360; renderCanvas();" class="p-3 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 font-bold flex items-center justify-center gap-2 text-xs text-slate-700 dark:text-slate-200">
+                                    <i class="fa-solid fa-rotate-left"></i> Rotate -90°
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function setCompressPreset(val) {
+            state.compress.quality = val;
+            renderToolControls();
+            renderCanvas();
+        }
+
+        function updateResizeDim(type, val) {
+            val = parseInt(val) || 1;
+            if (type === 'w') {
+                state.resize.width = val;
+                if (state.resize.lockAspect && state.originalImage) {
+                    const ratio = state.originalImage.height / state.originalImage.width;
+                    state.resize.height = Math.round(val * ratio);
+                }
+            } else {
+                state.resize.height = val;
+                if (state.resize.lockAspect && state.originalImage) {
+                    const ratio = state.originalImage.width / state.originalImage.height;
+                    state.resize.width = Math.round(val * ratio);
+                }
+            }
+            renderToolControls();
+            renderCanvas();
+        }
+
+        function processAndDownload() {
+            if (!state.originalImage) return;
+
+            const mainCanvas = document.getElementById('mainCanvas');
+            let exportCanvas = mainCanvas;
+
+            if (state.activeTool === 'crop') {
+                const cropCanvas = document.createElement('canvas');
+                const ctx = cropCanvas.getContext('2d');
+                const cw = mainCanvas.width;
+                const ch = mainCanvas.height;
+                const c = state.crop;
+
+                const cropX = (c.x / 100) * cw;
+                const cropY = (c.y / 100) * ch;
+                const cropW = (c.width / 100) * cw;
+                const cropH = (c.height / 100) * ch;
+
+                cropCanvas.width = cropW;
+                cropCanvas.height = cropH;
+
+                ctx.drawImage(mainCanvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+                exportCanvas = cropCanvas;
+            }
+
+            let mimeType = 'image/jpeg';
+            let extension = 'jpg';
+
+            if (state.activeTool === 'convert') {
+                mimeType = `image/${state.convert.format}`;
+                extension = state.convert.format;
+            } else if (state.activeTool === 'removebg') {
+                mimeType = 'image/png';
+                extension = 'png';
+            }
+
+            const quality = state.activeTool === 'compress' ? state.compress.quality : 0.92;
+            const dataUrl = exportCanvas.toDataURL(mimeType, quality);
+
+            const nameParts = state.loadedImageName.split('.');
+            const baseName = nameParts.slice(0, -1).join('.') || 'image';
+            const fileName = `${baseName}_xconvert.${extension}`;
+
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = dataUrl;
+            downloadLink.download = fileName;
+
+            const outputBytes = Math.round(dataUrl.length * 3 / 4);
+            if (state.originalFileSize > 0 && outputBytes < state.originalFileSize) {
+                const percent = Math.round((1 - outputBytes / state.originalFileSize) * 100);
+                document.getElementById('savingsNotice').innerText = `Your image is ${percent}% smaller! (${Math.round(state.originalFileSize / 1024)}KB → ${Math.round(outputBytes / 1024)}KB)`;
+            } else {
+                document.getElementById('savingsNotice').innerText = 'Your modified image is ready to download.';
+            }
+
+            document.getElementById('downloadModal').classList.remove('hidden');
+        }
+
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.add('hidden');
+        }
+
+        function switchApiTab(tab) {
+            document.querySelectorAll('.api-tab').forEach(t => {
+                t.className = 'api-tab px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700';
+            });
+            document.getElementById(`tab-${tab}`).className = 'api-tab px-4 py-2 rounded-xl bg-ilove-navy text-white';
+
+            const snippet = document.getElementById('codeSnippet');
+            if (tab === 'curl') {
+                snippet.innerText = `curl -X POST https://api.xconvertpro.com/v1/compress \\\n  -H "Authorization: Bearer YOUR_API_KEY" \\\n  -F "image=@photo.jpg" \\\n  -F "quality=80"`;
+            } else if (tab === 'js') {
+                snippet.innerText = `const formData = new FormData();\nformData.append('image', fileInput.files[0]);\n\nconst response = await fetch('https://api.xconvertpro.com/v1/compress', {\n  method: 'POST',\n  headers: { 'Authorization': 'Bearer YOUR_API_KEY' },\n  body: formData\n});\nconst blob = await response.blob();`;
+            } else if (tab === 'python') {
+                snippet.innerText = `import requests\n\nurl = 'https://api.xconvertpro.com/v1/compress'\nheaders = {'Authorization': 'Bearer YOUR_API_KEY'}\nfiles = {'image': open('photo.jpg', 'rb')}\n\nresponse = requests.post(url, headers=headers, files=files)\nwith open('output.jpg', 'wb') as f:\n    f.write(response.content)`;
+            }
+        }
+
+        function openApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.remove('hidden');
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function showProCheckoutModal(planName, price) {
+            showToast(`Selected ${planName} plan (${price}/mo). Payment gateway ready.`);
+        }
+
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast('Copied to clipboard!');
+        }
+    </script>
 </body>
 </html>
