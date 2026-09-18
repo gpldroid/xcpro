@@ -38,7 +38,7 @@ function openToolWorkspace(toolKey) {
 
 function closeTool() {
             if (document.body.dataset.tool) {
-                window.location.href = '../index.html';
+                window.location.href = '/';
                 return;
             }
             document.getElementById('toolWorkspace').classList.add('hidden');
