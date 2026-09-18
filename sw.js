@@ -1,4 +1,4 @@
-const CACHE_NAME = 'xconvert-pro-v2';
+const CACHE_NAME = 'xconvert-pro-v3';
 const BASE = '/';
 const APP_SHELL = [
   BASE,
@@ -17,6 +17,11 @@ const APP_SHELL = [
   BASE + 'assets/js/modules/download.js',
   BASE + 'assets/js/modules/api.js',
   BASE + 'assets/icons/icon.svg',
+  BASE + 'assets/icons/icon-192x192.png',
+  BASE + 'assets/icons/icon-512x512.png',
+  BASE + 'assets/icons/apple-touch-icon.png',
+  BASE + 'assets/js/site-shell.js',
+  BASE + 'assets/js/cookie-consent.js',
   BASE + 'tools/compress-image.html',
   BASE + 'tools/resize-image.html',
   BASE + 'tools/crop-image.html',

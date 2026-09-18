@@ -1,0 +1,26 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencies / build output
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+.parcel-cache/
+
+# Local tooling / temporary files
+.env
+.env.*
+*.log
+.tmp/
+.temp/
+
+# Test artifacts
+playwright-report/
+test-results/
