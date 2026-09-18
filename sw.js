@@ -1,5 +1,5 @@
-const CACHE_NAME = 'xconvert-pro-v1';
-const BASE = '/xcpro/';
+const CACHE_NAME = 'xconvert-pro-v2';
+const BASE = '/';
 const APP_SHELL = [
   BASE,
   BASE + 'index.html',
@@ -7,8 +7,7 @@ const APP_SHELL = [
   BASE + 'robots.txt',
   BASE + 'sitemap.xml',
   BASE + 'assets/css/style.css',
-  BASE + 'assets/css/pages.css',
-  BASE + 'assets/js/app.js',
+    BASE + 'assets/js/app.js',
   BASE + 'assets/js/tool-page.js',
   BASE + 'assets/js/modules/state.js',
   BASE + 'assets/js/modules/navigation.js',
@@ -17,7 +16,17 @@ const APP_SHELL = [
   BASE + 'assets/js/modules/controls.js',
   BASE + 'assets/js/modules/download.js',
   BASE + 'assets/js/modules/api.js',
-  BASE + 'assets/icons/icon.svg'
+  BASE + 'assets/icons/icon.svg',
+  BASE + 'tools/compress-image.html',
+  BASE + 'tools/resize-image.html',
+  BASE + 'tools/crop-image.html',
+  BASE + 'tools/convert-image.html',
+  BASE + 'tools/photo-editor.html',
+  BASE + 'tools/remove-background.html',
+  BASE + 'tools/upscale-image.html',
+  BASE + 'tools/watermark-image.html',
+  BASE + 'tools/meme-generator.html',
+  BASE + 'tools/rotate-image.html'
 ];
 
 self.addEventListener('install', (event) => {
