@@ -17,7 +17,10 @@ function openToolWorkspace(toolKey) {
             
             document.getElementById('activeToolTitle').innerText = meta.title;
             document.getElementById('activeToolDesc').innerText = meta.desc;
-            document.getElementById('activeToolIcon').className = `fa-solid ${meta.icon} text-ilove-brandBlue text-2xl`;
+            const icon = document.getElementById('activeToolIcon');
+            icon.className = 'text-ilove-brandBlue text-2xl';
+            icon.textContent = meta.icon;
+            icon.setAttribute('aria-hidden', 'true');
             document.getElementById('actionButtonText').innerText = meta.actionText;
 
             document.getElementById('sidebarToolTitle').innerText = meta.title + ' Options';
