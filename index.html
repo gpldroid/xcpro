@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="XConvert Pro is a free browser-based image toolkit for compressing, resizing, cropping, converting, editing, removing backgrounds, upscaling, watermarking, memes and rotation.">
+    <meta name="description" content="Free online image tools from XConvert Pro: compress, resize, crop, convert, edit, remove backgrounds, upscale, watermark, create memes and rotate images in your browser.">
     <meta name="theme-color" content="#18243b">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -13,7 +13,7 @@
     <meta property="og:title" content="XConvert Pro | Free Online Image Tools">
     <meta property="og:description" content="Free online image tools that process your images directly in the browser.">
     <meta property="og:url" content="https://xconvert.pro/">
-    <title>XConvert Pro | Free Online Image Tools & API</title>
+    <title>XConvert Pro | Free Online Image Tools</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons CDN -->
@@ -49,111 +49,14 @@
     </script>
     
     <link rel="stylesheet" href="assets/css/style.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"XConvert Pro","url":"https://xconvert.pro/","description":"Free browser-based image tools for compressing, resizing, cropping, converting and editing images.","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://xconvert.pro/pages/tools.html"},"query-input":"required name=tool"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"XConvert Pro","url":"https://xconvert.pro/"}</script></head>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"XConvert Pro","url":"https://xconvert.pro/","description":"Free browser-based image tools for compressing, resizing, cropping, converting and editing images.","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://xconvert.pro/pages/tools.html"},"query-input":"required name=tool"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"XConvert Pro","url":"https://xconvert.pro/"}</script><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:image" content="https://xconvert.pro/assets/icons/icon.svg"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="XConvert Pro | Free Online Image Tools"><meta name="twitter:description" content="Free browser-based tools to compress, resize, crop, convert and edit images."></head>
 <body class="min-h-screen flex flex-col justify-between antialiased selection:bg-ilove-brandBlue selection:text-white bg-slate-50 dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 transition-colors duration-300">
 
-    <header class="bg-ilove-navy text-white sticky top-0 z-40 shadow-xl border-b border-slate-700/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                
-                <!-- Brand Logo -->
-                <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="navigateTo('home')">
-                    <span class="text-2xl font-black tracking-tight text-white flex items-center gap-1">
-                        XConvert<span class="text-ilove-brandBlue flex items-center">PRO <i class="fa-solid fa-bolt text-ilove-brandRed text-xl ml-1 animate-pulse"></i></span>
-                    </span>
-                </div>
-
-                <!-- Main Navigation Links -->
-                <nav class="hidden xl:flex items-center space-x-1 text-xs font-bold uppercase tracking-wider">
-                    <button onclick="window.location.href='tools/compress-image.html'" id="nav-compress" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Compress IMAGE</button>
-                    <button onclick="window.location.href='tools/resize-image.html'" id="nav-resize" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Resize IMAGE</button>
-                    <button onclick="window.location.href='tools/crop-image.html'" id="nav-crop" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Crop IMAGE</button>
-                    <button onclick="window.location.href='tools/convert-image.html'" id="nav-convert" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Convert to JPG</button>
-                    <button onclick="window.location.href='tools/photo-editor.html'" id="nav-editor" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Photo Editor</button>
-                    <button onclick="window.location.href='tools/remove-background.html'" id="nav-removebg" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">Remove BG</button>
-                    
-                    <!-- All Tools Dropdown Menu -->
-                    <div class="relative dropdown-container py-2">
-                        <button class="px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition flex items-center gap-1.5">
-                            <span>ALL TOOLS</span>
-                            <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                        </button>
-                        <div class="dropdown-menu absolute right-0 top-full w-64 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700/80 py-2.5 z-50">
-                            <a href="#" onclick="window.location.href='tools/compress-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-file-arrow-down text-blue-500 w-5 text-center text-base"></i> Compress IMAGE
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/resize-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-expand text-teal-500 w-5 text-center text-base"></i> Resize IMAGE
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/crop-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-crop-simple text-amber-500 w-5 text-center text-base"></i> Crop IMAGE
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/convert-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-right-left text-purple-500 w-5 text-center text-base"></i> Convert to JPG
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/photo-editor.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-sliders text-rose-500 w-5 text-center text-base"></i> Photo Editor
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/remove-background.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-wand-magic-sparkles text-emerald-500 w-5 text-center text-base"></i> Remove Background
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/upscale-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-angles-up text-violet-500 w-5 text-center text-base"></i> Upscale IMAGE
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/watermark-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-stamp text-indigo-500 w-5 text-center text-base"></i> Watermark IMAGE
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/meme-generator.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-face-laugh-squint text-yellow-500 w-5 text-center text-base"></i> Meme Generator
-                            </a>
-                            <a href="#" onclick="window.location.href='tools/rotate-image.html'; return false;" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-xs font-bold text-slate-700 dark:text-slate-200">
-                                <i class="fa-solid fa-rotate text-cyan-500 w-5 text-center text-base"></i> Rotate IMAGE
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Additional Section Pages -->
-                    <button onclick="navigateTo('pricing')" id="nav-pricing" class="nav-link px-3.5 py-2 rounded-xl text-amber-400 hover:text-amber-300 hover:bg-ilove-navyLight transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-crown text-xs"></i> PRICING
-                    </button>
-                    <button onclick="navigateTo('api')" id="nav-api" class="nav-link px-3.5 py-2 rounded-xl hover:bg-ilove-navyLight text-slate-200 hover:text-white transition">API DOCS</button>
-                </nav>
-
-                <!-- Header Actions -->
-                <div class="flex items-center space-x-3">
-                    <button onclick="navigateTo('pricing')" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition uppercase tracking-wider">
-                        <i class="fa-solid fa-bolt"></i> GO PRO
-                    </button>
-                    
-                    <!-- Dark / Light Mode Toggle Button -->
-                    <button id="themeToggleBtn" onclick="toggleDarkMode()" title="Toggle Dark / Light Mode" class="bg-ilove-navyLight hover:bg-slate-700 text-amber-400 hover:text-amber-300 text-sm p-2.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center justify-center border border-slate-700/80">
-                        <i id="themeToggleIcon" class="fa-solid fa-sun text-base"></i>
-                    </button>
-
-                    <button onclick="toggleMobileMenu()" class="xl:hidden text-white p-2 focus:outline-none">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu -->
-        <div id="mobileMenu" class="hidden xl:hidden bg-ilove-navyDark border-t border-slate-800 px-4 py-4 space-y-2">
-            <button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Home</button>
-            <button onclick="navigateTo('compress'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Compress IMAGE</button>
-            <button onclick="navigateTo('resize'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Resize IMAGE</button>
-            <button onclick="navigateTo('crop'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Crop IMAGE</button>
-            <button onclick="navigateTo('convert'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Convert to JPG</button>
-            <button onclick="navigateTo('editor'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Photo Editor</button>
-            <button onclick="navigateTo('removebg'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Remove Background</button>
-            <button onclick="navigateTo('upscale'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Upscale IMAGE</button>
-            <button onclick="navigateTo('watermark'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Watermark IMAGE</button>
-            <button onclick="navigateTo('meme'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Meme Generator</button>
-            <button onclick="navigateTo('rotate'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">Rotate IMAGE</button>
-            <button onclick="navigateTo('pricing'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-bold text-amber-400">Pricing / Go Pro</button>
-            <button onclick="navigateTo('api'); toggleMobileMenu();" class="block w-full text-left py-2 text-sm font-semibold text-slate-200">API Documentation</button>
-        </div>
-    </header>
+    <header class="bg-ilove-navy text-white sticky top-0 z-40 shadow-xl border-b border-slate-700/60"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between min-h-16">
+<a href="/" class="flex items-center gap-2" aria-label="XConvert Pro home"><span class="text-2xl font-black tracking-tight">XConvert<span class="text-ilove-brandBlue">PRO</span></span><span class="hidden md:inline text-[10px] uppercase tracking-widest text-slate-400">Online Image Tools</span></a>
+<nav aria-label="Primary navigation" class="hidden lg:flex items-center gap-1 text-xs font-bold uppercase"><a href="/" class="px-3 py-2 rounded-xl hover:bg-ilove-navyLight">Home</a><details class="relative"><summary class="cursor-pointer list-none px-3 py-2 rounded-xl hover:bg-ilove-navyLight">Tools ▾</summary><div class="absolute left-0 top-full mt-1 w-64 bg-white dark:bg-slate-800 text-slate-800 dark:text-white rounded-xl shadow-xl p-2 z-50"><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/pages/tools.html">All Tools</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/compress-image.html">Compress</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/resize-image.html">Resize</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/crop-image.html">Crop</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/convert-image.html">Convert</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/photo-editor.html">Photo Editor</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/remove-background.html">Remove Background</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/upscale-image.html">Upscale</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/watermark-image.html">Watermark</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/meme-generator.html">Meme Generator</a><a class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700" href="/tools/rotate-image.html">Rotate</a></div></details><a href="/pages/pricing.html" class="px-3 py-2 rounded-xl hover:bg-ilove-navyLight text-amber-400">Pricing</a><a href="/pages/api.html" class="px-3 py-2 rounded-xl hover:bg-ilove-navyLight">API</a><a href="/pages/about.html" class="px-3 py-2 rounded-xl hover:bg-ilove-navyLight">About</a></nav>
+<div class="flex items-center gap-2"><a href="https://github.com/gpldroid/xcpro" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" class="p-2.5 rounded-xl hover:bg-ilove-navyLight"><i class="fa-brands fa-github"></i></a><button id="themeToggleBtn" onclick="toggleDarkMode()" aria-label="Toggle dark mode" title="Dark mode" class="bg-ilove-navyLight text-amber-400 p-2.5 rounded-xl border border-slate-700/80"><i id="themeToggleIcon" class="fa-solid fa-sun"></i></button><button onclick="toggleMobileMenu()" aria-label="Open menu" class="lg:hidden text-white p-2"><i class="fa-solid fa-bars text-xl"></i></button></div></div></div>
+<div id="mobileMenu" class="hidden lg:hidden bg-ilove-navyDark border-t border-slate-800 px-4 py-4 space-y-1"><a href="/" class="block py-2 font-semibold">Home</a><a href="/pages/tools.html" class="block py-2 font-semibold">All Tools</a><a href="/tools/compress-image.html" class="block py-2">Compress</a><a href="/tools/resize-image.html" class="block py-2">Resize</a><a href="/tools/crop-image.html" class="block py-2">Crop</a><a href="/tools/convert-image.html" class="block py-2">Convert</a><a href="/tools/photo-editor.html" class="block py-2">Photo Editor</a><a href="/tools/remove-background.html" class="block py-2">Remove Background</a><a href="/tools/upscale-image.html" class="block py-2">Upscale</a><a href="/tools/watermark-image.html" class="block py-2">Watermark</a><a href="/tools/meme-generator.html" class="block py-2">Meme Generator</a><a href="/tools/rotate-image.html" class="block py-2">Rotate</a><div class="pt-2 mt-2 border-t border-slate-700"><a href="/pages/pricing.html" class="block py-2 text-amber-400 font-bold">Pricing</a><a href="/pages/api.html" class="block py-2">API Docs</a><a href="/pages/about.html" class="block py-2">About</a></div></div></header>
 
     <main id="mainContent" class="flex-grow">
         
@@ -728,20 +631,7 @@ curl -X POST https://api.xconvertpro.com/v1/compress \
         <span id="toastMsg">Notification message</span>
     </div>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16"><div class="rounded-3xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 p-6"><h2 class="text-xl font-black text-slate-900 dark:text-white mb-3">XConvert Pro Resources</h2><div class="flex flex-wrap gap-4 text-sm font-bold"><a href="/pages/tools.html" class="text-ilove-brandBlue hover:underline">All Image Tools</a><a href="/pages/about.html" class="text-ilove-brandBlue hover:underline">About</a><a href="/pages/api.html" class="text-ilove-brandBlue hover:underline">API Documentation</a><a href="/pages/pricing.html" class="text-ilove-brandBlue hover:underline">Pricing</a><a href="/pages/privacy.html" class="text-ilove-brandBlue hover:underline">Privacy</a><a href="/pages/terms.html" class="text-ilove-brandBlue hover:underline">Terms</a></div></div></section><footer class="bg-ilove-navy text-slate-400 text-xs py-10 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center space-x-3">
-                <span class="text-xl font-black text-white">XConvert<span class="text-ilove-brandBlue">PRO</span></span>
-                <span class="text-xs text-slate-400 ml-4">© 2026 XConvert Pro. All rights reserved.</span>
-            </div>
-            <div class="flex flex-wrap gap-6 text-xs font-semibold text-slate-400">
-                <a href="#" onclick="navigateTo('home'); return false;" class="hover:text-white transition">All Tools</a>
-                <a href="#" onclick="navigateTo('pricing'); return false;" class="hover:text-white transition">Pricing</a>
-                <a href="#" onclick="navigateTo('api'); return false;" class="hover:text-white transition">Developer API</a>
-                <a href="/pages/privacy.html" class="hover:text-white transition">Privacy Policy</a><a href="/pages/about.html" class="hover:text-white transition">About</a><a href="/pages/terms.html" class="hover:text-white transition">Terms</a>
-            </div>
-        </div>
-    </footer>
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16"><div class="rounded-3xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 p-6"><h2 class="text-xl font-black text-slate-900 dark:text-white mb-3">XConvert Pro Resources</h2><div class="flex flex-wrap gap-4 text-sm font-bold"><a href="/pages/tools.html" class="text-ilove-brandBlue hover:underline">All Image Tools</a><a href="/pages/about.html" class="text-ilove-brandBlue hover:underline">About</a><a href="/pages/api.html" class="text-ilove-brandBlue hover:underline">API Documentation</a><a href="/pages/pricing.html" class="text-ilove-brandBlue hover:underline">Pricing</a><a href="/pages/privacy.html" class="text-ilove-brandBlue hover:underline">Privacy</a><a href="/pages/terms.html" class="text-ilove-brandBlue hover:underline">Terms</a></div></div></section><footer class="bg-ilove-navy text-slate-400 border-t border-slate-800 mt-16"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10"><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"><div><a href="/" class="text-xl font-black text-white">XConvert<span class="text-ilove-brandBlue">PRO</span></a><p class="mt-3 text-sm leading-6">Free browser-based image tools for compression, resizing, conversion and editing.</p></div><div><h2 class="text-sm font-bold text-white uppercase tracking-wider">Tools</h2><div class="mt-3 grid grid-cols-2 gap-2 text-sm"><a href="/tools/compress-image.html">Compress</a><a href="/tools/resize-image.html">Resize</a><a href="/tools/crop-image.html">Crop</a><a href="/tools/convert-image.html">Convert</a><a href="/tools/photo-editor.html">Editor</a><a href="/tools/remove-background.html">Remove BG</a><a href="/tools/upscale-image.html">Upscale</a><a href="/tools/watermark-image.html">Watermark</a></div></div><div><h2 class="text-sm font-bold text-white uppercase tracking-wider">Resources</h2><div class="mt-3 flex flex-col gap-2 text-sm"><a href="/pages/tools.html">All Tools</a><a href="/pages/pricing.html">Pricing</a><a href="/pages/api.html">API Docs</a><a href="/pages/about.html">About</a><a href="/pages/privacy.html">Privacy</a><a href="/pages/terms.html">Terms</a></div></div><div><h2 class="text-sm font-bold text-white uppercase tracking-wider">Connect</h2><div class="mt-3 flex gap-3"><a href="https://github.com/gpldroid/xcpro" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center"><i class="fa-brands fa-github"></i></a><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fxconvert.pro%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" title="Facebook" class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center"><i class="fa-brands fa-facebook-f"></i></a><a href="https://wa.me/?text=XConvert%20Pro%20https%3A%2F%2Fxconvert.pro%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp" title="WhatsApp" class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></a></div><p class="mt-3 text-xs">Share XConvert Pro.</p></div></div><div class="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between gap-3 text-xs"><span>© 2026 XConvert Pro. All rights reserved.</span><div class="flex gap-4"><a href="/pages/privacy.html">Privacy</a><a href="/pages/terms.html">Terms</a><a href="/pages/tools.html">All Tools</a></div></div></div></footer>
 
     <script type="module" src="assets/js/app.js"></script>
 </body>
