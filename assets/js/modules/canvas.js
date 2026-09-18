@@ -114,7 +114,7 @@ function drawCropOverlay(ctx, cw, ch) {
 function drawWatermarkOverlay(ctx, cw, ch) {
             const wm = state.watermark;
             ctx.save();
-            ctx.font = `bold ${wm.fontSize}px Inter, sans-serif`;
+            ctx.font = `bold ${wm.fontSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
             ctx.fillStyle = wm.color;
             ctx.globalAlpha = parseFloat(wm.opacity);
 
