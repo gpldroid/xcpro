@@ -1,4 +1,4 @@
-const CACHE_NAME = 'xconvert-pro-v7';
+const CACHE_NAME = 'xconvert-pro-v8';
 const BASE = '/';
 const APP_SHELL = [
   BASE,
