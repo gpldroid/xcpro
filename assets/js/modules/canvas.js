@@ -99,7 +99,8 @@ function processRemoveBg(ctx, cw, ch) {
                 if (cw > 1) addSeed(cw - 1, y);
             }
 
-            let queueIndex = 0;\n            while (queueIndex < queue.length) {
+            let queueIndex = 0;
+            while (queueIndex < queue.length) {
                 const [x, y, seedColor] = queue[queueIndex++];
                 const i = (y * cw + x) * 4;
 
