@@ -11,7 +11,7 @@ import {
 } from './modules/workspace.js';
 import { processAndDownload, closeDownloadModal } from './modules/download.js';
 import { renderCanvas } from './modules/canvas.js';
-import { renderToolControls } from './modules/controls.js';
+import { renderToolControls, setCompressPreset, updateResizeDim } from './modules/controls.js';
 
 const TOOL_KEY = document.body.dataset.tool;
 
