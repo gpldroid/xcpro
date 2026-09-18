@@ -79,3 +79,5 @@ body.home-page{margin:0;background:var(--home-bg);color:var(--home-text);font-fa
   .home-trust{width:min(100% - 20px,1050px);margin-bottom:54px}
 }
 @media(prefers-reduced-motion:reduce){.home-tool-card{transition:none}.home-tool-card:hover{transform:none}}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
