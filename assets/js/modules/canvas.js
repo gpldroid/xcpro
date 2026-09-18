@@ -99,8 +99,8 @@ function processRemoveBg(ctx, cw, ch) {
                 if (cw > 1) addSeed(cw - 1, y);
             }
 
-            while (queue.length) {
-                const [x, y, seedColor] = queue.shift();
+            let queueIndex = 0;\n            while (queueIndex < queue.length) {
+                const [x, y, seedColor] = queue[queueIndex++];
                 const i = (y * cw + x) * 4;
 
                 if (distance(colorAt(x, y), seedColor) <= tol) {
