@@ -1,4 +1,4 @@
-const CACHE_NAME = 'xconvert-pro-v3';
+const CACHE_NAME = 'xconvert-pro-v4';
 const BASE = '/';
 const APP_SHELL = [
   BASE,
@@ -7,6 +7,8 @@ const APP_SHELL = [
   BASE + 'robots.txt',
   BASE + 'sitemap.xml',
   BASE + 'assets/css/style.css',
+  BASE + 'assets/css/home.css',
+  BASE + 'assets/css/tool-ui.css',
     BASE + 'assets/js/app.js',
   BASE + 'assets/js/tool-page.js',
   BASE + 'assets/js/modules/state.js',
