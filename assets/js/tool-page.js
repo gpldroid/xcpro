@@ -15,7 +15,7 @@ import { renderToolControls } from './modules/controls.js';
 
 const TOOL_KEY = document.body.dataset.tool;
 
-Object.assign(window, {
+Object.assign(window, {\n  state,
   toggleDarkMode,
   toggleMobileMenu,
   openToolWorkspace,
