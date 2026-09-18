@@ -27,7 +27,8 @@ Object.assign(window, {
   resetWorkspaceImage,
   processAndDownload,
   closeDownloadModal,
-  renderCanvas,\n  initCropInteraction,
+  renderCanvas,
+  initCropInteraction,
   renderToolControls,
   setCompressPreset,
   updateResizeDim
@@ -37,7 +38,7 @@ function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
 
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js', { scope: '/xcpro/' })
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
       .catch((error) => console.warn('XConvert Pro service worker registration failed:', error));
   });
 }
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
   state.activeTool = TOOL_KEY;
   openToolWorkspace(TOOL_KEY);
-  document.body.style.overflow = 'auto';\n  initCropInteraction();
+  document.body.style.overflow = 'auto';
+  initCropInteraction();
   registerServiceWorker();
 });
