@@ -47,20 +47,20 @@ body.home-page{margin:0;background:var(--home-bg);color:var(--home-text);font-fa
 .home-tool-card:nth-child(9) .home-tool-icon{background:#fef9c3;color:#a16207}
 .home-tool-card:nth-child(10) .home-tool-icon{background:#cffafe;color:#0e7490}
 .home-tool-card h2{margin:0 0 9px;font-size:1rem;line-height:1.25;font-weight:900;color:var(--home-text)}
-.home-tool-card p{margin:0;color:var(--home-muted);font-size:.84rem;line-height:1.7}
-.home-tool-link{display:inline-flex;align-items:center;gap:7px;margin-top:20px;color:var(--home-blue-dark);font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.home-tool-card p{margin:0;color:#475569;font-size:.84rem;line-height:1.7}
+.home-tool-link{display:inline-flex;align-items:center;gap:7px;margin-top:20px;color:#0369a1;font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
 .home-tool-card:hover .home-tool-link{color:#0369a1}
 .home-trust{width:min(1050px,calc(100% - 32px));margin:0 auto 80px;text-align:center}
 .home-trust h2{margin:0 0 10px;font-size:clamp(1.5rem,3vw,2rem);color:var(--home-text)}
-.home-trust p{max-width:720px;margin:0 auto;color:var(--home-muted);line-height:1.8}
+.home-trust p{max-width:720px;margin:0 auto;color:#475569;line-height:1.8}
 .home-points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
 .home-point{padding:20px;border:1px solid var(--home-border);border-radius:16px;background:#fff;text-align:left}
 .home-point strong{display:block;margin-bottom:6px;color:var(--home-text);font-size:.92rem}
-.home-point span{color:var(--home-muted);font-size:.82rem;line-height:1.6}
+.home-point span{color:#475569;font-size:.82rem;line-height:1.6}
 .dark body.home-page{background:#0b1329;color:#e2e8f0}
 .dark .home-tool-card,.dark .home-point{background:#111c33;border-color:#263653}
 .dark .home-tool-card h2,.dark .home-trust h2,.dark .home-point strong{color:#f8fafc}
-.dark .home-tool-card p,.dark .home-trust p,.dark .home-point span{color:#94a3b8}
+.dark .home-tool-card p,.dark .home-trust p,.dark .home-point span{color:#cbd5e1}
 .dark .home-tool-card:hover{border-color:#075985}
 @media(max-width:1050px){.home-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){
