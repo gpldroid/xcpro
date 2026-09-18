@@ -1,0 +1,67 @@
+body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .dark body {
+            background-color: #0b1329;
+            color: #f8fafc;
+        }
+
+        .tool-card {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05), 0 2px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(0, 168, 232, 0.22), 0 10px 20px -5px rgba(0, 0, 0, 0.06);
+        }
+
+        .canvas-grid-bg {
+            background-color: #e2e8f0;
+            background-image: 
+                linear-gradient(45deg, #cbd5e1 25%, transparent 25%), 
+                linear-gradient(-45deg, #cbd5e1 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #cbd5e1 75%), 
+                linear-gradient(-45deg, transparent 75%, #cbd5e1 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .dark .canvas-grid-bg {
+            background-color: #1e293b;
+            background-image: 
+                linear-gradient(45deg, #334155 25%, transparent 25%), 
+                linear-gradient(-45deg, #334155 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #334155 75%), 
+                linear-gradient(-45deg, transparent 75%, #334155 75%);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .dropdown-menu {
+            display: none;
+        }
+        .dropdown-container:hover .dropdown-menu {
+            display: block;
+        }
+
+        .nav-link.active {
+            background-color: #243452;
+            color: #ffffff;
+        }
