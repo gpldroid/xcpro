@@ -1,12 +1,17 @@
 {
+  "id": "/xcpro/",
   "name": "XConvert Pro",
   "short_name": "XConvert Pro",
   "description": "Free browser-based image processing tools.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/xcpro/",
   "scope": "/xcpro/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#0b1329",
   "theme_color": "#18243b",
+  "categories": ["photo", "utilities", "productivity"],
   "icons": [
     {
       "src": "assets/icons/icon.svg",
