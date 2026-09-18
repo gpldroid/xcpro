@@ -15,7 +15,8 @@ import { renderToolControls, setCompressPreset, updateResizeDim } from './module
 
 const TOOL_KEY = document.body.dataset.tool;
 
-Object.assign(window, {\n  state,
+Object.assign(window, {
+  state,
   toggleDarkMode,
   toggleMobileMenu,
   openToolWorkspace,
@@ -27,11 +28,14 @@ Object.assign(window, {\n  state,
   processAndDownload,
   closeDownloadModal,
   renderCanvas,
-  renderToolControls
+  renderToolControls,
+  setCompressPreset,
+  updateResizeDim
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.toggle('dark', localStorage.getItem('theme') === 'dark');
   state.activeTool = TOOL_KEY;
-  openToolWorkspace(TOOL_KEY);\n  document.body.style.overflow = 'auto';
+  openToolWorkspace(TOOL_KEY);
+  document.body.style.overflow = 'auto';
 });
