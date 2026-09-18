@@ -84,7 +84,6 @@ body {
 .footer-legal-inline{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px;}
 .footer-legal-inline a{color:#cbd5e1;text-decoration:none;}
 .footer-legal-inline a:hover{color:#38bdf8;}
-.social-icon i{font-size:1rem;line-height:1;}
 @media(max-width:1100px){.footer-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:900px){.footer-grid{grid-template-columns:repeat(2,1fr);}.footer-legal-inline{justify-content:flex-start;}}
 @media(max-width:600px){.footer-grid{grid-template-columns:1fr;}.footer-bottom{align-items:flex-start;}.footer-legal-inline{gap:8px 12px;}}
@@ -99,7 +98,6 @@ button,a{touch-action:manipulation}
 .site-nav details>summary::-webkit-details-marker{display:none}
 .site-nav details[open] .nav-dropdown{display:block}
 .nav-dropdown{max-height:70vh;overflow:auto}
-.header-icon svg,.social-icon svg{width:18px;height:18px;display:block}
 .header-icon,.theme-toggle,.menu-toggle{font-family:inherit}
 .social-icon{font-size:.82rem;font-weight:900;letter-spacing:-.03em;transition:transform .18s ease,background .18s ease,border-color .18s ease,color .18s ease}
 .social-icon:hover{transform:translateY(-2px);background:#0ea5e9;border-color:#0ea5e9;color:#fff!important}
@@ -127,3 +125,10 @@ button,a{touch-action:manipulation}
 .legal-text{font-size:.98rem;line-height:1.8;color:#475569;margin:0 0 12px}
 .dark .legal-page{background:#0b1329;color:#e2e8f0}.dark .legal-card{background:#111c33;border-color:#263653}.dark .legal-title,.dark .legal-heading{color:#f8fafc}.dark .legal-text{color:#e2e8f0}.dark .legal-updated{color:#94a3b8}
 @media(max-width:600px){.legal-main{width:min(100% - 20px,1024px);padding:28px 0}.legal-card{padding:22px 18px}.legal-heading{font-size:1.2rem}}
+
+
+/* Lightweight tool/social icons — no external icon font required */
+.ui-icon{display:inline-grid;place-items:center;min-width:1.15em;line-height:1;font-family:Arial,sans-serif;font-weight:900}
+.ui-icon-after{margin-inline-start:.45rem}
+.ui-icon-close{font-size:1.25rem}
+.ui-icon-info{font-size:1.05rem}
