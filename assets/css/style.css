@@ -307,3 +307,16 @@ body:not(.home-page):not([data-tool])>main:not(.legal-main)>p{
   }
   .legal-main{width:calc(100% - 20px)}
 }
+
+
+/* Accessibility and performance-safe interaction defaults */
+:where(a,button,input,select,textarea):focus-visible{outline:3px solid #38bdf8;outline-offset:3px}
+button:disabled{cursor:not-allowed}
+button,a{min-height:40px}
+.site-nav a,.site-nav summary{min-height:40px;display:inline-flex;align-items:center}
+.theme-toggle,.menu-toggle{min-height:40px}
+.cookie-consent{max-width:760px}
+.cookie-consent-card{padding:18px 20px}
+.cookie-consent-actions{margin-top:12px}
+@media(max-width:600px){.cookie-consent{width:calc(100% - 16px);bottom:max(8px,env(safe-area-inset-bottom));}.cookie-consent-card{padding:14px}.cookie-consent-actions{gap:7px}.cookie-btn{min-height:44px;padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
