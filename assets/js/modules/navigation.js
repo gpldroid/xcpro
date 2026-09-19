@@ -48,11 +48,10 @@ function navigateTo(target) {
         }
 
 function syncThemeIcon() {
-    const icon = document.getElementById('themeToggleIcon');
+    const icon = document.getElementById('themeToggleIcon') || document.getElementById('siteThemeIcon');
     if (!icon) return;
-    icon.className = document.documentElement.classList.contains('dark')
-        ? 'fa-solid fa-sun text-base text-amber-400'
-        : 'fa-solid fa-moon text-base text-slate-700';
+    icon.textContent = document.documentElement.classList.contains('dark') ? '☀' : '☾';
+    icon.setAttribute('aria-hidden', 'true');
 }
 function toggleDarkMode() {
     const html = document.documentElement;
@@ -78,8 +77,8 @@ function toggleMobileMenu() {
             if (button) {
                 button.setAttribute('aria-expanded', String(isOpen));
                 button.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-                const icon = button.querySelector('i');
-                if (icon) icon.className = isOpen ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
+                const icon = button.querySelector('span');
+                if (icon) icon.textContent = isOpen ? '×' : '☰';
             }
         }
 
