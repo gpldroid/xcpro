@@ -225,3 +225,85 @@ body[data-tool]>section{
 /* Accessible image defaults: informative images must provide meaningful alt text */
 img{max-width:100%;height:auto}
 img[alt=""]{display:block}
+
+/* Responsive web-app typography & header system */
+:root{
+  --content-max:1180px;
+  --page-gutter:clamp(12px,3vw,32px);
+}
+body{
+  font-size:clamp(.94rem,1.1vw,1rem);
+  line-height:1.65;
+  overflow-x:hidden;
+}
+.site-container,.mobile-menu-inner{
+  width:min(var(--content-max),calc(100% - (var(--page-gutter) * 2)));
+}
+.site-header-inner{
+  min-height:clamp(60px,6vw,72px);
+  gap:clamp(12px,2.2vw,28px);
+}
+.brand{min-width:0;flex:0 0 auto}
+.brand-name{font-size:clamp(1.18rem,2.2vw,1.5rem);line-height:1}
+.brand-tagline{font-size:clamp(.58rem,.7vw,.68rem);white-space:nowrap}
+.site-nav{gap:2px;min-width:0}
+.site-nav>a,.site-nav summary{
+  font-size:clamp(.76rem,.9vw,.84rem);
+  line-height:1.2;
+  padding:9px clamp(8px,1vw,13px);
+  white-space:nowrap;
+}
+.site-actions{margin-inline-start:auto;flex:0 0 auto}
+.theme-toggle,.menu-toggle{width:clamp(38px,4vw,40px);height:clamp(38px,4vw,40px)}
+.nav-dropdown{
+  width:min(270px,calc(100vw - 24px));
+  max-height:min(70vh,520px);
+}
+.nav-dropdown a{
+  font-size:.82rem;
+  line-height:1.35;
+  padding:9px 11px;
+}
+.mobile-menu-inner{gap:2px}
+.mobile-menu a{
+  font-size:.92rem;
+  line-height:1.35;
+}
+.mobile-menu .social-icon{width:38px!important;height:38px!important}
+h1,h2,h3,h4,p,a,button{overflow-wrap:anywhere}
+body:not(.home-page):not([data-tool])>main:not(.legal-main)>h1{
+  font-size:clamp(1.9rem,5vw,3.25rem);
+  line-height:1.08;
+}
+body:not(.home-page):not([data-tool])>main:not(.legal-main)>p{
+  font-size:clamp(.95rem,1.4vw,1.05rem);
+  line-height:1.8;
+}
+.legal-title{font-size:clamp(1.8rem,5vw,3rem)}
+.legal-heading{font-size:clamp(1.12rem,2vw,1.35rem)}
+.legal-text{font-size:clamp(.92rem,1.3vw,.98rem);line-height:1.82}
+.tools-hero h1{font-size:clamp(2rem,6vw,4rem)}
+.tools-hero p{font-size:clamp(.96rem,1.5vw,1.05rem)}
+.section-heading h2{font-size:clamp(1.25rem,2.5vw,1.6rem)}
+.section-heading p{font-size:clamp(.9rem,1.3vw,1rem)}
+.tool-card-pro h3{font-size:clamp(.96rem,1.3vw,1.05rem)}
+.tool-card-pro p{font-size:clamp(.84rem,1.15vw,.9rem)}
+.footer-links a,.footer-legal-inline a{font-size:clamp(.82rem,1vw,.88rem);line-height:1.45}
+@media(max-width:900px){
+  .site-header-inner{min-height:62px}
+  .site-nav{display:none}
+  .menu-toggle{display:grid}
+}
+@media(max-width:600px){
+  :root{--page-gutter:10px}
+  .site-header-inner{min-height:58px}
+  .brand-name{font-size:1.12rem}
+  .site-actions{gap:5px}
+  .mobile-menu-inner{padding:10px 0 16px}
+  .mobile-menu a{padding:9px 10px}
+  body:not(.home-page):not([data-tool])>main:not(.legal-main){
+    width:calc(100% - 20px);
+    padding:32px 0 48px;
+  }
+  .legal-main{width:calc(100% - 20px)}
+}
