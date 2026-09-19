@@ -28,12 +28,6 @@ function navigateTo(target) {
 
             if (target === 'home') {
                 document.getElementById('view-home').classList.remove('hidden');
-            } else if (target === 'pricing') {
-                document.getElementById('view-pricing').classList.remove('hidden');
-                document.getElementById('nav-pricing')?.classList.add('active');
-            } else if (target === 'api') {
-                document.getElementById('view-api').classList.remove('hidden');
-                document.getElementById('nav-api')?.classList.add('active');
             } else if (toolsMeta[target]) {
                 // Dedicated Tool View Page
                 state.activeTool = target;
