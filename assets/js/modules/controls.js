@@ -185,10 +185,10 @@ function renderToolControls() {
                         <div class="space-y-4">
                             <div class="grid grid-cols-2 gap-3">
                                 <button onclick="state.rotate.angle = (state.rotate.angle + 90) % 360; renderCanvas();" class="p-3 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 font-bold flex items-center justify-center gap-2 text-xs text-slate-700 dark:text-slate-200">
-                                    <i class="fa-solid fa-rotate-right"></i> Rotate 90°
+                                    <span class="ui-icon" aria-hidden="true">↻</span> Rotate 90°
                                 </button>
                                 <button onclick="state.rotate.angle = (state.rotate.angle - 90) % 360; renderCanvas();" class="p-3 border border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 font-bold flex items-center justify-center gap-2 text-xs text-slate-700 dark:text-slate-200">
-                                    <i class="fa-solid fa-rotate-left"></i> Rotate -90°
+                                    <span class="ui-icon" aria-hidden="true">↺</span> Rotate -90°
                                 </button>
                             </div>
                         </div>
