@@ -132,3 +132,96 @@ button,a{touch-action:manipulation}
 .ui-icon-after{margin-inline-start:.45rem}
 .ui-icon-close{font-size:1.25rem}
 .ui-icon-info{font-size:1.05rem}
+
+
+/* Unified page background, spacing and responsive dimensions */
+:root{
+  --page-bg:#f6f9fc;
+  --page-surface:#ffffff;
+  --page-text:#0f172a;
+  --page-muted:#475569;
+}
+html,body{min-width:320px}
+body{margin:0;background:var(--page-bg);color:var(--page-text)}
+.dark body{background:#0b1329;color:#f8fafc}
+
+/* All secondary/info pages use the same visual canvas as the homepage */
+body:not(.home-page):not([data-tool]){background:var(--page-bg)}
+body:not(.home-page):not([data-tool])>main:not(.legal-main){
+  width:min(1180px,calc(100% - 32px));
+  margin:0 auto;
+  padding:clamp(40px,6vw,72px) 0;
+  min-height:calc(100vh - 220px);
+}
+body:not(.home-page):not([data-tool])>main:not(.legal-main)>h1{
+  margin:0 0 18px;
+  font-size:clamp(2rem,5vw,3.5rem);
+  line-height:1.08;
+  font-weight:900;
+  color:#0f172a;
+}
+body:not(.home-page):not([data-tool])>main:not(.legal-main)>p{
+  max-width:820px;
+  margin:0 0 14px;
+  color:#475569;
+  font-size:1rem;
+  line-height:1.8;
+}
+body:not(.home-page):not([data-tool])>main:not(.legal-main)>nav,
+body:not(.home-page):not([data-tool])>main:not(.legal-main)>div{
+  box-sizing:border-box;
+}
+.dark body:not(.home-page):not([data-tool]){background:#0b1329}
+.dark body:not(.home-page):not([data-tool])>main:not(.legal-main)>h1{color:#f8fafc}
+.dark body:not(.home-page):not([data-tool])>main:not(.legal-main)>p{color:#cbd5e1}
+
+/* Legal pages keep their centered card but share the homepage canvas */
+.legal-page{background:var(--page-bg)}
+.dark .legal-page{background:#0b1329}
+.legal-main{box-sizing:border-box}
+.legal-card{max-width:1024px;margin-inline:auto}
+
+/* Tool pages: homepage canvas around a centered, consistent workspace */
+body[data-tool]{background:var(--page-bg)}
+.dark body[data-tool]{background:#0b1329}
+body[data-tool]>main{background:transparent}
+body[data-tool] .tool-breadcrumb{
+  width:min(1400px,calc(100% - 32px));
+  margin:0 auto;
+  box-sizing:border-box;
+}
+body[data-tool] #toolWorkspace{
+  width:min(1400px,calc(100% - 32px));
+  min-height:clamp(620px,calc(100vh - 150px),900px);
+  margin:8px auto 28px;
+  border:1px solid rgba(148,163,184,.2);
+  border-radius:24px;
+  box-shadow:0 22px 60px rgba(2,8,23,.14);
+  overflow:hidden;
+}
+body[data-tool] #toolWorkspace canvas{max-width:100%;height:auto}
+body[data-tool]>section{
+  width:min(1400px,calc(100% - 32px));
+  margin:0 auto;
+  box-sizing:border-box;
+}
+.dark body[data-tool] #toolWorkspace{border-color:#263653;box-shadow:0 22px 60px rgba(0,0,0,.3)}
+
+@media(max-width:900px){
+  body:not(.home-page):not([data-tool])>main:not(.legal-main){width:min(100% - 24px,1180px)}
+  body[data-tool] .tool-breadcrumb,
+  body[data-tool] #toolWorkspace,
+  body[data-tool]>section{width:calc(100% - 24px)}
+  body[data-tool] #toolWorkspace{min-height:calc(100vh - 135px);border-radius:18px}
+}
+@media(max-width:600px){
+  body:not(.home-page):not([data-tool])>main:not(.legal-main){width:calc(100% - 20px);padding:34px 0}
+  body[data-tool] .tool-breadcrumb,
+  body[data-tool] #toolWorkspace,
+  body[data-tool]>section{width:calc(100% - 20px)}
+  body[data-tool] #toolWorkspace{margin-top:4px;border-radius:16px}
+}
+
+/* Accessible image defaults: informative images must provide meaningful alt text */
+img{max-width:100%;height:auto}
+img[alt=""]{display:block}
