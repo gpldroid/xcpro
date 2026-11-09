@@ -4,9 +4,15 @@ import { renderCanvas } from './canvas.js';
 import { renderToolControls } from './controls.js';
 function showToast(msg) {
             const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
+            const message = document.getElementById('toastMsg');
+            if (!toast || !message) {
+                console.warn('XConvert Pro notice:', msg);
+                return;
+            }
+            message.textContent = msg;
             toast.classList.remove('hidden');
-            setTimeout(() => {
+            window.clearTimeout(showToast.timeoutId);
+            showToast.timeoutId = window.setTimeout(() => {
                 toast.classList.add('hidden');
             }, 3000);
         }
@@ -85,26 +91,42 @@ function handleFileSelect(e) {
         }
 
 function loadImageFromFile(file, autoOpenWorkspace = false) {
-            state.loadedImageName = file.name || 'image.jpg';
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    state.originalImage = img;
-                    state.resize.width = img.width;
-                    state.resize.height = img.height;
-                    
-                    if (autoOpenWorkspace) {
-                        openToolWorkspace();
-                    } else {
-                        showPreviewUI();
-                        renderToolControls();
-                        renderCanvas();
-                    }
-                };
-                img.src = event.target.result;
+            if (!file) return;
+            if (file.type && !file.type.startsWith('image/')) {
+                showToast('Please choose a valid image file.');
+                return;
+            }
+
+            const objectUrl = URL.createObjectURL(file);
+            const img = new Image();
+            let released = false;
+            const releaseUrl = () => {
+                if (released) return;
+                URL.revokeObjectURL(objectUrl);
+                released = true;
             };
-            reader.readAsDataURL(file);
+
+            img.onload = function() {
+                releaseUrl();
+                state.loadedImageName = file.name || 'image.jpg';
+                state.originalFileSize = file.size || 0;
+                state.originalImage = img;
+                state.resize.width = img.width;
+                state.resize.height = img.height;
+
+                if (autoOpenWorkspace) {
+                    openToolWorkspace();
+                } else {
+                    showPreviewUI();
+                    renderToolControls();
+                    renderCanvas();
+                }
+            };
+            img.onerror = function() {
+                releaseUrl();
+                showToast('This image could not be opened. Try another image file.');
+            };
+            img.src = objectUrl;
         }
 
 function loadSampleImageAndLaunch() {
@@ -155,12 +177,16 @@ function loadSampleImage(autoOpen = false) {
 
 function resetWorkspaceImage() {
             if (!state.originalImage) return;
-            state.editor = { brightness: 100, contrast: 100, saturation: 100, blur: 0, grayscale: 0, sepia: 0, hue: 0 };
-            state.rotate = { angle: 0, flipH: false, flipV: false };
-            state.resize.width = state.originalImage.width;
-            state.resize.height = state.originalImage.height;
-            state.resize.percentage = 80;
+            state.compress = { quality: 0.70 };
+            state.resize = { width: state.originalImage.width, height: state.originalImage.height, lockAspect: true, percentage: 80, mode: 'pixels' };
             state.crop = { x: 10, y: 10, width: 80, height: 80 };
+            state.convert = { format: 'jpeg', quality: 0.9 };
+            state.editor = { brightness: 100, contrast: 100, saturation: 100, blur: 0, grayscale: 0, sepia: 0, hue: 0 };
+            state.removebg = { tolerance: 30 };
+            state.upscale = { scale: 2 };
+            state.watermark = { text: '© XConvert Pro', fontSize: 36, opacity: 0.7, color: '#ffffff', position: 'bottom-right' };
+            state.meme = { topText: 'WHEN YOU USE', bottomText: 'XCONVERT PRO FOR YOUR PHOTOS', fontSize: 42, textColor: '#ffffff' };
+            state.rotate = { angle: 0, flipH: false, flipV: false };
             renderToolControls();
             renderCanvas();
         }
