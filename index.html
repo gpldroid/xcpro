@@ -18,6 +18,23 @@ html{background:#f6f9fc}body.home-page{margin:0;background:#f6f9fc;color:#0f172a
 .home-hero h1{margin:18px auto 16px;max-width:850px;font-size:clamp(1.9rem,4.5vw,3.25rem);line-height:1.12;letter-spacing:-.035em;font-weight:800;color:#fff}.home-hero p{margin:0 auto;max-width:700px;color:#cbd5e1;font-size:clamp(1rem,1.5vw,1.125rem);line-height:1.7}.home-hero strong{color:#fff}
 .home-tools-wrap{position:relative;z-index:3;width:min(1180px,calc(100% - 32px));margin:-68px auto 76px}.home-tools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.home-tool-card{min-height:270px;display:flex;flex-direction:column;justify-content:space-between;padding:22px;border:1px solid #e2e8f0;border-radius:18px;background:#fff;text-decoration:none;color:inherit}
 @media(max-width:1050px){.home-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:760px){.home-tools-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.home-hero{padding-top:54px;padding-bottom:100px}}@media(max-width:480px){.home-tools-wrap{width:calc(100% - 20px);margin-top:-52px;margin-bottom:54px}.home-tools-grid{grid-template-columns:1fr}.home-tool-card{min-height:0;padding:18px}.home-hero h1{font-size:1.8rem}}
+
+.home-hero{padding:clamp(66px,8vw,104px) 20px clamp(88px,10vw,118px);background:radial-gradient(circle at 50% -18%,rgba(14,165,233,.24),transparent 42%),linear-gradient(135deg,#091426 0%,#10284b 54%,#0b1730 100%)}
+.home-hero-inner:before,.home-hero-inner:after{content:"";position:absolute;z-index:0;pointer-events:none;border:1px solid rgba(125,211,252,.17);transform:rotate(45deg)}
+.home-hero-inner:before{width:118px;height:118px;left:-118px;top:18%;border-radius:28px;box-shadow:0 0 0 18px rgba(14,165,233,.025),0 0 0 36px rgba(14,165,233,.02)}
+.home-hero-inner:after{width:170px;height:170px;right:-150px;bottom:-42px;border-radius:50%;box-shadow:0 0 0 20px rgba(14,165,233,.025)}
+.home-hero-inner>*{position:relative;z-index:1}
+.home-hero-cta{display:inline-flex;align-items:center;gap:12px;margin:26px auto 0;padding:12px 18px;border:1px solid rgba(125,211,252,.35);border-radius:12px;background:linear-gradient(135deg,#0284c7,#0ea5e9);color:#fff;text-decoration:none;font-size:.86rem;font-weight:850;box-shadow:0 12px 28px rgba(2,132,199,.24)}
+.home-tools-wrap{margin-top:-48px;padding:30px;border:1px solid #e2e8f0;border-radius:26px;background:#fff;box-shadow:0 24px 60px rgba(15,23,42,.11)}
+.home-tools-intro{text-align:center;margin:0 auto 24px}
+.home-tools-kicker{color:#0284c7;font-size:.68rem;font-weight:900;letter-spacing:.16em}
+.home-tools-intro h2{margin:8px 0 5px;color:#0f172a;font-size:clamp(1.35rem,2.4vw,1.8rem);font-weight:900}
+.home-tools-intro p{margin:0;color:#64748b;font-size:.9rem;line-height:1.6}
+.home-tools-grid{scroll-margin-top:100px}
+.dark .home-tools-wrap{background:#111c33;border-color:#263653}
+.dark .home-tools-intro h2{color:#f8fafc}.dark .home-tools-intro p{color:#cbd5e1}
+@media(max-width:760px){.home-tools-wrap{padding:22px}}
+@media(max-width:480px){.home-hero-inner:before{width:70px;height:70px;left:-45px;top:10%}.home-hero-inner:after{width:90px;height:90px;right:-48px;bottom:-28px}.home-tools-wrap{margin-top:-42px;padding:18px;border-radius:20px}.home-tools-intro{margin-bottom:18px}.home-hero-cta{margin-top:20px}}
 </style>
 <link rel="preload" href="/assets/css/style.css" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" href="/assets/css/home.css" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'">
@@ -47,20 +64,20 @@ html{background:#f6f9fc}body.home-page{margin:0;background:#f6f9fc;color:#0f172a
 <section class="home-hero"><div class="home-hero-inner">
 <span class="home-eyebrow">Free browser image tools</span>
 <h1>Everything you need to edit images online</h1>
-<p>A fast, simple image toolbox that is <strong>free to use</strong>. Compress, resize, crop, convert, edit and enhance images directly in your browser.</p>
+<p>A fast, simple image toolbox that is <strong>free to use</strong>. Compress, resize, crop, convert, edit and enhance images directly in your browser.</p><a class="home-hero-cta" href="#tools-grid"><span>Explore all tools</span><span aria-hidden="true">↓</span></a>
 </div></section>
 <section class="home-tools-wrap" aria-labelledby="tools-heading"><h2 id="tools-heading" class="sr-only">Image tools</h2>
-<div class="home-tools-grid">
-<a class="home-tool-card" href="/tools/compress-image.html"><div><div class="home-tool-icon">↓</div><h2>Compress IMAGE</h2><p>Compress JPG, PNG, SVG or GIF while keeping strong visual quality and reducing file size.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/resize-image.html"><div><div class="home-tool-icon">↗</div><h2>Resize IMAGE</h2><p>Resize images by pixels or percentage for JPG, PNG, SVG and GIF workflows.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/crop-image.html"><div><div class="home-tool-icon">⌗</div><h2>Crop IMAGE</h2><p>Crop images precisely with an interactive tool or custom pixel dimensions.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/convert-image.html"><div><div class="home-tool-icon">⇄</div><h2>Convert to JPG</h2><p>Convert PNG, GIF, WEBP and SVG images to JPG format in seconds.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/photo-editor.html"><div><div class="home-tool-icon">✦</div><h2>Photo Editor</h2><p>Adjust brightness, contrast, saturation, blur, grayscale, sepia and more.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/remove-background.html"><div><div class="home-tool-icon">✧</div><h2>Remove BG</h2><p>Isolate subjects and remove simple background colors with transparent PNG output.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/upscale-image.html"><div><div class="home-tool-icon">↑</div><h2>Upscale IMAGE</h2><p>Enlarge images and improve perceived detail while keeping edges crisp.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/watermark-image.html"><div><div class="home-tool-icon">◆</div><h2>Watermark IMAGE</h2><p>Add custom text or copyright marks with adjustable opacity and position.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/meme-generator.html"><div><div class="home-tool-icon">☺</div><h2>Meme Generator</h2><p>Create captioned memes online with classic Impact-style typography.</p></div><span class="home-tool-link">Open tool →</span></a>
-<a class="home-tool-card" href="/tools/rotate-image.html"><div><div class="home-tool-icon">↻</div><h2>Rotate IMAGE</h2><p>Rotate JPG, PNG and GIF images quickly for landscape or portrait layouts.</p></div><span class="home-tool-link">Open tool →</span></a>
+<div class="home-tools-intro"><span class="home-tools-kicker">THE XCONVERT TOOLKIT</span><h2>Choose the right image tool</h2><p>Simple tools for everyday image tasks, all in one place.</p></div><div class="home-tools-grid" id="tools-grid">
+<a class="home-tool-card" href="/tools/compress-image.html"><div><div class="home-tool-icon">↓</div><h2>Compress Images</h2><p>Reduce JPG, PNG and WebP file sizes in your browser with adjustable output quality.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/resize-image.html"><div><div class="home-tool-icon">↗</div><h2>Resize Images</h2><p>Set exact pixel dimensions or resize images by percentage while keeping proportions.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/crop-image.html"><div><div class="home-tool-icon">⌗</div><h2>Crop Images</h2><p>Crop an image with adjustable position and area controls before exporting.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/convert-image.html"><div><div class="home-tool-icon">⇄</div><h2>Convert Images</h2><p>Convert supported images to JPG, PNG or WebP formats in your browser.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/photo-editor.html"><div><div class="home-tool-icon">✦</div><h2>Photo Editor</h2><p>Adjust brightness, contrast, saturation, blur and color effects on your image.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/remove-background.html"><div><div class="home-tool-icon">✧</div><h2>Remove Background</h2><p>Remove connected background colors around the image edges and export a transparent PNG.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/upscale-image.html"><div><div class="home-tool-icon">↑</div><h2>Upscale Images</h2><p>Enlarge image dimensions with browser-based canvas scaling.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/watermark-image.html"><div><div class="home-tool-icon">◆</div><h2>Watermark Images</h2><p>Add a customizable text watermark with adjustable size, color, opacity and position.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/meme-generator.html"><div><div class="home-tool-icon">☺</div><h2>Meme Generator</h2><p>Add top and bottom captions to an image and export your meme.</p></div><span class="home-tool-link">Open tool →</span></a>
+<a class="home-tool-card" href="/tools/rotate-image.html"><div><div class="home-tool-icon">↻</div><h2>Rotate Images</h2><p>Rotate and flip images, then export the adjusted result.</p></div><span class="home-tool-link">Open tool →</span></a>
 </div></section>
 
 
