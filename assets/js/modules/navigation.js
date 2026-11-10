@@ -68,12 +68,14 @@ function toggleMobileMenu() {
             const button = document.getElementById('mobileMenuButton');
             if (!menu) return;
             const isOpen = menu.classList.toggle('open');
+            menu.setAttribute('aria-hidden', String(!isOpen));
             if (button) {
                 button.setAttribute('aria-expanded', String(isOpen));
                 button.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
                 const icon = button.querySelector('span');
                 if (icon) icon.textContent = isOpen ? '×' : '☰';
             }
+            if (isOpen) menu.querySelector('a')?.focus();
         }
 
 export { navigateTo, toggleDarkMode, toggleMobileMenu };
