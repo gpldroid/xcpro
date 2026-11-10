@@ -57,11 +57,14 @@ function processAndDownload() {
             downloadLink.download = fileName;
 
             const outputBytes = Math.round(dataUrl.length * 3 / 4);
-            if (state.originalFileSize > 0 && outputBytes < state.originalFileSize) {
-                const percent = Math.round((1 - outputBytes / state.originalFileSize) * 100);
-                document.getElementById('savingsNotice').innerText = `Your image is ${percent}% smaller! (${Math.round(state.originalFileSize / 1024)}KB → ${Math.round(outputBytes / 1024)}KB)`;
-            } else {
-                document.getElementById('savingsNotice').innerText = 'Your modified image is ready to download.';
+            const savingsNotice = document.getElementById('savingsNotice');
+            if (savingsNotice) {
+                if (state.originalFileSize > 0 && outputBytes < state.originalFileSize) {
+                    const percent = Math.round((1 - outputBytes / state.originalFileSize) * 100);
+                    savingsNotice.textContent = `Your image is ${percent}% smaller! (${Math.round(state.originalFileSize / 1024)}KB → ${Math.round(outputBytes / 1024)}KB)`;
+                } else {
+                    savingsNotice.textContent = 'Your modified image is ready to download.';
+                }
             }
 
             const modal = document.getElementById('downloadModal');
