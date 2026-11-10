@@ -1,1 +1,2 @@
-google.com, pub-6996931662051674, DIRECT, f08c47fec0942fa0
+advergic.com, HQx1HSTDO0aDjptm, DIRECT
+google.com, pub-7124106569313574, RESELLER, f08c47fec0942fa0
