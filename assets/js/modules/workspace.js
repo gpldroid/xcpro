@@ -59,11 +59,10 @@ function triggerToolUpload() {
         }
 
 function handleToolPageUpload(e) {
-            const file = e.target.files[0];
-            if (file) {
-                state.originalFileSize = file.size;
-                loadImageFromFile(file, true);
-            }
+            const input = e.target;
+            const file = input?.files?.[0];
+            if (input) input.value = '';
+            if (file) loadImageFromFile(file, true);
         }
 
 function showDropzoneUI() {
@@ -83,11 +82,10 @@ function showPreviewUI() {
         }
 
 function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if (file) {
-                state.originalFileSize = file.size;
-                loadImageFromFile(file, false);
-            }
+            const input = e.target;
+            const file = input?.files?.[0];
+            if (input) input.value = '';
+            if (file) loadImageFromFile(file, false);
         }
 
 function loadImageFromFile(file, autoOpenWorkspace = false) {
