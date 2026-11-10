@@ -1,8 +1,13 @@
 // XConvert Pro — export and download
 import { state } from './state.js';
+import { showToast } from './workspace.js';
 function processAndDownload() {
-            if (!state.originalImage) return;
+            if (!state.originalImage) {
+                showToast('Choose an image before exporting.');
+                return;
+            }
 
+            try {
             const mainCanvas = document.getElementById('mainCanvas');
             let exportCanvas = mainCanvas;
 
@@ -38,28 +43,40 @@ function processAndDownload() {
 
             const quality = state.activeTool === 'compress' ? state.compress.quality : 0.92;
             const dataUrl = exportCanvas.toDataURL(mimeType, quality);
+            if (!dataUrl || dataUrl === 'data:,') throw new Error('The browser could not create an image export.');
+            const actualMime = dataUrl.match(/^data:([^;,]+)/)?.[1];
+            if (actualMime) extension = actualMime.split('/')[1].replace('jpeg', 'jpg');
 
             const nameParts = state.loadedImageName.split('.');
             const baseName = nameParts.slice(0, -1).join('.') || 'image';
             const fileName = `${baseName}_xconvert.${extension}`;
 
             const downloadLink = document.getElementById('downloadLink');
+            if (!downloadLink) throw new Error('The download control is unavailable.');
             downloadLink.href = dataUrl;
             downloadLink.download = fileName;
 
             const outputBytes = Math.round(dataUrl.length * 3 / 4);
-            if (state.originalFileSize > 0 && outputBytes < state.originalFileSize) {
-                const percent = Math.round((1 - outputBytes / state.originalFileSize) * 100);
-                document.getElementById('savingsNotice').innerText = `Your image is ${percent}% smaller! (${Math.round(state.originalFileSize / 1024)}KB → ${Math.round(outputBytes / 1024)}KB)`;
-            } else {
-                document.getElementById('savingsNotice').innerText = 'Your modified image is ready to download.';
+            const savingsNotice = document.getElementById('savingsNotice');
+            if (savingsNotice) {
+                if (state.originalFileSize > 0 && outputBytes < state.originalFileSize) {
+                    const percent = Math.round((1 - outputBytes / state.originalFileSize) * 100);
+                    savingsNotice.textContent = `Your image is ${percent}% smaller! (${Math.round(state.originalFileSize / 1024)}KB → ${Math.round(outputBytes / 1024)}KB)`;
+                } else {
+                    savingsNotice.textContent = 'Your modified image is ready to download.';
+                }
             }
 
-            document.getElementById('downloadModal').classList.remove('hidden');
+            const modal = document.getElementById('downloadModal');
+            if (modal) modal.classList.remove('hidden');
+            } catch (error) {
+                console.error('XConvert Pro export failed:', error);
+                showToast('Export failed. Try a smaller image or another output format.');
+            }
         }
 
 function closeDownloadModal() {
-            document.getElementById('downloadModal').classList.add('hidden');
+            document.getElementById('downloadModal')?.classList.add('hidden');
         }
 
 export { processAndDownload, closeDownloadModal };
