@@ -20,7 +20,7 @@
         };
 
         const toolsMeta = {
-            compress: { title: 'Compress Images', desc: 'Reduce JPG, PNG and WebP file sizes in your browser with adjustable output quality.', icon: '↓', actionText: 'Compress Image' },
+            compress: { title: 'Compress Images', desc: 'Adjust JPEG quality to reduce image file size and download an optimized JPG.', icon: '↓', actionText: 'Compress Image' },
             convert: { title: 'Convert Images', desc: 'Convert supported images to JPG, PNG or WebP formats in your browser.', icon: '⇄', actionText: 'Convert Image' },
             resize: { title: 'Resize Images', desc: 'Set exact pixel dimensions or resize images by percentage while keeping proportions.', icon: '↗', actionText: 'Resize Image' },
             crop: { title: 'Crop Images', desc: 'Crop an image with adjustable position and area controls before exporting.', icon: '⌗', actionText: 'Crop Image' },
