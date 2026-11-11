@@ -20,7 +20,7 @@ function initMobileTabBar(){
   const path=window.location.pathname.replace(/\/+$/, "") || "/";
   const items=[
     {href:"/",label:"Home",key:"home",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>',active:path==="/"},
-    {href:"/tools/",label:"Tools",key:"tools",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',active:path.startsWith("/tools")},
+    {href:"/tools/",label:"Tools",key:"tools",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',active:path.startsWith("/tools")&&path!=="/tools/convert-image.html"},
     {href:"/tools/convert-image.html",label:"Convert",key:"convert",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h13l-3-3m3 3-3 3M17 17H4l3 3m-3-3 3-3"/></svg>',active:path==="/tools/convert-image.html"},
     {href:"/archives/",label:"Archives",key:"archives",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8m-9 4h4"/></svg>',active:path.startsWith("/archives")},
     {label:"Menu",key:"menu",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>',menu:true}
