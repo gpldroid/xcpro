@@ -14,7 +14,34 @@ function applyTheme(){let saved=null;try{saved=localStorage.getItem("xconvert-th
 function toggleMobileMenu(){const m=document.getElementById("mobileMenu"),b=document.getElementById("mobileMenuButton");if(!m)return;const next=!m.classList.contains("open");m.classList.toggle("open",next);m.setAttribute("aria-hidden",String(!next));if(b){b.setAttribute("aria-expanded",String(next));b.setAttribute("aria-label",next?"Close menu":"Open menu");const s=b.querySelector("span");if(s)s.textContent=next?"×":"☰";}if(next)setTimeout(()=>m.querySelector("a")?.focus(),50);}
 function closeMobileMenu(){const m=document.getElementById("mobileMenu");if(m?.classList.contains("open"))toggleMobileMenu();}
 function toggleDarkMode(){const next=!document.documentElement.classList.contains("dark");document.documentElement.classList.toggle("dark",next);try{localStorage.setItem("xconvert-theme",next?"dark":"light")}catch{}const i=document.getElementById("siteThemeIcon");if(i)i.textContent=next?"☀":"☾";}
-function initSiteShell(){const h=document.querySelector("[data-site-header]"),f=document.querySelector("[data-site-footer]");if(h)h.outerHTML=HEADER;if(f)f.outerHTML=FOOTER;applyTheme();document.querySelectorAll(".tools-menu").forEach(d=>d.querySelector("summary")?.addEventListener("click",()=>document.querySelectorAll(".tools-menu[open]").forEach(x=>{if(x!==d)x.removeAttribute("open")})));document.addEventListener("click",e=>{if(!e.target.closest(".tools-menu"))document.querySelectorAll(".tools-menu[open]").forEach(d=>d.removeAttribute("open"));if(!e.target.closest("#siteHeader"))closeMobileMenu()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".tools-menu[open]").forEach(d=>d.removeAttribute("open"));closeMobileMenu();document.getElementById("mobileMenuButton")?.focus()}});if(!document.querySelector("script[data-cookie-consent]")){const s=document.createElement("script");s.src="/assets/js/cookie-consent.js";s.defer=true;s.dataset.cookieConsent="true";document.head.appendChild(s);}}
+
+function initMobileTabBar(){
+  if(document.getElementById("mobileTabBar"))return;
+  const path=window.location.pathname.replace(/\\/+$/,"")||"/";
+  const items=[
+    {href:"/",label:"Home",key:"home",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>',active:path==="/"},
+    {href:"/tools/",label:"Tools",key:"tools",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',active:path.startsWith("/tools")},
+    {href:"/tools/convert-image.html",label:"Convert",key:"convert",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h13l-3-3m3 3-3 3M17 17H4l3 3m-3-3 3-3"/></svg>',active:path==="/tools/convert-image.html"},
+    {href:"/archives/",label:"Archives",key:"archives",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8m-9 4h4"/></svg>',active:path.startsWith("/archives")},
+    {label:"Menu",key:"menu",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>',menu:true}
+  ];
+  const nav=document.createElement("nav");
+  nav.id="mobileTabBar";
+  nav.className="mobile-tab-bar";
+  nav.setAttribute("aria-label","Mobile quick navigation");
+  nav.innerHTML=items.map(item=>item.menu
+    ?'<button class="mobile-tab-item mobile-tab-menu" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">'+item.icon+'<span>'+item.label+'</span></button>'
+    :'<a class="mobile-tab-item'+(item.active?' is-active':'')+'" href="'+item.href+'"'+(item.active?' aria-current="page"':'')+'>'+item.icon+'<span>'+item.label+'</span></a>'
+  ).join("");
+  document.body.appendChild(nav);
+  nav.querySelector(".mobile-tab-menu")?.addEventListener("click",()=>toggleMobileMenu());
+  const menu=document.getElementById("mobileMenu");
+  if(menu){
+    const observer=new MutationObserver(()=>nav.querySelector(".mobile-tab-menu")?.setAttribute("aria-expanded",String(menu.classList.contains("open"))));
+    observer.observe(menu,{attributes:true,attributeFilter:["class"]});
+  }
+}
+function initSiteShell(){const h=document.querySelector("[data-site-header]"),f=document.querySelector("[data-site-footer]");if(h)h.outerHTML=HEADER;if(f)f.outerHTML=FOOTER;applyTheme();initMobileTabBar();document.querySelectorAll(".tools-menu").forEach(d=>d.querySelector("summary")?.addEventListener("click",()=>document.querySelectorAll(".tools-menu[open]").forEach(x=>{if(x!==d)x.removeAttribute("open")})));document.addEventListener("click",e=>{if(!e.target.closest(".tools-menu"))document.querySelectorAll(".tools-menu[open]").forEach(d=>d.removeAttribute("open"));if(!e.target.closest("#siteHeader"))closeMobileMenu()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".tools-menu[open]").forEach(d=>d.removeAttribute("open"));closeMobileMenu();document.getElementById("mobileMenuButton")?.focus()}});if(!document.querySelector("script[data-cookie-consent]")){const s=document.createElement("script");s.src="/assets/js/cookie-consent.js";s.defer=true;s.dataset.cookieConsent="true";document.head.appendChild(s);}}
 // Load WebMCP as a progressive enhancement; browsers without the API are unaffected.
 import('/assets/js/webmcp.js').catch((error) => {
   console.warn('XConvert Pro WebMCP integration could not load:', error);
