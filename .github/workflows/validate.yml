@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - rebuild/architecture-v2
+      - fix/playwright-ci-image
   pull_request:
     branches:
       - main
