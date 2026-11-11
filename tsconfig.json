@@ -8,6 +8,6 @@
     "allowJs": false,
     "types": ["astro/client", "vitest/globals"]
   },
-  "include": [".astro/types.d.ts", "src/**/*", "tests/**/*", "vitest.config.ts"],
+  "include": [".astro/types.d.ts", "src/**/*", "tests/**/*", "e2e/**/*", "vitest.config.ts", "playwright.config.ts"],
   "exclude": ["dist", "node_modules"]
 }

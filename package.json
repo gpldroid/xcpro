@@ -11,9 +11,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "lint": "eslint --ext .js,.mjs,.ts,.tsx,.astro src tests astro.config.mjs eslint.config.mjs vitest.config.ts",
-    "format": "prettier --write \"src/**/*\" \"tests/**/*\" \"*.{json,mjs,ts}\" \"docs/rebuild/**/*.md\"",
-    "format:check": "prettier --check \"src/**/*\" \"tests/**/*\" \"*.{json,mjs,ts}\" \"docs/rebuild/**/*.md\"",
+    "lint": "eslint --ext .js,.mjs,.ts,.tsx,.astro src tests e2e astro.config.mjs eslint.config.mjs vitest.config.ts playwright.config.ts",
+    "format": "prettier --write \"src/**/*\" \"tests/**/*\" \"e2e/**/*\" \"*.{json,mjs,ts}\" \"docs/rebuild/**/*.md\"",
+    "format:check": "prettier --check \"src/**/*\" \"tests/**/*\" \"e2e/**/*\" \"*.{json,mjs,ts}\" \"docs/rebuild/**/*.md\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "validate": "npm run check && npm run lint && npm run test && npm run build"
