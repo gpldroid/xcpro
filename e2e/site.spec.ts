@@ -89,3 +89,10 @@ test('text and interactive color tokens meet WCAG AA contrast in both themes', a
     expect(contrast('rgb(255, 255, 255)', rgb(resolve('--brand-button'))), `${theme}: primary button text`).toBeGreaterThanOrEqual(4.5);
   }
 });
+
+
+test('homepage avoids hydrating global React islands', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('astro-island')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Switch to dark theme' })).toBeVisible();
+});
