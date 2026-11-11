@@ -15,4 +15,9 @@ function toggleMobileMenu(){const m=document.getElementById("mobileMenu"),b=docu
 function closeMobileMenu(){const m=document.getElementById("mobileMenu");if(m?.classList.contains("open"))toggleMobileMenu();}
 function toggleDarkMode(){const next=!document.documentElement.classList.contains("dark");document.documentElement.classList.toggle("dark",next);try{localStorage.setItem("xconvert-theme",next?"dark":"light")}catch{}const i=document.getElementById("siteThemeIcon");if(i)i.textContent=next?"☀":"☾";}
 function initSiteShell(){const h=document.querySelector("[data-site-header]"),f=document.querySelector("[data-site-footer]");if(h)h.outerHTML=HEADER;if(f)f.outerHTML=FOOTER;applyTheme();document.querySelectorAll(".tools-menu").forEach(d=>d.querySelector("summary")?.addEventListener("click",()=>document.querySelectorAll(".tools-menu[open]").forEach(x=>{if(x!==d)x.removeAttribute("open")})));document.addEventListener("click",e=>{if(!e.target.closest(".tools-menu"))document.querySelectorAll(".tools-menu[open]").forEach(d=>d.removeAttribute("open"));if(!e.target.closest("#siteHeader"))closeMobileMenu()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".tools-menu[open]").forEach(d=>d.removeAttribute("open"));closeMobileMenu();document.getElementById("mobileMenuButton")?.focus()}});if(!document.querySelector("script[data-cookie-consent]")){const s=document.createElement("script");s.src="/assets/js/cookie-consent.js";s.defer=true;s.dataset.cookieConsent="true";document.head.appendChild(s);}}
+// Load WebMCP as a progressive enhancement; browsers without the API are unaffected.
+import('/assets/js/webmcp.js').catch((error) => {
+  console.warn('XConvert Pro WebMCP integration could not load:', error);
+});
+
 initSiteShell();
