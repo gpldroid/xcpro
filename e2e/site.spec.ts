@@ -42,6 +42,8 @@ test('theme switch and mobile navigation work', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const mobileNav = page.getByRole('navigation', { name: 'Mobile navigation' });
   await expect(mobileNav).toBeVisible();
+  await page.goto('/tools/convert-image.html');
+  await expect(mobileNav.locator('.is-active')).toHaveCount(1);
   await mobileNav.getByRole('button', { name: 'More' }).click();
   await expect(mobileNav.getByRole('link', { name: 'About' })).toBeVisible();
 });

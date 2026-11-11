@@ -16,11 +16,18 @@ export default function MobileTabBar({ currentPath }: Props) {
   const [open, setOpen] = useState(false);
   return (
     <nav className="mobile-tabs" aria-label="Mobile navigation">
-      {items.map((item) => (
-        <a key={item.href} href={item.href} className={currentPath === item.href || (item.href === '/tools/' && currentPath.startsWith('/tools/')) ? 'is-active' : ''} aria-current={currentPath === item.href ? 'page' : undefined}>
-          <span aria-hidden="true">{item.glyph}</span><span>{item.label}</span>
-        </a>
-      ))}
+      {items.map((item) => {
+        const active = currentPath === item.href || (
+          item.href === '/tools/' &&
+          currentPath.startsWith('/tools/') &&
+          currentPath !== '/tools/convert-image.html'
+        );
+        return (
+          <a key={item.href} href={item.href} className={active ? 'is-active' : ''} aria-current={active ? 'page' : undefined}>
+            <span aria-hidden="true">{item.glyph}</span><span>{item.label}</span>
+          </a>
+        );
+      })}
       <button type="button" className={open ? 'is-active' : ''} aria-expanded={open} aria-controls="mobile-more-menu" onClick={() => setOpen((value) => !value)}>
         <span aria-hidden="true">•••</span><span>More</span>
       </button>
