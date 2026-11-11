@@ -53,7 +53,7 @@ test('theme switch and mobile navigation work', async ({ page }) => {
 test('text and interactive color tokens meet WCAG AA contrast in both themes', async ({ page }) => {
   const contrast = (foreground: string, background: string) => {
     const luminance = (color: string) => {
-      const channels = color.match(/[\\d.]+/g)?.slice(0, 3).map(Number) ?? [];
+      const channels = color.match(/[\d.]+/g)?.slice(0, 3).map(Number) ?? [];
       const linear = channels.map((value) => {
         const normalized = value / 255;
         return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
@@ -75,12 +75,7 @@ test('text and interactive color tokens meet WCAG AA contrast in both themes', a
       return Object.fromEntries(['--muted', '--bg', '--surface', '--surface-soft', '--brand', '--brand-button', '--success', '--danger']
         .map((name) => [name, styles.getPropertyValue(name).trim()]));
     });
-    const resolve = (name: string) => {
-      const value = tokens[name];
-      const probe = document.createElement('span');
-      probe.style.color = value;
-      return value;
-    };
+    const resolve = (name: string) => tokens[name];
     const rgb = (hex: string) => {
       const value = hex.replace('#', '');
       return `rgb(${parseInt(value.slice(0,2),16)}, ${parseInt(value.slice(2,4),16)}, ${parseInt(value.slice(4,6),16)})`;
