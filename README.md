@@ -22,9 +22,10 @@ npm run dev
 
 ```sh
 npm run validate
+npm run test:e2e
 ```
 
-Validation runs Astro/TypeScript diagnostics, ESLint, Vitest, and a production build. Prettier formatting is available through `npm run format`.
+Validation runs Astro/TypeScript diagnostics, ESLint, Vitest, and a production build. `npm run test:e2e` builds the static site and runs Chromium browser tests. Prettier formatting is available through `npm run format`.
 
 ## Image tools
 
