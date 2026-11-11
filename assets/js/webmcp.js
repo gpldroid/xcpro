@@ -33,9 +33,8 @@ async function registerXConvertTools() {
   const context = document.modelContext;
   if (!context || typeof context.registerTool !== 'function') return;
 
-  const [{ state }, workspace, controls, download, canvas] = await Promise.all([
+  const [{ state }, controls, download, canvas] = await Promise.all([
     import('./modules/state.js'),
-    import('./modules/workspace.js'),
     import('./modules/controls.js'),
     import('./modules/download.js'),
     import('./modules/canvas.js')
@@ -114,6 +113,11 @@ async function registerXConvertTools() {
         height: { type: 'integer', minimum: 1, maximum: 12000, description: 'Output height in pixels (resize tool).' },
         percentage: { type: 'integer', minimum: 10, maximum: 200, description: 'Resize percentage (resize tool).' },
         format: { type: 'string', enum: ['jpeg', 'png', 'webp'], description: 'Output format (convert tool).' },
+        cropX: { type: 'integer', minimum: 0, maximum: 80 },
+        cropY: { type: 'integer', minimum: 0, maximum: 80 },
+        cropWidth: { type: 'integer', minimum: 10, maximum: 100 },
+        cropHeight: { type: 'integer', minimum: 10, maximum: 100 },
+        tolerance: { type: 'integer', minimum: 5, maximum: 80, description: 'Background color sensitivity (remove background tool).' },
         brightness: { type: 'integer', minimum: 0, maximum: 200 },
         contrast: { type: 'integer', minimum: 0, maximum: 200 },
         saturation: { type: 'integer', minimum: 0, maximum: 200 },
@@ -139,7 +143,11 @@ async function registerXConvertTools() {
       else if (key === 'resize') {
         set('width', 'width', 1, 12000); set('height', 'height', 1, 12000);
         set('percentage', 'percentage', 10, 200);
-      } else if (key === 'convert') {
+      } else if (key === 'crop') {
+        set('cropX', 'x', 0, 80); set('cropY', 'y', 0, 80);
+        set('cropWidth', 'width', 10, 100); set('cropHeight', 'height', 10, 100);
+      } else if (key === 'removebg') set('tolerance', 'tolerance', 5, 80);
+      else if (key === 'convert') {
         if (input.format !== undefined) { if (!['jpeg', 'png', 'webp'].includes(input.format)) throw new Error('Unsupported format.'); s.format = input.format; applied.push('format'); }
       } else if (key === 'editor') {
         set('brightness', 'brightness', 0, 200); set('contrast', 'contrast', 0, 200);
