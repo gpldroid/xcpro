@@ -103,7 +103,10 @@ export async function renderImageToBlob(bitmap: ImageBitmap, tool: string, setti
     `brightness(${clamp(Number(settings.brightness) || 100, 0, 200)}%)`,
     `contrast(${clamp(Number(settings.contrast) || 100, 0, 200)}%)`,
     `saturate(${clamp(Number(settings.saturation) || 100, 0, 200)}%)`,
-    `blur(${clamp(Number(settings.blur) || 0, 0, 12)}px)`,
+    `blur(${clamp(Number(settings.blur) || 0, 0, 20)}px)`,
+    `grayscale(${clamp(Number(settings.grayscale) || 0, 0, 100)}%)`,
+    `sepia(${clamp(Number(settings.sepia) || 0, 0, 100)}%)`,
+    `hue-rotate(${clamp(Number(settings.hue) || 0, 0, 360)}deg)`,
   ].join(' ');
   context.drawImage(bitmap, sx, sy, sw, sh, -width / 2, -height / 2, width, height);
   context.restore();
@@ -115,7 +118,7 @@ export async function renderImageToBlob(bitmap: ImageBitmap, tool: string, setti
     const position = String(settings.watermarkPosition || 'bottom-right');
     context.save();
     context.font = `700 ${size}px system-ui, sans-serif`;
-    context.fillStyle = '#ffffff';
+    context.fillStyle = String(settings.watermarkColor || '#ffffff');
     context.strokeStyle = 'rgba(0,0,0,.65)';
     context.lineWidth = Math.max(2, size / 12);
     context.globalAlpha = clamp(Number(settings.watermarkOpacity) || 72, 10, 100) / 100;
@@ -123,7 +126,8 @@ export async function renderImageToBlob(bitmap: ImageBitmap, tool: string, setti
     let x = padding;
     let y = outputHeight - padding;
     if (position === 'bottom-right' || position === 'top-right') x = outputWidth - textWidth - padding;
-    if (position === 'top-right') y = padding + size;
+    if (position === 'top-right' || position === 'top-center') y = padding + size;
+    if (position === 'top-center') x = (outputWidth - textWidth) / 2;
     if (position === 'center') { x = (outputWidth - textWidth) / 2; y = outputHeight / 2; }
     context.strokeText(text, x, y);
     context.fillText(text, x, y);
@@ -139,7 +143,7 @@ export async function renderImageToBlob(bitmap: ImageBitmap, tool: string, setti
     context.lineJoin = 'round';
     context.lineWidth = Math.max(3, size / 9);
     context.strokeStyle = '#111111';
-    context.fillStyle = '#ffffff';
+    context.fillStyle = String(settings.memeColor || '#ffffff');
     if (top) { context.textBaseline = 'top'; context.strokeText(top, outputWidth / 2, 18, outputWidth - 36); context.fillText(top, outputWidth / 2, 18, outputWidth - 36); }
     if (bottom) { context.textBaseline = 'bottom'; context.strokeText(bottom, outputWidth / 2, outputHeight - 18, outputWidth - 36); context.fillText(bottom, outputWidth / 2, outputHeight - 18, outputWidth - 36); }
     context.restore();

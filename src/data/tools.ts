@@ -70,6 +70,8 @@ export const tools: ToolDefinition[] = [
     fields: [
       { key: 'width', label: 'Width (px)', type: 'number', min: 1, max: 12000, defaultValue: 1200 },
       { key: 'height', label: 'Height (px)', type: 'number', min: 1, max: 12000, defaultValue: 800 },
+      { key: 'mode', label: 'Resize mode', type: 'select', defaultValue: 'pixels', options: [{ label: 'Exact pixels', value: 'pixels' }, { label: 'Percentage', value: 'percentage' }] },
+      { key: 'percentage', label: 'Scale (%)', type: 'range', min: 10, max: 200, step: 5, defaultValue: 80 },
       { key: 'keepAspect', label: 'Keep aspect ratio', type: 'toggle', defaultValue: true },
       formatField,
     ],
@@ -90,8 +92,8 @@ export const tools: ToolDefinition[] = [
     badge: 'Custom crop',
     output: 'WebP, JPEG, or PNG',
     fields: [
-      { key: 'cropX', label: 'Left offset (%)', type: 'range', min: 0, max: 80, step: 1, defaultValue: 0 },
-      { key: 'cropY', label: 'Top offset (%)', type: 'range', min: 0, max: 80, step: 1, defaultValue: 0 },
+      { key: 'cropX', label: 'Left offset (%)', type: 'range', min: 0, max: 80, step: 1, defaultValue: 10 },
+      { key: 'cropY', label: 'Top offset (%)', type: 'range', min: 0, max: 80, step: 1, defaultValue: 10 },
       { key: 'cropWidth', label: 'Crop width (%)', type: 'range', min: 10, max: 100, step: 1, defaultValue: 80 },
       { key: 'cropHeight', label: 'Crop height (%)', type: 'range', min: 10, max: 100, step: 1, defaultValue: 80 },
       formatField,
@@ -133,7 +135,10 @@ export const tools: ToolDefinition[] = [
       { key: 'brightness', label: 'Brightness', type: 'range', min: 0, max: 200, defaultValue: 100 },
       { key: 'contrast', label: 'Contrast', type: 'range', min: 0, max: 200, defaultValue: 100 },
       { key: 'saturation', label: 'Saturation', type: 'range', min: 0, max: 200, defaultValue: 100 },
-      { key: 'blur', label: 'Blur (px)', type: 'range', min: 0, max: 12, defaultValue: 0 },
+      { key: 'blur', label: 'Blur (px)', type: 'range', min: 0, max: 20, defaultValue: 0 },
+      { key: 'grayscale', label: 'Grayscale (%)', type: 'range', min: 0, max: 100, defaultValue: 0 },
+      { key: 'sepia', label: 'Sepia (%)', type: 'range', min: 0, max: 100, defaultValue: 0 },
+      { key: 'hue', label: 'Hue rotation (deg)', type: 'range', min: 0, max: 360, defaultValue: 0 },
       formatField,
     ],
     faqs: [
@@ -153,7 +158,7 @@ export const tools: ToolDefinition[] = [
     badge: 'Edge-color removal',
     output: 'Transparent PNG',
     fields: [
-      { key: 'tolerance', label: 'Color tolerance', type: 'range', min: 5, max: 120, defaultValue: 42, help: 'Higher tolerance removes a wider range of edge-connected colors and can affect similar subject colors.' },
+      { key: 'tolerance', label: 'Color tolerance', type: 'range', min: 5, max: 80, defaultValue: 30, help: 'Higher tolerance removes a wider range of edge-connected colors and can affect similar subject colors.' },
     ],
     faqs: [
       { question: 'Is this an AI background remover?', answer: 'No. It uses a connected edge-color flood-fill algorithm. It does not use an AI segmentation model.' },
@@ -193,8 +198,9 @@ export const tools: ToolDefinition[] = [
     badge: 'Text watermark',
     output: 'WebP, JPEG, or PNG',
     fields: [
-      { key: 'watermarkText', label: 'Watermark text', type: 'text', defaultValue: 'XConvert Pro' },
-      { key: 'watermarkPosition', label: 'Position', type: 'select', defaultValue: 'bottom-right', options: [{ label: 'Bottom right', value: 'bottom-right' }, { label: 'Bottom left', value: 'bottom-left' }, { label: 'Top right', value: 'top-right' }, { label: 'Center', value: 'center' }] },
+      { key: 'watermarkText', label: 'Watermark text', type: 'text', defaultValue: '© XConvert Pro' },
+      { key: 'watermarkColor', label: 'Watermark color', type: 'text', defaultValue: '#ffffff' },
+      { key: 'watermarkPosition', label: 'Position', type: 'select', defaultValue: 'bottom-right', options: [{ label: 'Bottom right', value: 'bottom-right' }, { label: 'Bottom left', value: 'bottom-left' }, { label: 'Top right', value: 'top-right' }, { label: 'Top center', value: 'top-center' }, { label: 'Center', value: 'center' }] },
       { key: 'watermarkSize', label: 'Text size', type: 'range', min: 12, max: 120, defaultValue: 36 },
       { key: 'watermarkOpacity', label: 'Opacity', type: 'range', min: 10, max: 100, defaultValue: 72 },
       formatField,
@@ -216,9 +222,10 @@ export const tools: ToolDefinition[] = [
     badge: 'Top / bottom captions',
     output: 'WebP, JPEG, or PNG',
     fields: [
-      { key: 'topText', label: 'Top caption', type: 'text', defaultValue: '' },
-      { key: 'bottomText', label: 'Bottom caption', type: 'text', defaultValue: '' },
-      { key: 'memeSize', label: 'Caption size', type: 'range', min: 18, max: 100, defaultValue: 48 },
+      { key: 'topText', label: 'Top caption', type: 'text', defaultValue: 'WHEN YOU USE' },
+      { key: 'bottomText', label: 'Bottom caption', type: 'text', defaultValue: 'XCONVERT PRO FOR YOUR PHOTOS' },
+      { key: 'memeSize', label: 'Caption size', type: 'range', min: 18, max: 100, defaultValue: 42 },
+      { key: 'memeColor', label: 'Caption color', type: 'text', defaultValue: '#ffffff' },
       formatField,
     ],
     faqs: [
