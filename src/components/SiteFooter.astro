@@ -7,12 +7,14 @@ import { tools } from '../data/tools';
       <a class="brand brand--footer" href="/"><span class="brand__mark" aria-hidden="true">X</span><span class="brand__word">XConvert<span>Pro</span></span></a>
       <p>Practical image tools that run in your browser. Keep control of your files while you edit, convert, and export.</p>
     </div>
-    <div>
+    <div class="footer-section">
       <h2>Image tools</h2>
+      <p>Open a focused tool for the image task you want to complete.</p>
       <ul>{tools.slice(0, 6).map((tool) => <li><a href={`/tools/${tool.slug}.html`}>{tool.shortTitle}</a></li>)}</ul>
     </div>
-    <div>
+    <div class="footer-section">
       <h2>Explore</h2>
+      <p>Learn more about XConvert Pro and find helpful resources.</p>
       <ul>
         <li><a href="/tools/">All tools</a></li>
         <li><a href="/about/">About XConvert</a></li>
@@ -20,8 +22,9 @@ import { tools } from '../data/tools';
         <li><a href="/contact/">Contact</a></li>
       </ul>
     </div>
-    <div>
+    <div class="footer-section">
       <h2>Policies</h2>
+      <p>Review the information that explains how the service works.</p>
       <ul>
         <li><a href="/pages/privacy.html">Privacy</a></li>
         <li><a href="/pages/terms.html">Terms</a></li>
