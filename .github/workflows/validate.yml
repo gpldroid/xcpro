@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - rebuild/architecture-v2
+      - fix/playwright-ci-image
   pull_request:
     branches:
       - main
@@ -14,6 +15,8 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
     steps:
       - name: Check out source
         uses: actions/checkout@v5
@@ -25,7 +28,5 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Validate application
         run: npm run validate
-      - name: Install Chromium for end-to-end tests
-        run: npx playwright install --with-deps chromium
       - name: Run browser end-to-end tests
         run: npx playwright test
