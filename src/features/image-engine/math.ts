@@ -12,8 +12,14 @@ export function getOutputDimensions(width: number, height: number, tool: string,
   let outputWidth = width;
   let outputHeight = height;
   if (tool === 'resize') {
-    outputWidth = Math.round(Number(settings.width) || width);
-    outputHeight = settings.keepAspect ? Math.round(outputWidth * (height / width)) : Math.round(Number(settings.height) || height);
+    if (settings.mode === 'percentage') {
+      const scale = clamp(Number(settings.percentage) || 80, 10, 200) / 100;
+      outputWidth = Math.round(width * scale);
+      outputHeight = Math.round(height * scale);
+    } else {
+      outputWidth = Math.round(Number(settings.width) || width);
+      outputHeight = settings.keepAspect ? Math.round(outputWidth * (height / width)) : Math.round(Number(settings.height) || height);
+    }
   }
   if (tool === 'upscale') {
     const scale = clamp(Number(settings.scale) || 2, 1, 4);

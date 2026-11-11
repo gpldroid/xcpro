@@ -11,6 +11,10 @@ describe('image engine helpers', () => {
     expect(getOutputDimensions(1600, 900, 'resize', { width: 800, keepAspect: true })).toEqual({ width: 800, height: 450 });
   });
 
+  it('supports percentage resizing', () => {
+    expect(getOutputDimensions(1000, 500, 'resize', { mode: 'percentage', percentage: 50 })).toEqual({ width: 500, height: 250 });
+  });
+
   it('swaps dimensions for quarter-turn rotations', () => {
     expect(getOutputDimensions(1200, 800, 'rotate', { angle: 90 })).toEqual({ width: 800, height: 1200 });
   });

@@ -74,8 +74,14 @@ export async function renderImageToBlob(bitmap: ImageBitmap, tool: string, setti
   let width = sw;
   let height = sh;
   if (tool === 'resize') {
-    width = clamp(Math.round(Number(settings.width) || sw), 1, MAX_DIMENSION);
-    height = settings.keepAspect ? Math.round(width * (sh / sw)) : clamp(Math.round(Number(settings.height) || sh), 1, MAX_DIMENSION);
+    if (settings.mode === 'percentage') {
+      const scale = clamp(Number(settings.percentage) || 80, 10, 200) / 100;
+      width = Math.round(sw * scale);
+      height = Math.round(sh * scale);
+    } else {
+      width = clamp(Math.round(Number(settings.width) || sw), 1, MAX_DIMENSION);
+      height = settings.keepAspect ? Math.round(width * (sh / sw)) : clamp(Math.round(Number(settings.height) || sh), 1, MAX_DIMENSION);
+    }
   } else if (tool === 'upscale') {
     const scale = clamp(Number(settings.scale) || 2, 1, 4);
     width = Math.round(sw * scale);

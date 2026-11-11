@@ -1,6 +1,7 @@
 const CACHE_NAME = 'xconvert-pro-rebuild-v1';
 const PRECACHE = [
   '/', '/tools/', '/about/', '/archives/', '/contact/',
+  '/pages/about.html', '/pages/contact.html', '/pages/tools.html',
   '/pages/privacy.html', '/pages/terms.html', '/pages/cookie-policy.html',
   '/pages/disclaimer.html', '/pages/acceptable-use.html', '/pages/api.html',
   '/tools/compress-image.html', '/tools/resize-image.html', '/tools/crop-image.html',
