@@ -15,7 +15,7 @@ const toolSlugs = [
 
 test('homepage exposes the ten image tools', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: /Make every image/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Everything you need to edit images online/ })).toBeVisible();
   await expect(page.locator('.tool-card')).toHaveCount(10);
 });
 
