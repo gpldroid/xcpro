@@ -148,14 +148,14 @@ export default function ToolWorkspace({ tool }: Props) {
         tolerance: { type: 'number', minimum: 5, maximum: 80 },
         scale: { type: 'string', enum: ['2', '4'] },
         watermarkText: { type: 'string', maxLength: 120 },
-        watermarkColor: { type: 'string', pattern: '^#[0-9a-fA-F]{6}
+        watermarkColor: { type: 'string', maxLength: 7 },
         watermarkPosition: { type: 'string', enum: ['bottom-right', 'bottom-left', 'top-right', 'top-center', 'center'] },
         watermarkSize: { type: 'number', minimum: 12, maximum: 120 },
         watermarkOpacity: { type: 'number', minimum: 10, maximum: 100 },
         topText: { type: 'string', maxLength: 100 },
         bottomText: { type: 'string', maxLength: 100 },
         memeSize: { type: 'number', minimum: 18, maximum: 100 },
-        memeColor: { type: 'string', pattern: '^#[0-9a-fA-F]{6}
+        memeColor: { type: 'string', maxLength: 7 },
         angle: { type: 'string', enum: ['0', '90', '180', '270'] },
         flipH: { type: 'boolean' },
         flipV: { type: 'boolean' },
