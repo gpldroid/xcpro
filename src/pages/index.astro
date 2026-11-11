@@ -20,7 +20,7 @@ import { tools } from '../data/tools';
   </section>
   <section class="section section--surface">
     <div class="container">
-      <div class="section-heading section-heading--toolkit"><div><span class="eyebrow">THE TOOLKIT</span><h2>Everything you need for everyday images</h2></div><p>Choose a focused tool, adjust only what matters, and export a separate result.</p></div>
+      <div class="section-heading section-heading--toolkit"><div><span class="eyebrow">THE TOOLKIT</span><h2>Everything you need for everyday images</h2></div></div>
       <div class="tool-grid">
         {tools.map((tool, index) => <a class="tool-card" href={`/tools/${tool.slug}.html`}><span class="tool-card__icon" aria-hidden="true">{['↘','▣','⌗','⇄','◒','◌','↗','T','Aa','↻'][index]}</span><h3>{tool.shortTitle}</h3><p>{tool.description}</p><span class="tool-card__link">Open tool <span aria-hidden="true">→</span></span></a>)}
       </div>
