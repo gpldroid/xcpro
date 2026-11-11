@@ -78,7 +78,8 @@ test('text and interactive color tokens meet WCAG AA contrast in both themes', a
     const resolve = (name: string) => tokens[name];
     const rgb = (hex: string) => {
       const value = hex.replace('#', '');
-      return `rgb(${parseInt(value.slice(0,2),16)}, ${parseInt(value.slice(2,4),16)}, ${parseInt(value.slice(4,6),16)})`;
+      const normalized = value.length === 3 ? value.split('').map((channel) => channel + channel).join('') : value;
+      return `rgb(${parseInt(normalized.slice(0,2),16)}, ${parseInt(normalized.slice(2,4),16)}, ${parseInt(normalized.slice(4,6),16)})`;
     };
     for (const surface of ['--bg', '--surface', '--surface-soft']) {
       expect(contrast(rgb(resolve('--muted')), rgb(resolve(surface))), `${theme}: muted text on ${surface}`).toBeGreaterThanOrEqual(4.5);
