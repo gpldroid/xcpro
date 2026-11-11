@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Edit, compress, resize, crop, convert and enhance images online for free. XConvert Pro provides fast browser-based image tools with simple workflows today.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#0b1730">
+    <link rel="canonical" href="https://xconvert.pro/">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/assets/icons/icon-192x192.png" type="image/png">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    
+    <!-- Critical Inline Styles -->
+    <style>
+        html{background:#f6f9fc}
+        body.home-page{margin:0;background:#f6f9fc;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+        .home-hero{position:relative;overflow:hidden;padding:clamp(64px,8vw,108px) 20px clamp(88px,10vw,132px);text-align:center;color:#fff;background:radial-gradient(circle at 50% -20%,rgba(14,165,233,.28),transparent 46%),linear-gradient(135deg,#091426 0%,#122448 55%,#0b1730 100%)}
+        .home-hero-inner{position:relative;z-index:1;width:min(900px,100%);margin:auto}
+        .home-eyebrow{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid rgba(125,211,252,.25);border-radius:999px;background:rgba(14,165,233,.1);color:#bae6fd;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .home-hero h1{margin:18px auto 16px;max-width:850px;font-size:clamp(1.9rem,4.5vw,3.25rem);line-height:1.12;letter-spacing:-.035em;font-weight:800;color:#fff}
+        .home-hero p{margin:0 auto;max-width:700px;color:#cbd5e1;font-size:clamp(1rem,1.5vw,1.125rem);line-height:1.7}
+        .home-hero strong{color:#fff}
+        .home-hero-cta{display:inline-flex;align-items:center;gap:12px;margin:26px auto 0;padding:12px 18px;border:1px solid rgba(125,211,252,.35);border-radius:12px;background:linear-gradient(135deg,#0284c7,#0ea5e9);color:#fff;text-decoration:none;font-size:.86rem;font-weight:850;box-shadow:0 12px 28px rgba(2,132,199,.24)}
+        .home-tools-wrap{position:relative;z-index:3;box-sizing:border-box;width:min(1180px,calc(100% - 32px));margin:-48px auto 76px;padding:30px;border:1px solid #e2e8f0;border-radius:26px;background:#fff;box-shadow:0 24px 60px rgba(15,23,42,.11)}
+        .home-tools-intro{text-align:center;margin:0 auto 24px}
+        .home-tools-kicker{color:#0284c7;font-size:.68rem;font-weight:900;letter-spacing:.16em}
+        .home-tools-intro h2{margin:8px 0 5px;color:#0f172a;font-size:clamp(1.35rem,2.4vw,1.8rem);font-weight:900}
+        .home-tools-intro p{margin:0;color:#64748b;font-size:.9rem;line-height:1.6}
+        .home-tools-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;scroll-margin-top:100px}
+        .home-tool-card{min-height:245px;display:flex;flex-direction:column;justify-content:space-between;padding:22px;border:1px solid #e2e8f0;border-radius:17px;background:#fff;text-decoration:none;color:inherit}
+        @media(max-width:1050px){.home-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+        @media(max-width:760px){.home-tools-wrap{padding:22px}.home-tools-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.home-hero{padding-top:54px;padding-bottom:100px}}
+        @media(max-width:480px){.home-tools-wrap{width:calc(100% - 20px);margin-top:-42px;margin-bottom:54px;padding:18px;border-radius:20px}.home-tools-grid{grid-template-columns:1fr;gap:12px}.home-tool-card{min-height:0;padding:18px}.home-hero h1{font-size:1.8rem}}
+    </style>
+
+    <!-- External Stylesheets Preload -->
+    <link rel="preload" href="/assets/css/style.css" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/assets/css/home.css" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/home.css">
+    </noscript>
+
+    <title>Free Online Image Tools | XConvert Pro</title>
+
+    <!-- SEO Meta & OpenGraph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="XConvert Pro">
+    <meta property="og:title" content="Free Online Image Tools | XConvert Pro">
+    <meta property="og:description" content="Edit, compress, resize, crop, convert and enhance images online for free. XConvert Pro provides fast browser-based image tools with simple workflows today.">
+    <meta property="og:url" content="https://xconvert.pro/">
+    <meta property="og:image" content="https://xconvert.pro/assets/icons/icon.svg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Free Online Image Tools | XConvert Pro">
+    <meta name="twitter:description" content="Edit, compress, resize, crop, convert and enhance images online for free. XConvert Pro provides fast browser-based image tools with simple workflows today.">
+    <meta name="twitter:image" content="https://xconvert.pro/assets/icons/icon.svg">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://xconvert.pro/#website",
+          "name": "Free Online Image Tools | XConvert Pro",
+          "url": "https://xconvert.pro/",
+          "description": "Free browser-based image tools for common image editing, conversion and optimization workflows."
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://xconvert.pro/#organization",
+          "name": "XConvert Pro",
+          "url": "https://xconvert.pro/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://xconvert.pro/assets/icons/icon.svg"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://xconvert.pro/#webpage",
+          "url": "https://xconvert.pro/",
+          "name": "XConvert Pro | Free Online Image Tools",
+          "isPartOf": { "@id": "https://xconvert.pro/#website" },
+          "about": { "@id": "https://xconvert.pro/#organization" }
+        }
+      ]
+    }
+    </script>
+    <style id="shell-reserve">[data-site-header]{min-height:72px}@media(max-width:900px){[data-site-header]{min-height:62px}}@media(max-width:600px){[data-site-header]{min-height:58px}}</style>
+</head>
+<body class="home-page">
+
+    <!-- Header Architecture -->
+    <header class="site-header" data-site-header>
+        <div class="site-container site-header-inner">
+            <a href="/" class="brand" aria-label="XConvert Pro Home">
+                <div class="brand-mark">X</div>
+                <div class="brand-copy">
+                    <span class="brand-name">XConvert<span>Pro</span></span>
+                    <span class="brand-tagline">IMAGE TOOLKIT</span>
+                </div>
+            </a>
+
+            <nav class="site-nav" aria-label="Main Navigation">
+                <a href="/" class="nav-link active">Home</a>
+                <details class="dropdown-container">
+                    <summary class="nav-link">
+                        <span>Tools</span>
+                        <span class="nav-chevron">▾</span>
+                    </summary>
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-head">
+                            <strong>Featured Image Tools</strong>
+                            <span>Fast &amp; Free</span>
+                        </div>
+                        <div class="nav-dropdown-scroll">
+                            <div class="nav-tool-group">
+                                <h3>Optimize</h3>
+                                <a href="/tools/compress-image.html" class="nav-tool-item">
+                                    <svg viewBox="0 0 24 24"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+                                    <span><strong>Compress</strong><small>Reduce file size</small></span>
+                                </a>
+                                <a href="/tools/resize-image.html" class="nav-tool-item">
+                                    <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                    <span><strong>Resize</strong><small>Scale dimensions</small></span>
+                                </a>
+                            </div>
+                            <div class="nav-tool-group">
+                                <h3>Edit</h3>
+                                <a href="/tools/crop-image.html" class="nav-tool-item">
+                                    <svg viewBox="0 0 24 24"><path d="M6 2v14a2 2 0 002 2h14M18 22V8a2 2 0 00-2-2H2"/></svg>
+                                    <span><strong>Crop</strong><small>Cut &amp; trim image</small></span>
+                                </a>
+                                <a href="/tools/photo-editor.html" class="nav-tool-item">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>
+                                    <span><strong>Photo Editor</strong><small>Filters &amp; effects</small></span>
+                                </a>
+                            </div>
+                            <div class="nav-tool-group">
+                                <h3>Convert</h3>
+                                <a href="/tools/convert-image.html" class="nav-tool-item">
+                                    <svg viewBox="0 0 24 24"><path d="M8 7h11M8 7l4-4M8 7l4 4M16 17H5M16 17l-4 4M16 17l-4-4"/></svg>
+                                    <span><strong>Convert</strong><small>JPG, PNG, WebP</small></span>
+                                </a>
+                                <a href="/tools/remove-background.html" class="nav-tool-item">
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+                                    <span><strong>Remove BG</strong><small>Make transparent</small></span>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="#tools-grid" class="all-tools-link">
+                            <span>Browse All 10+ Tools</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </details>
+            </nav>
+
+            <div class="site-actions">
+                <a href="#tools-grid" class="header-cta">Get Started</a>
+                <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle Dark Mode">🌙</button>
+                <button type="button" class="menu-toggle" id="menuToggleBtn" aria-label="Toggle Mobile Menu">☰</button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-inner">
+                <div class="mobile-menu-primary">
+                    <a href="/">Home</a>
+                    <a href="#tools-grid" class="mobile-cta">All Tools</a>
+                </div>
+                <details>
+                    <summary>Image Tools Category</summary>
+                    <a href="/tools/compress-image.html" class="nav-tool-item"><strong>Compress Images</strong></a>
+                    <a href="/tools/resize-image.html" class="nav-tool-item"><strong>Resize Images</strong></a>
+                    <a href="/tools/crop-image.html" class="nav-tool-item"><strong>Crop Images</strong></a>
+                    <a href="/tools/convert-image.html" class="nav-tool-item"><strong>Convert Format</strong></a>
+                    <a href="/tools/photo-editor.html" class="nav-tool-item"><strong>Photo Editor</strong></a>
+                    <a href="/tools/remove-background.html" class="nav-tool-item"><strong>Remove Background</strong></a>
+                </details>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="home-main">
+        <section class="home-hero">
+            <div class="home-hero-inner">
+                <span class="home-eyebrow">Free browser image tools</span>
+                <h1>Everything you need to edit images online</h1>
+                <p>A fast, simple image toolbox that is <strong>free to use</strong>. Compress, resize, crop, convert, edit and enhance images directly in your browser.</p>
+                <a class="home-hero-cta" href="#tools-grid">
+                    <span>Explore all tools</span>
+                    <span aria-hidden="true">↓</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Tools Grid Section -->
+        <section class="home-tools-wrap" aria-labelledby="tools-heading">
+            <h2 id="tools-heading" class="sr-only">Image tools</h2>
+            <div class="home-tools-intro">
+                <span class="home-tools-kicker">THE XCONVERT TOOLKIT</span>
+                <h2>Choose the right image tool</h2>
+                <p>Simple tools for everyday image tasks, all in one place.</p>
+            </div>
+
+            <div class="home-tools-grid" id="tools-grid">
+                <a class="home-tool-card" href="/tools/compress-image.html">
+                    <div>
+                        <div class="home-tool-icon">↓</div>
+                        <h2>Compress Images</h2>
+                        <p>Adjust JPEG quality to reduce image file size and download an optimized JPG.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/resize-image.html">
+                    <div>
+                        <div class="home-tool-icon">↗</div>
+                        <h2>Resize Images</h2>
+                        <p>Set exact pixel dimensions or resize images by percentage while keeping proportions.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/crop-image.html">
+                    <div>
+                        <div class="home-tool-icon">⌗</div>
+                        <h2>Crop Images</h2>
+                        <p>Crop an image with adjustable position and area controls before exporting.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/convert-image.html">
+                    <div>
+                        <div class="home-tool-icon">⇄</div>
+                        <h2>Convert Images</h2>
+                        <p>Convert supported images to JPG, PNG or WebP formats in your browser.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/photo-editor.html">
+                    <div>
+                        <div class="home-tool-icon">✦</div>
+                        <h2>Photo Editor</h2>
+                        <p>Adjust brightness, contrast, saturation, blur and color effects on your image.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/remove-background.html">
+                    <div>
+                        <div class="home-tool-icon">✧</div>
+                        <h2>Remove Background</h2>
+                        <p>Remove connected background colors around the image edges and export a transparent PNG.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/upscale-image.html">
+                    <div>
+                        <div class="home-tool-icon">↑</div>
+                        <h2>Upscale Images</h2>
+                        <p>Enlarge image dimensions with browser-based canvas scaling.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/watermark-image.html">
+                    <div>
+                        <div class="home-tool-icon">◆</div>
+                        <h2>Watermark Images</h2>
+                        <p>Add a customizable text watermark with adjustable size, color, opacity and position.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/meme-generator.html">
+                    <div>
+                        <div class="home-tool-icon">☺</div>
+                        <h2>Meme Generator</h2>
+                        <p>Add top and bottom captions to an image and export your meme.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+
+                <a class="home-tool-card" href="/tools/rotate-image.html">
+                    <div>
+                        <div class="home-tool-icon">↻</div>
+                        <h2>Rotate Images</h2>
+                        <p>Rotate and flip images, then export the adjusted result.</p>
+                    </div>
+                    <span class="home-tool-link">Open tool →</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Trust / Benefits Section -->
+        <section class="home-trust">
+            <h2>Fast, Secure &amp; Browser-Based</h2>
+            <p>XConvert Pro processes files directly inside your web browser. Your images remain private and safe on your device.</p>
+            <div class="home-points">
+                <div class="home-point">
+                    <strong>🔒 Private &amp; Secure</strong>
+                    <span>Processing takes place locally inside your client environment.</span>
+                </div>
+                <div class="home-point">
+                    <strong>⚡ Lightning Fast</strong>
+                    <span>No waiting for server uploads or queues. Instant canvas operations.</span>
+                </div>
+                <div class="home-point">
+                    <strong>💻 100% Free to Use</strong>
+                    <span>No subscriptions or mandatory registration required to edit files.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Architecture -->
+    <footer class="site-footer" data-site-footer>
+        <div class="site-container">
+            <div class="footer-grid">
+                <div class="footer-brand-col">
+                    <a href="/" class="footer-brand">XConvert<span>Pro</span></a>
+                    <p>Free, fast, and secure browser-based image utilities for everyday editing, conversion, and compression needs.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-icon social-facebook" aria-label="Facebook">f</a>
+                        <a href="#" class="social-icon social-pinterest" aria-label="Pinterest">P</a>
+                        <a href="#" class="social-icon social-linkedin" aria-label="LinkedIn">in</a>
+                        <a href="#" class="social-icon social-threads" aria-label="Threads">@</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>Popular Tools</h2>
+                    <div class="footer-links">
+                        <a href="/tools/compress-image.html">Compress Images</a>
+                        <a href="/tools/resize-image.html">Resize Images</a>
+                        <a href="/tools/crop-image.html">Crop Images</a>
+                        <a href="/tools/convert-image.html">Convert Images</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>Image Editing</h2>
+                    <div class="footer-links">
+                        <a href="/tools/photo-editor.html">Photo Editor</a>
+                        <a href="/tools/remove-background.html">Remove Background</a>
+                        <a href="/tools/watermark-image.html">Watermark Images</a>
+                        <a href="/tools/meme-generator.html">Meme Generator</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>Utilities</h2>
+                    <div class="footer-links">
+                        <a href="/tools/upscale-image.html">Upscale Images</a>
+                        <a href="/tools/rotate-image.html">Rotate Images</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>Legal &amp; Info</h2>
+                    <div class="footer-links">
+                        <a href="/privacy.html">Privacy Policy</a>
+                        <a href="/terms.html">Terms of Service</a>
+                        <a href="/about.html">About Us</a>
+                        <a href="/contact.html">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <span>&copy; 2026 <strong>XConvert Pro</strong>. All rights reserved.</span>
+                </div>
+                <div class="footer-legal-inline">
+                    <a href="/privacy.html">Privacy</a>
+                    <a href="/terms.html">Terms</a>
+                    <button type="button" class="cookie-settings-link">Cookie Settings</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Site Scripts -->
+    <script src="/assets/js/site-shell.js" defer></script>
+</body>
+</html>
