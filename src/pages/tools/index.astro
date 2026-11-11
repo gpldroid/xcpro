@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tools } from '../../data/tools';
+---
+<BaseLayout title="All Image Tools | XConvert Pro" description="Browse XConvert Pro image compression, resizing, cropping, conversion, editing, watermark, meme, and rotation tools.">
+  <section class="container page-hero">
+    <span class="eyebrow">THE COMPLETE TOOLKIT</span>
+    <h1>Image tools for practical work</h1>
+    <p>Choose a dedicated workspace. Each tool explains its limits, processes supported images in your browser, and exports a separate file.</p>
+  </section>
+  <section class="container section" style="padding-top:12px">
+    <div class="tool-grid">
+      {tools.map((tool, index) => (
+        <a class="tool-card" href={`/tools/${tool.slug}.html`}>
+          <span class="tool-card__icon" aria-hidden="true">{['↘','▣','⌗','⇄','◒','◌','↗','T','Aa','↻'][index]}</span>
+          <h3>{tool.shortTitle}</h3><p>{tool.description}</p><span class="tool-card__link">Open tool →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

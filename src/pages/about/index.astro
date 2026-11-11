@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About XConvert Pro" description="Learn about XConvert Pro, a practical collection of browser-based image tools.">
+  <section class="container page-hero"><span class="eyebrow">ABOUT XCONVERT PRO</span><h1>Practical image tools, built around your workflow</h1><p>XConvert Pro brings common image tasks into focused workspaces with straightforward controls and clear output limitations.</p></section>
+  <section class="container section" style="padding-top:10px"><article class="content-card prose">
+    <h2>What the product does</h2><p>XConvert Pro provides browser-based tools for compressing, resizing, cropping, converting, editing, watermarking, and transforming raster images. The current rebuild uses Astro for static pages and React for interactive workspaces.</p>
+    <h2>Privacy by design</h2><p>Core image processing is performed locally in the browser. The tools create a new output file rather than modifying the source file. No account is required for the core workflow.</p>
+    <h2>Technical limits</h2><p>Image decoding, canvas encoding, supported formats, memory limits, and performance depend on the browser and device. The background-removal tool is a color-based flood-fill utility, not AI segmentation. Upscaling uses canvas interpolation, not AI detail reconstruction.</p>
+    <h2>Product direction</h2><p>The project prioritizes predictable exports, accessible controls, responsive layouts, and explicit explanations of what each tool can and cannot do.</p>
+  </article></section>
+</BaseLayout>

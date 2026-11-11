@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tools } from '../../data/tools';
+---
+<BaseLayout title="Image Guides and Help | XConvert Pro" description="Practical guidance for choosing image formats, optimizing file sizes, and preparing images for the web.">
+  <section class="container page-hero"><span class="eyebrow">GUIDES & HELP</span><h1>Make better image decisions</h1><p>Short, practical notes for common image workflows and format choices.</p></section>
+  <section class="container section" style="padding-top:10px"><div class="tool-grid">
+    <article class="content-card"><h2>Choosing an image format</h2><p>Use WebP for efficient web delivery where supported, JPEG for broad photographic compatibility, and PNG when lossless output or transparency is needed.</p><a class="tool-card__link" href="/tools/convert-image.html">Open image converter →</a></article>
+    <article class="content-card"><h2>Optimizing images for the web</h2><p>Resize to the actual display dimensions before compressing. Compare quality and file size instead of assuming one quality setting works for every image.</p><a class="tool-card__link" href="/tools/compress-image.html">Open image compressor →</a></article>
+    <article class="content-card"><h2>Preparing transparent images</h2><p>PNG supports transparency. Edge-color removal is suitable only for simple backgrounds and may affect subject pixels that share similar colors.</p><a class="tool-card__link" href="/tools/remove-background.html">Open background remover →</a></article>
+    <article class="content-card"><h2>Image dimensions and scaling</h2><p>Upscaling increases pixel dimensions but cannot recreate source detail. Prefer resizing from a high-resolution original when possible.</p><a class="tool-card__link" href="/tools/resize-image.html">Open image resizer →</a></article>
+    <article class="content-card"><h2>Protecting original files</h2><p>Keep an untouched source copy before editing. Exported results are separate files, and lossy formats may discard image information.</p><a class="tool-card__link" href="/tools/photo-editor.html">Open photo editor →</a></article>
+    <article class="content-card"><h2>Explore all tools</h2><p>Use the dedicated workspaces to compress, crop, convert, watermark, rotate, and create image memes.</p><a class="tool-card__link" href="/tools/">Browse {tools.length} tools →</a></article>
+  </div></section>
+</BaseLayout>

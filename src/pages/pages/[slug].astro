@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sitePages } from '../../data/sitePages';
+
+
+export function getStaticPaths() {
+  return Object.keys(sitePages).map((slug) => ({ params: { slug }, props: { page: sitePages[slug as keyof typeof sitePages] } }));
+}
+const { page } = Astro.props;
+const canonical = `https://xconvert.pro/pages/${Astro.params.slug}.html`;
+---
+<BaseLayout title={`${page.title} | XConvert Pro`} description={page.description} canonical={canonical}>
+  <section class="container page-hero"><span class="eyebrow">XCONVERT PRO · INFORMATION</span><h1>{page.title}</h1><p>{page.description}</p></section>
+  <section class="container section" style="padding-top:10px"><article class="content-card prose">
+    {page.sections.map(([heading, body]) => <section><h2>{heading}</h2><p>{body}</p></section>)}
+    {Astro.params.slug === 'tools' && <p><a class="button button--primary" href="/tools/">Browse all tools →</a></p>}
+    {Astro.params.slug === 'about' && <p><a href="/about/">Read the full about page →</a></p>}
+    {Astro.params.slug === 'contact' && <p><a class="button button--primary" href="https://github.com/gpldroid/xcpro/issues" target="_blank" rel="noopener noreferrer">Open GitHub issues ↗</a></p>}
+  </article></section>
+</BaseLayout>

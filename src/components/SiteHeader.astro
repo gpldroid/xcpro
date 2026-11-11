@@ -1,0 +1,21 @@
+---
+import ThemeToggle from './ThemeToggle';
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label="XConvert Pro home">
+      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 40 40" role="presentation"><path d="M8 10h24v6H8zM8 24h24v6H8zM17 5l-7 15 7 15h7l-7-15 7-15z" fill="currentColor"/></svg></span>
+      <span class="brand__word">XConvert<span>Pro</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="/tools/">All tools</a>
+      <a href="/archives/">Guides</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <div class="site-header__actions">
+      <ThemeToggle client:load />
+      <a class="button button--primary header-cta" href="/tools/">Explore tools <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ToolWorkspace from '../../components/ToolWorkspace';
+import { tools } from '../../data/tools';
+
+export function getStaticPaths() {
+  return tools.map((tool) => ({ params: { slug: tool.slug }, props: { tool } }));
+}
+const { tool } = Astro.props;
+const canonical = `https://xconvert.pro/tools/${tool.slug}.html`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: tool.title,
+  url: canonical,
+  description: tool.description,
+  applicationCategory: 'PhotoApplication',
+  operatingSystem: 'Web',
+  isPartOf: { '@type': 'WebSite', name: 'XConvert Pro', url: 'https://xconvert.pro/' },
+};
+---
+<BaseLayout title={`${tool.title} | XConvert Pro`} description={tool.description} canonical={canonical}>
+  <Fragment slot="head"><script type="application/ld+json" set:html={JSON.stringify(schema)} /></Fragment>
+  <div class="container breadcrumbs"><a href="/">Home</a> / <a href="/tools/">All tools</a> / <span>{tool.shortTitle}</span></div>
+  <section class="container page-hero"><span class="eyebrow">{tool.category} · {tool.badge}</span><h1>{tool.title}</h1><p>{tool.summary}</p></section>
+  <section class="container tool-detail">
+    <div>
+      <ToolWorkspace client:load tool={tool} />
+      <article class="content-card prose" style="margin-top:22px">
+        <h2>How to use {tool.shortTitle}</h2>
+        <ol><li>Choose an image from your device. The workspace checks the file type and size before processing.</li><li>Adjust the available settings. The original file remains unchanged.</li><li>Select Apply and preview. Review the output before downloading.</li><li>Use Download image to save the processed file to your device.</li></ol>
+        <h2>Output and limitations</h2>
+        <p>{tool.description} Supported output: {tool.output}. Processing depends on browser image-decoding and canvas capabilities. Very large images may exceed available device memory.</p>
+        <p>Files are processed locally by this workspace. The background remover uses edge-connected color matching, and the upscaler uses canvas resampling; neither is an AI model. Animated GIF files are decoded as a still frame by browsers that expose only a single ImageBitmap frame.</p>
+      </article>
+      <section style="margin-top:24px"><h2>Frequently asked questions</h2><div class="faq-list">{tool.faqs.map((faq) => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div></section>
+    </div>
+    <aside class="tool-aside"><h2>Before you start</h2><ul><li>Use a modern browser with Canvas and ImageBitmap support.</li><li>Keep the source file if you may need another version.</li><li>Choose PNG when transparency is important.</li><li>For large files, close other memory-heavy tabs.</li></ul><hr style="border:0;border-top:1px solid var(--line);margin:20px 0" /><h2>Related tools</h2><ul>{tools.filter((item) => item.id !== tool.id).slice(0, 6).map((item) => <li><a href={`/tools/${item.slug}.html`}>{item.shortTitle}</a></li>)}</ul></aside>
+  </section>
+</BaseLayout>

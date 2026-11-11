@@ -1,0 +1,58 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import MobileTabBar from '../components/MobileTabBar';
+import CookieConsent from '../components/CookieConsent';
+import WebMCPTools from '../components/WebMCPTools';
+import '../styles/global.css';
+
+type Props = { title: string; description: string; canonical?: string; noindex?: boolean; type?: 'website' | 'article' };
+const { title, description, canonical, noindex = false, type = 'website' } = Astro.props;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f8fc" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large'} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="XConvert Pro" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://xconvert.pro/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://xconvert.pro/og-image.svg" />
+    <slot name="head" />
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem('xconvert-theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') document.documentElement.dataset.theme = savedTheme;
+      } catch { /* Local storage may be disabled by the browser. */ }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader />
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <SiteFooter />
+    <MobileTabBar client:load currentPath={Astro.url.pathname} />
+    <CookieConsent client:idle />
+    <WebMCPTools client:load />
+    <script>
+      if ('serviceWorker' in navigator && location.protocol === 'https:') {
+        window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}), { once: true });
+      }
+    </script>
+  </body>
+</html>

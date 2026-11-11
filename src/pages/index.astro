@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { tools } from '../data/tools';
+---
+<BaseLayout title="XConvert Pro — Free Online Image Tools" description="Compress, resize, crop, convert, edit, and transform images with practical browser-based tools. Your files stay on your device.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'XConvert Pro', url: 'https://xconvert.pro/', description: 'Browser-based image editing and conversion tools.' })} />
+  </Fragment>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">IMAGE TOOLS, WITHOUT THE FRICTION</span>
+        <h1>Make every image <em>work better.</em></h1>
+        <p class="hero-copy">A focused toolkit to compress, resize, convert, and edit images. Process supported files directly in your browser and keep control of your originals.</p>
+        <div class="hero-actions"><a class="button button--primary" href="/tools/">Explore all tools <span aria-hidden="true">→</span></a><a class="button button--quiet" href="/about/">How it works</a></div>
+        <div class="hero-note"><span>Browser-based processing</span><span>No account required</span><span>Original stays untouched</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="art-card"><div class="art-card__top"><span>IMAGE WORKSPACE</span><span>01 / 10</span></div><div class="art-preview"><span class="art-preview__spark">✦</span></div><div class="art-card__bottom"><span>Optimized output</span><strong>Ready to export</strong></div></div></div>
+    </div>
+  </section>
+  <section class="section section--surface">
+    <div class="container">
+      <div class="section-heading"><div><span class="eyebrow">THE TOOLKIT</span><h2>Everything you need for everyday images</h2></div><p>Choose a focused tool, adjust only what matters, and export a separate result.</p></div>
+      <div class="tool-grid">
+        {tools.map((tool, index) => <a class="tool-card" href={`/tools/${tool.slug}.html`}><span class="tool-card__icon" aria-hidden="true">{['↘','▣','⌗','⇄','◒','◌','↗','T','Aa','↻'][index]}</span><h3>{tool.shortTitle}</h3><p>{tool.description}</p><span class="tool-card__link">Open tool <span aria-hidden="true">→</span></span></a>)}
+      </div>
+    </div>
+  </section>
+  <section class="section"><div class="container"><div class="section-heading"><div><span class="eyebrow">A SIMPLE WORKFLOW</span><h2>From original to finished file</h2></div></div><div class="feature-grid">
+    <article class="feature"><span class="feature__number">01</span><h3>Choose your image</h3><p>Select a local file or drop it into the workspace. The original is never overwritten.</p></article>
+    <article class="feature"><span class="feature__number">02</span><h3>Adjust and preview</h3><p>Use clear controls and process the image in your browser. Larger tasks can run in a Web Worker.</p></article>
+    <article class="feature"><span class="feature__number">03</span><h3>Export your result</h3><p>Review the processed preview and download a new file in a supported output format.</p></article>
+  </div></div></section>
+  <section class="section"><div class="container cta-band"><div><h2>Ready to improve an image?</h2><p>Pick a tool and start with a file on your device.</p></div><a class="button" href="/tools/">Browse image tools <span aria-hidden="true">↗</span></a></div></section>
+</BaseLayout>

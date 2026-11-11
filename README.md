@@ -1,41 +1,47 @@
 # XConvert Pro
 
-XConvert Pro is a client-side web application for common image editing and conversion tasks.
+XConvert Pro is a browser-based application for common image editing and conversion tasks.
 
-## Structure
+## Rebuild application
 
-- `index.html` — main application entry point
-- `assets/css/style.css` — application styles
-- `assets/js/app.js` — application logic
-- `pages/` — standalone informational/SEO pages
-- `sitemap.xml` — XML sitemap
-- `robots.txt` — crawler directives
+The rebuild uses Astro, React, and TypeScript. Astro generates static, SEO-friendly pages. React powers interactive workspaces. Image processing is isolated in a browser engine with an OffscreenCanvas Worker path and a main-thread fallback.
 
-## Main tools
+### Requirements
 
-- Compress IMAGE
-- Resize IMAGE
-- Crop IMAGE
-- Convert IMAGE
-- Photo Editor
-- Remove Background
-- Upscale IMAGE
-- Watermark IMAGE
-- Meme Generator
-- Rotate IMAGE
+- Node.js 22.23.4 or later
+- npm
 
-## Development
+### Development
 
-The application is static and can be served by any static web server or GitHub Pages.
+```sh
+npm install
+npm run dev
+```
 
-No server-side image upload is required for the core browser-based editing workflow.
+### Validation
+
+```sh
+npm run validate
+npm run test:e2e
+```
+
+Validation runs Astro/TypeScript diagnostics, ESLint, Vitest, and a production build. `npm run test:e2e` builds the static site and runs Chromium browser tests. Prettier formatting is available through `npm run format`.
+
+## Image tools
+
+Compress, resize, crop, convert, photo edit, simple edge-color background removal, canvas interpolation upscale, text watermark, meme captions, and rotate/flip.
+
+## Processing notes
+
+- Core image processing runs in the browser; the tools do not upload image files to an image-processing backend.
+- Background removal is edge-connected color flood fill, not AI segmentation.
+- Upscaling uses canvas interpolation, not AI detail reconstruction.
+- Browser decoding, memory availability, and canvas encoding affect supported formats and maximum dimensions.
+
+## Existing production application
+
+The original static site remains preserved on the production `main` branch during this parallel migration. The rebuild branch is not configured for automatic production deployment. Do not merge or deploy without separate maintainer approval.
 
 ## Official website
 
-[XConvert Pro](https://xconvert.pro/) — official website.
-
-### Resources
-
-- [Image tools](https://xconvert.pro/pages/tools.html)
-- [API documentation](https://xconvert.pro/pages/api.html)
-- [About XConvert Pro](https://xconvert.pro/pages/about.html)
+[XConvert Pro](https://xconvert.pro/) · [GitHub repository](https://github.com/gpldroid/xcpro)
