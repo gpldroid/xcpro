@@ -1,7 +1,7 @@
 export type ToolField = {
   key: string;
   label: string;
-  type: 'range' | 'number' | 'select' | 'text' | 'toggle';
+  type: 'range' | 'number' | 'select' | 'text' | 'color' | 'toggle';
   min?: number;
   max?: number;
   step?: number;
@@ -126,7 +126,7 @@ export const tools: ToolDefinition[] = [
     slug: 'photo-editor',
     title: 'Online Photo Editor',
     shortTitle: 'Photo Editor',
-    description: 'Adjust brightness, contrast, saturation, and blur before exporting.',
+    description: 'Adjust brightness, contrast, saturation, grayscale, sepia, hue, and blur before exporting.',
     summary: 'Apply practical image adjustments in the browser and save a separate edited result.',
     category: 'Edit',
     badge: 'Quick adjustments',
@@ -199,7 +199,7 @@ export const tools: ToolDefinition[] = [
     output: 'WebP, JPEG, or PNG',
     fields: [
       { key: 'watermarkText', label: 'Watermark text', type: 'text', defaultValue: '© XConvert Pro' },
-      { key: 'watermarkColor', label: 'Watermark color', type: 'text', defaultValue: '#ffffff' },
+      { key: 'watermarkColor', label: 'Watermark color', type: 'color', defaultValue: '#ffffff' },
       { key: 'watermarkPosition', label: 'Position', type: 'select', defaultValue: 'bottom-right', options: [{ label: 'Bottom right', value: 'bottom-right' }, { label: 'Bottom left', value: 'bottom-left' }, { label: 'Top right', value: 'top-right' }, { label: 'Top center', value: 'top-center' }, { label: 'Center', value: 'center' }] },
       { key: 'watermarkSize', label: 'Text size', type: 'range', min: 12, max: 120, defaultValue: 36 },
       { key: 'watermarkOpacity', label: 'Opacity', type: 'range', min: 10, max: 100, defaultValue: 72 },
@@ -225,7 +225,7 @@ export const tools: ToolDefinition[] = [
       { key: 'topText', label: 'Top caption', type: 'text', defaultValue: 'WHEN YOU USE' },
       { key: 'bottomText', label: 'Bottom caption', type: 'text', defaultValue: 'XCONVERT PRO FOR YOUR PHOTOS' },
       { key: 'memeSize', label: 'Caption size', type: 'range', min: 18, max: 100, defaultValue: 42 },
-      { key: 'memeColor', label: 'Caption color', type: 'text', defaultValue: '#ffffff' },
+      { key: 'memeColor', label: 'Caption color', type: 'color', defaultValue: '#ffffff' },
       formatField,
     ],
     faqs: [
