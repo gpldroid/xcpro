@@ -2,14 +2,49 @@
 
 XConvert Pro is a client-side web application for common image editing and conversion tasks.
 
-## Structure
+## Current production application
 
-- `index.html` — main application entry point
-- `assets/css/style.css` — application styles
-- `assets/js/app.js` — application logic
-- `pages/` — standalone informational/SEO pages
-- `sitemap.xml` — XML sitemap
-- `robots.txt` — crawler directives
+The existing static application remains intact during the rebuild. Its current entry points and assets are retained on the `main` branch while the replacement is developed independently.
+
+## Rebuild workspace
+
+The replacement application is being developed with Astro, React, and TypeScript. Astro provides static, SEO-friendly pages; React is reserved for interactive workspaces; image-processing logic will live in framework-independent modules and Web Workers.
+
+### Requirements
+
+- Node.js 22.23.4 or later
+- npm
+
+### Development commands
+
+```sh
+npm install
+npm run dev
+npm run check
+npm run lint
+npm run format:check
+npm run build
+npm run preview
+```
+
+Run the full validation sequence with:
+
+```sh
+npm run validate
+```
+
+The generated static site is written to `dist/`. This rebuild branch is not connected to production deployment. Do not publish or merge it without a separate approval.
+
+## Legacy application inventory
+
+- `index.html` — current main application entry point
+- `assets/css/` — existing application styles
+- `assets/js/` — existing application logic and modules
+- `tools/` — existing image-tool pages
+- `pages/` — existing informational and SEO pages
+- `sitemap.xml` — current XML sitemap
+- `robots.txt` — current crawler directives
+- `sw.js` — current service worker
 
 ## Main tools
 
@@ -23,12 +58,6 @@ XConvert Pro is a client-side web application for common image editing and conve
 - Watermark IMAGE
 - Meme Generator
 - Rotate IMAGE
-
-## Development
-
-The application is static and can be served by any static web server or GitHub Pages.
-
-No server-side image upload is required for the core browser-based editing workflow.
 
 ## Official website
 
