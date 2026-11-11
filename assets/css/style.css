@@ -1618,3 +1618,100 @@ scroll-behavior: auto;
 
 
 }
+
+
+/* Mobile bottom tab bar — lightweight inline Lucide-style icons */
+.mobile-tab-bar {
+display: none;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-tab-bar {
+    position: fixed;
+    z-index: 1000;
+    inset-inline: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+    min-height: 68px;
+    padding: 7px max(10px, env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    border-top: 1px solid rgba(148, 163, 184, 0.22);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 -8px 28px rgba(15, 23, 42, 0.08);
+    -webkit-backdrop-filter: blur(18px) saturate(1.5);
+    backdrop-filter: blur(18px) saturate(1.5);
+  }
+
+  .mobile-tab-item {
+    min-width: 0;
+    min-height: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 2px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: #64748b;
+    font: inherit;
+    font-size: 0.68rem;
+    font-weight: 750;
+    line-height: 1.15;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+  }
+
+  .mobile-tab-item svg {
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mobile-tab-item.is-active {
+    color: #0284c7;
+    background: rgba(14, 165, 233, 0.09);
+  }
+
+  .mobile-tab-item:active {
+    transform: scale(0.96);
+  }
+
+  .mobile-tab-item:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .dark .mobile-tab-bar {
+    border-top-color: rgba(71, 85, 105, 0.55);
+    background: rgba(11, 19, 41, 0.94);
+    box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.28);
+  }
+
+  .dark .mobile-tab-item {
+    color: #94a3b8;
+  }
+
+  .dark .mobile-tab-item.is-active {
+    color: #7dd3fc;
+    background: rgba(14, 165, 233, 0.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-tab-item {
+    transition: none;
+  }
+}
