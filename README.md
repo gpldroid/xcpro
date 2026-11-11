@@ -1,70 +1,46 @@
 # XConvert Pro
 
-XConvert Pro is a client-side web application for common image editing and conversion tasks.
+XConvert Pro is a browser-based application for common image editing and conversion tasks.
 
-## Current production application
+## Rebuild application
 
-The existing static application remains intact during the rebuild. Its current entry points and assets are retained on the `main` branch while the replacement is developed independently.
-
-## Rebuild workspace
-
-The replacement application is being developed with Astro, React, and TypeScript. Astro provides static, SEO-friendly pages; React is reserved for interactive workspaces; image-processing logic will live in framework-independent modules and Web Workers.
+The rebuild uses Astro, React, and TypeScript. Astro generates static, SEO-friendly pages. React powers interactive workspaces. Image processing is isolated in a browser engine with an OffscreenCanvas Worker path and a main-thread fallback.
 
 ### Requirements
 
 - Node.js 22.23.4 or later
 - npm
 
-### Development commands
+### Development
 
 ```sh
 npm install
 npm run dev
-npm run check
-npm run lint
-npm run format:check
-npm run build
-npm run preview
 ```
 
-Run the full validation sequence with:
+### Validation
 
 ```sh
 npm run validate
 ```
 
-The generated static site is written to `dist/`. This rebuild branch is not connected to production deployment. Do not publish or merge it without a separate approval.
+Validation runs Astro/TypeScript diagnostics, ESLint, Prettier, Vitest, and a production build.
 
-## Legacy application inventory
+## Image tools
 
-- `index.html` — current main application entry point
-- `assets/css/` — existing application styles
-- `assets/js/` — existing application logic and modules
-- `tools/` — existing image-tool pages
-- `pages/` — existing informational and SEO pages
-- `sitemap.xml` — current XML sitemap
-- `robots.txt` — current crawler directives
-- `sw.js` — current service worker
+Compress, resize, crop, convert, photo edit, simple edge-color background removal, canvas interpolation upscale, text watermark, meme captions, and rotate/flip.
 
-## Main tools
+## Processing notes
 
-- Compress IMAGE
-- Resize IMAGE
-- Crop IMAGE
-- Convert IMAGE
-- Photo Editor
-- Remove Background
-- Upscale IMAGE
-- Watermark IMAGE
-- Meme Generator
-- Rotate IMAGE
+- Core image processing runs in the browser; the tools do not upload image files to an image-processing backend.
+- Background removal is edge-connected color flood fill, not AI segmentation.
+- Upscaling uses canvas interpolation, not AI detail reconstruction.
+- Browser decoding, memory availability, and canvas encoding affect supported formats and maximum dimensions.
+
+## Existing production application
+
+The original static site remains preserved on the production `main` branch during this parallel migration. The rebuild branch is not configured for automatic production deployment. Do not merge or deploy without separate maintainer approval.
 
 ## Official website
 
-[XConvert Pro](https://xconvert.pro/) — official website.
-
-### Resources
-
-- [Image tools](https://xconvert.pro/pages/tools.html)
-- [API documentation](https://xconvert.pro/pages/api.html)
-- [About XConvert Pro](https://xconvert.pro/pages/about.html)
+[XConvert Pro](https://xconvert.pro/) · [GitHub repository](https://github.com/gpldroid/xcpro)

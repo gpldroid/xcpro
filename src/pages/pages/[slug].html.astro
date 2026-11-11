@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pages = {
+  privacy: {
+    title: 'Privacy Policy',
+    description: 'How XConvert Pro handles browser preferences and image processing.',
+    sections: [
+      ['Local image processing', 'Core image operations are performed in your browser. The image file selected for a tool is not uploaded to an XConvert Pro image-processing server by the current client-side workflow. Browser extensions, network inspection tools, or other software on your device may have separate access to local activity.'],
+      ['Browser storage', 'The site may use local browser storage for theme and cookie preference choices. These settings remain in your browser and can be cleared through browser settings.'],
+      ['Third-party services', 'The current rebuild does not add advertising, analytics, or external image-upload services. Fonts may be requested from Google Fonts when network access is available. Browser and hosting providers may process standard connection logs under their own policies.'],
+      ['Data retention', 'XConvert Pro does not retain source image files through the client-side image workflow. Temporary preview URLs and browser memory are released when the workspace is updated or closed.'],
+      ['Your choices', 'You can decline optional cookie preferences, clear local storage, and use browser controls to restrict external requests.'],
+      ['Policy changes', 'This policy may be updated when product features or infrastructure change. Review this page after significant product updates.']
+    ]
+  },
+  terms: {
+    title: 'Terms of Use',
+    description: 'Terms for using the XConvert Pro browser-based image tools.',
+    sections: [
+      ['Use of the tools', 'You may use the tools for lawful personal or commercial image workflows, subject to these terms and applicable law. You are responsible for ensuring that you have the rights and permissions required to process and publish your images.'],
+      ['No guaranteed results', 'Image output depends on the source file, browser implementation, device memory, and selected settings. Always review exported files before relying on them.'],
+      ['Availability', 'The service is provided on an as-available basis. Features may change, be unavailable, or be removed as the project evolves.'],
+      ['Prohibited use', 'Do not use the service to violate copyright, privacy, publicity, or other legal rights, or to process unlawful content.'],
+      ['Limitation', 'To the extent permitted by law, XConvert Pro is not liable for indirect loss, data loss, or business interruption arising from use of the tools. Keep backup copies of important source files.']
+    ]
+  },
+  'cookie-policy': {
+    title: 'Cookie Policy',
+    description: 'Information about essential browser storage and cookie preferences on XConvert Pro.',
+    sections: [
+      ['Current storage', 'The current rebuild stores a theme preference and a cookie-choice value in localStorage. These are browser storage entries rather than tracking cookies.'],
+      ['Essential preferences', 'The theme preference supports the selected light or dark appearance. The consent choice records whether the visitor selected Accept or Necessary only.'],
+      ['Analytics and advertising', 'The current rebuild does not enable third-party analytics or advertising tags. If optional services are introduced later, this policy and the consent interface must be updated before activation.'],
+      ['Managing preferences', 'You can clear site data through your browser settings. Clearing storage resets the saved theme and cookie choice.']
+    ]
+  },
+  disclaimer: {
+    title: 'Disclaimer',
+    description: 'Important limitations and responsibilities when using XConvert Pro.',
+    sections: [
+      ['Output quality', 'No particular compression ratio, visual quality, or conversion result is guaranteed. Results depend on source content and browser encoders.'],
+      ['Background removal', 'The background-removal utility uses edge-connected color matching and is not an AI segmentation system. It may remove similar colors from the subject or leave background fragments.'],
+      ['Upscaling', 'The upscaler uses browser canvas interpolation. It increases dimensions but does not reconstruct genuine missing detail using AI.'],
+      ['User responsibility', 'Keep copies of original files and verify output quality, dimensions, and transparency before using exported images.']
+    ]
+  },
+  'acceptable-use': {
+    title: 'Acceptable Use Policy',
+    description: 'Rules for lawful and responsible use of XConvert Pro.',
+    sections: [
+      ['Lawful content', 'Do not use XConvert Pro to create, modify, or distribute content that violates applicable laws or the rights of others.'],
+      ['Rights and permissions', 'You are responsible for holding the copyright, license, consent, or other permissions required for images you process and publish.'],
+      ['Abuse and security', 'Do not attempt to disrupt the website, bypass security controls, exploit vulnerabilities, or interfere with other visitors.'],
+      ['Enforcement', 'Access may be limited where necessary to protect the service, visitors, or legal rights.']
+    ]
+  },
+  api: {
+    title: 'API Availability',
+    description: 'Current availability of a public XConvert Pro developer API.',
+    sections: [
+      ['Public API status', 'A supported public developer API is not included in this rebuild. The image tools described on this website are client-side browser features and should not be treated as a hosted API endpoint.'],
+      ['Integration requests', 'For integration requirements, open a discussion in the public project repository. Do not send API keys or secrets in public issue reports.']
+    ]
+  },
+  about: {
+    title: 'About XConvert Pro',
+    description: 'About the XConvert Pro browser image tools.',
+    sections: [
+      ['What it does', 'XConvert Pro provides browser-based image utilities for common editing and conversion tasks.'],
+      ['Privacy approach', 'Core image processing runs locally in the browser and creates a new output file rather than modifying the source.'],
+      ['Technical limits', 'Browser decoding, canvas encoding, available memory, and supported formats vary by browser and device.']
+    ]
+  },
+  contact: {
+    title: 'Contact XConvert Pro',
+    description: 'Contact information and product support for XConvert Pro.',
+    sections: [
+      ['Project support', 'For bug reports and feature requests, use the public GitHub issue tracker. Include reproducible steps and avoid uploading confidential images.'],
+      ['GitHub', 'The project issue tracker is available at github.com/gpldroid/xcpro/issues.']
+    ]
+  },
+  tools: {
+    title: 'Image Tools',
+    description: 'Browse all image processing tools available on XConvert Pro.',
+    sections: [
+      ['Tool directory', 'The tool directory includes image compression, resizing, cropping, conversion, editing, background color removal, upscaling, watermarking, meme creation, and rotation.']
+    ]
+  }
+};
+export function getStaticPaths() {
+  return Object.keys(pages).map((slug) => ({ params: { slug }, props: { page: pages[slug as keyof typeof pages] } }));
+}
+const { page } = Astro.props;
+const canonical = `https://xconvert.pro/pages/${Astro.params.slug}.html`;
+---
+<BaseLayout title={`${page.title} | XConvert Pro`} description={page.description} canonical={canonical}>
+  <section class="container page-hero"><span class="eyebrow">XCONVERT PRO · INFORMATION</span><h1>{page.title}</h1><p>{page.description}</p></section>
+  <section class="container section" style="padding-top:10px"><article class="content-card prose">
+    {page.sections.map(([heading, body]) => <section><h2>{heading}</h2><p>{body}</p></section>)}
+    {Astro.params.slug === 'tools' && <p><a class="button button--primary" href="/tools/">Browse all tools →</a></p>}
+    {Astro.params.slug === 'about' && <p><a href="/about/">Read the full about page →</a></p>}
+    {Astro.params.slug === 'contact' && <p><a class="button button--primary" href="https://github.com/gpldroid/xcpro/issues" target="_blank" rel="noopener noreferrer">Open GitHub issues ↗</a></p>}
+  </article></section>
+</BaseLayout>

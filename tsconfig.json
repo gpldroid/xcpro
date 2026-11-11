@@ -2,10 +2,12 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "strictNullChecks": true,
+    "strict": true,
     "noEmit": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "allowJs": false,
+    "types": ["astro/client", "vitest/globals"]
   },
-  "include": [".astro/types.d.ts", "src/**/*"],
+  "include": [".astro/types.d.ts", "src/**/*", "tests/**/*", "vitest.config.ts"],
   "exclude": ["dist", "node_modules"]
 }
