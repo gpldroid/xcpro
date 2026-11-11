@@ -28,7 +28,7 @@ export default function MobileTabBar({ currentPath }: Props) {
           </a>
         );
       })}
-      <button type="button" className={open ? 'is-active' : ''} aria-expanded={open} aria-controls="mobile-more-menu" onClick={() => setOpen((value) => !value)}>
+      <button type="button" aria-expanded={open} aria-controls="mobile-more-menu" onClick={() => setOpen((value) => !value)}>
         <span aria-hidden="true">•••</span><span>More</span>
       </button>
       {open && <div className="mobile-tabs__more" id="mobile-more-menu">{more.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}</div>}

@@ -45,5 +45,6 @@ test('theme switch and mobile navigation work', async ({ page }) => {
   await page.goto('/tools/convert-image.html');
   await expect(mobileNav.locator('.is-active')).toHaveCount(1);
   await mobileNav.getByRole('button', { name: 'More' }).click();
+  await expect(mobileNav.locator('.is-active')).toHaveCount(1);
   await expect(mobileNav.getByRole('link', { name: 'About' })).toBeVisible();
 });
