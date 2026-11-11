@@ -38,7 +38,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
       try {
         const savedTheme = localStorage.getItem('xconvert-theme');
         if (savedTheme === 'dark' || savedTheme === 'light') document.documentElement.dataset.theme = savedTheme;
-      } catch {}
+      } catch { /* Local storage may be disabled by the browser. */ }
     </script>
   </head>
   <body>

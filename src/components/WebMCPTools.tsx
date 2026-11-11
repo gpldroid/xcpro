@@ -1,8 +1,6 @@
 import { useWebMCP } from 'use-webmcp-tool';
 import { tools } from '../data/tools';
 
-const toolRoutes = Object.fromEntries(tools.map((tool) => [tool.id, `/tools/${tool.slug}.html`]));
-
 export default function WebMCPTools() {
   const listing = useWebMCP({
     name: 'xconvert_list_image_tools',
@@ -27,11 +25,11 @@ export default function WebMCPTools() {
       additionalProperties: false,
     },
     annotations: { readOnlyHint: false, consequentialHint: false },
-    execute: ({ tool }) => {
-      const path = toolRoutes[tool];
-      if (!path) throw new Error('Unsupported image tool.');
-      window.location.assign(path);
-      return `Opening ${tool}. Choose an image in the page to continue.`;
+    execute: (input) => {
+      const selected = tools.find((item) => item.id === String(input.tool));
+      if (!selected) throw new Error('Unsupported image tool.');
+      window.location.assign(`/tools/${selected.slug}.html`);
+      return `Opening ${selected.shortTitle}. Choose an image in the page to continue.`;
     },
   });
 
