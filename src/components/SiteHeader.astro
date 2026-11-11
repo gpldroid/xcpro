@@ -1,5 +1,4 @@
 ---
-import ThemeToggle from './ThemeToggle';
 ---
 <header class="site-header">
   <div class="container site-header__inner">
@@ -14,7 +13,10 @@ import ThemeToggle from './ThemeToggle';
       <a href="/contact/">Contact</a>
     </nav>
     <div class="site-header__actions">
-      <ThemeToggle client:load />
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Change theme">
+        <span aria-hidden="true" data-theme-icon>◐</span>
+        <span class="theme-toggle__label" data-theme-label>Dark</span>
+      </button>
       <a class="button button--primary header-cta" href="/tools/">Explore tools <span aria-hidden="true">↗</span></a>
     </div>
   </div>
