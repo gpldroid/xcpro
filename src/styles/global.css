@@ -483,3 +483,30 @@ p { line-height:1.7; text-wrap:pretty; }
     font-size: .9rem;
   }
 }
+
+
+/* Final, page-scoped type scale for the two homepage intro blocks. */
+@media (min-width: 641px) {
+  .section .container > .section-heading.section-heading--toolkit h2,
+  .section .container > .section-heading.section-heading--workflow h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: -.025em;
+  }
+  .section .container > .section-heading.section-heading--toolkit > p,
+  .section .container > .section-heading.section-heading--workflow > p {
+    max-width: 46ch;
+    font-size: .86rem !important;
+    line-height: 1.65 !important;
+  }
+}
+@media (min-width: 641px) and (max-width: 960px) {
+  .section .container > .section-heading.section-heading--toolkit h2,
+  .section .container > .section-heading.section-heading--workflow h2 {
+    font-size: 1.4rem !important;
+  }
+  .section .container > .section-heading.section-heading--toolkit > p,
+  .section .container > .section-heading.section-heading--workflow > p {
+    font-size: .82rem !important;
+  }
+}
