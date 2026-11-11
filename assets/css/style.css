@@ -1726,3 +1726,29 @@ display: none;
     transition: none;
   }
 }
+
+
+/* Shared responsive hardening for legacy Astro-served HTML pages */
+html { width:100%; max-width:100%; overflow-x:clip; scroll-padding-top:5rem; }
+body { min-width:320px; max-width:100%; overflow-x:clip; font-size:clamp(.9375rem,.9rem + .16vw,1.0625rem); }
+*,*::before,*::after { box-sizing:border-box; min-width:0; }
+img,video,canvas,svg,iframe { max-width:100%; height:auto; }
+button,input,select,textarea { max-width:100%; font:inherit; }
+h1,h2,h3,h4,p,li,a { overflow-wrap:anywhere; }
+p { line-height:1.7; text-wrap:pretty; }
+.legal-main,.legal-card,.page-main,.content-main { width:min(100% - 2rem,58rem); max-width:100%; margin-inline:auto; }
+.legal-card { padding:clamp(1.1rem,3vw,2.5rem); border-radius:clamp(1rem,2vw,1.5rem); }
+.legal-title,.page-title { font-size:clamp(2rem,1.45rem + 3vw,3.5rem); line-height:1.08; text-wrap:balance; }
+.legal-heading,.page-main h2 { font-size:clamp(1.2rem,1.05rem + .8vw,1.65rem); line-height:1.25; }
+.legal-text,.page-main p,.page-main li { font-size:clamp(.94rem,.9rem + .16vw,1.05rem); line-height:1.75; }
+[data-site-header], [data-site-footer] { width:100%; max-width:100%; }
+[data-site-header] > *, [data-site-footer] > * { min-width:0; }
+@media(max-width:900px) {
+  .legal-main,.page-main,.content-main { width:min(100% - 1.5rem,58rem); }
+}
+@media(max-width:600px) {
+  .legal-main,.page-main,.content-main { width:calc(100% - 1.25rem); }
+  .legal-card { padding:1.1rem; }
+  .legal-title,.page-title { font-size:clamp(1.8rem,9vw,2.5rem); }
+  .legal-text,.page-main p,.page-main li { font-size:.94rem; }
+}
