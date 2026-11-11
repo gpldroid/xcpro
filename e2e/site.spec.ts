@@ -72,7 +72,7 @@ test('text and interactive color tokens meet WCAG AA contrast in both themes', a
     }, theme);
     const tokens = await page.locator('html').evaluate((element) => {
       const styles = getComputedStyle(element);
-      return Object.fromEntries(['--muted', '--bg', '--surface', '--surface-soft', '--brand', '--brand-button', '--success', '--danger']
+      return Object.fromEntries(['--muted', '--bg', '--surface', '--surface-soft', '--brand', '--accent', '--brand-button', '--success', '--danger']
         .map((name) => [name, styles.getPropertyValue(name).trim()]));
     });
     const resolve = (name: string) => tokens[name];
@@ -83,6 +83,7 @@ test('text and interactive color tokens meet WCAG AA contrast in both themes', a
     for (const surface of ['--bg', '--surface', '--surface-soft']) {
       expect(contrast(rgb(resolve('--muted')), rgb(resolve(surface))), `${theme}: muted text on ${surface}`).toBeGreaterThanOrEqual(4.5);
       expect(contrast(rgb(resolve('--brand')), rgb(resolve(surface))), `${theme}: brand text on ${surface}`).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(rgb(resolve('--accent')), rgb(resolve(surface))), `${theme}: accent text on ${surface}`).toBeGreaterThanOrEqual(4.5);
       expect(contrast(rgb(resolve('--success')), rgb(resolve(surface))), `${theme}: success text on ${surface}`).toBeGreaterThanOrEqual(4.5);
       expect(contrast(rgb(resolve('--danger')), rgb(resolve(surface))), `${theme}: error text on ${surface}`).toBeGreaterThanOrEqual(4.5);
     }
