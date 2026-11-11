@@ -476,3 +476,50 @@ body[data-tool] .tool-breadcrumb {
 
 
 }
+
+
+/* Responsive workspace rules for every standalone image-tool route */
+html,body { width:100%; max-width:100%; overflow-x:clip; }
+body[data-tool] { min-width:320px; font-size:clamp(.9rem,.86rem + .16vw,1rem); }
+#toolWorkspace { width:min(100% - 2rem,87.5rem); max-width:100%; min-width:0; }
+#toolWorkspace > div:first-child { min-width:0; flex-wrap:wrap; }
+#toolWorkspace > div:first-child > div { min-width:0; flex:1 1 12rem; flex-wrap:wrap; }
+#toolWorkspace > div:nth-child(2) { min-width:0; }
+#toolWorkspace > div:nth-child(2) > div:first-child { min-width:0; }
+#dropzone { width:min(100%,42.5rem); max-width:100%; padding:clamp(1.1rem,3vw,2.75rem); }
+#dropzone h2 { font-size:clamp(1.65rem,1.2rem + 2vw,2.8rem); line-height:1.1; }
+#controlsSidebar { width:min(24rem,38%); flex:0 1 24rem; min-width:0; }
+#activeToolControls { min-width:0; }
+#activeToolControls input,#activeToolControls select,#activeToolControls textarea { min-width:0; }
+#previewContainer,#previewContainer > div:first-child { min-width:0; max-width:100%; }
+#mainCanvas { width:auto; max-width:100%; height:auto; max-height:65vh; object-fit:contain; }
+#downloadModal > div { max-height:calc(100dvh - 2rem); overflow:auto; }
+#toast { max-width:calc(100% - 2rem); overflow-wrap:anywhere; }
+body[data-tool] > section:not(.site-footer) { width:min(100% - 2rem,87.5rem); }
+@media(max-width:960px) {
+  #toolWorkspace { width:calc(100% - 1.5rem); }
+  #toolWorkspace > div:nth-child(2) { flex-direction:column; overflow:visible; }
+  #toolWorkspace > div:nth-child(2) > div:first-child { min-height:20rem; }
+  #controlsSidebar { width:100%; max-height:none; flex:1 1 auto; border-left:0; border-top:1px solid #e2e8f0; }
+}
+@media(max-width:600px) {
+  body[data-tool] .tool-breadcrumb { width:calc(100% - 1.25rem); font-size:.72rem; }
+  #toolWorkspace { width:calc(100% - 1.25rem); min-height:0; margin:4px auto 1rem; border-radius:1rem; }
+  #toolWorkspace > div:first-child { gap:.7rem; padding:.8rem; }
+  #toolWorkspace > div:first-child > div { gap:.6rem; }
+  #toolWorkspace > div:first-child h2 { font-size:.95rem; }
+  #toolWorkspace > div:nth-child(2) > div:first-child { min-height:17rem; padding:.8rem; }
+  #dropzone { padding:1.25rem .8rem; border-radius:1rem; }
+  #dropzone h2 { font-size:clamp(1.5rem,8vw,1.9rem); margin-bottom:1rem; }
+  #dropzone button:first-of-type { max-width:100%; padding:.8rem 1rem; font-size:.92rem; }
+  #dropzone button:nth-of-type(2) { margin:.6rem 0 0; }
+  #controlsSidebar { padding:1rem; }
+  #previewContainer > div:last-child { display:flex; flex-wrap:wrap; justify-content:center; gap:.35rem; max-width:100%; padding:.6rem; border-radius:.8rem; }
+  #mainCanvas { max-height:50vh; }
+  body[data-tool] > section:not(.site-footer) { width:calc(100% - 1.25rem); padding:1.4rem .5rem; }
+  #toast { right:.65rem; bottom:5rem; left:.65rem; }
+}
+@media(max-width:360px) {
+  #toolWorkspace > div:first-child button { padding:.6rem; font-size:.75rem; }
+  #toolWorkspace > div:first-child > div { flex:1 1 100%; }
+}
