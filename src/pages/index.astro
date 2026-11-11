@@ -20,14 +20,14 @@ import { tools } from '../data/tools';
   </section>
   <section class="section section--surface">
     <div class="container">
-      <div class="section-heading"><div><span class="eyebrow">THE TOOLKIT</span><h2>Everything you need for everyday images</h2></div><p>Choose a focused tool, adjust only what matters, and export a separate result.</p></div>
+      <div class="section-heading section-heading--toolkit"><div><span class="eyebrow">THE TOOLKIT</span><h2>Everything you need for everyday images</h2></div><p>Choose a focused tool, adjust only what matters, and export a separate result.</p></div>
       <div class="tool-grid">
         {tools.map((tool, index) => <a class="tool-card" href={`/tools/${tool.slug}.html`}><span class="tool-card__icon" aria-hidden="true">{['↘','▣','⌗','⇄','◒','◌','↗','T','Aa','↻'][index]}</span><h3>{tool.shortTitle}</h3><p>{tool.description}</p><span class="tool-card__link">Open tool <span aria-hidden="true">→</span></span></a>)}
       </div>
     </div>
   </section>
   <section class="section workflow-section"><div class="container">
-    <div class="section-heading"><div><span class="eyebrow">A SIMPLE WORKFLOW</span><h2>From original to finished file</h2></div><p>A clear three-step process, with the same clean card layout and typography used across The Toolkit.</p></div>
+    <div class="section-heading section-heading--workflow"><div><span class="eyebrow">A SIMPLE WORKFLOW</span><h2>From original to finished file</h2></div><p>A clear three-step process, with the same clean card layout and typography used across The Toolkit.</p></div>
     <div class="feature-grid">
       <article class="feature"><span class="feature__number">01</span><h3>Choose your image</h3><p>Select a local file or drop it into the workspace. Your original file stays untouched.</p></article>
       <article class="feature"><span class="feature__number">02</span><h3>Adjust and preview</h3><p>Use straightforward controls, fine-tune the result, and preview changes before exporting.</p></article>
