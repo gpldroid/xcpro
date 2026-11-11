@@ -23,7 +23,7 @@ export default function MobileTabBar({ currentPath }: Props) {
           currentPath !== '/tools/convert-image.html'
         );
         return (
-          <a key={item.href} href={item.href} className={active ? 'is-active' : ''} aria-current={active ? 'page' : undefined}>
+          <a key={item.href} href={item.href} className={active ? 'is-active' : ''} aria-current={currentPath === item.href ? 'page' : active ? 'location' : undefined}>
             <span aria-hidden="true">{item.glyph}</span><span>{item.label}</span>
           </a>
         );
