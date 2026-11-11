@@ -17,7 +17,7 @@ function toggleDarkMode(){const next=!document.documentElement.classList.contain
 
 function initMobileTabBar(){
   if(document.getElementById("mobileTabBar"))return;
-  const path=window.location.pathname.replace(/\\/+$/,"")||"/";
+  const path=window.location.pathname.replace(/\/+$/, "") || "/";
   const items=[
     {href:"/",label:"Home",key:"home",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>',active:path==="/"},
     {href:"/tools/",label:"Tools",key:"tools",icon:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',active:path.startsWith("/tools")},
