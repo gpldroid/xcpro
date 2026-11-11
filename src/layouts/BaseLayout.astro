@@ -1,14 +1,21 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import MobileTabBar from '../components/MobileTabBar';
-import CookieConsent from '../components/CookieConsent';
-import WebMCPTools from '../components/WebMCPTools';
 import '../styles/global.css';
 
 type Props = { title: string; description: string; canonical?: string; noindex?: boolean; type?: 'website' | 'article' };
 const { title, description, canonical, noindex = false, type = 'website' } = Astro.props;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+const mobileItems = [
+  { label: 'Home', href: '/', glyph: '⌂' },
+  { label: 'Tools', href: '/tools/', glyph: '▦' },
+  { label: 'Convert', href: '/tools/convert-image.html', glyph: '⇄' },
+];
+const moreItems = [
+  { label: 'About', href: '/about/' },
+  { label: 'Guides', href: '/archives/' },
+  { label: 'Contact', href: '/contact/' },
+];
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -37,7 +44,9 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
     <script is:inline>
       try {
         const savedTheme = localStorage.getItem('xconvert-theme');
-        if (savedTheme === 'dark' || savedTheme === 'light') document.documentElement.dataset.theme = savedTheme;
+        document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light'
+          ? savedTheme
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       } catch { /* Local storage may be disabled by the browser. */ }
     </script>
   </head>
@@ -46,9 +55,78 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
     <SiteHeader />
     <main id="main-content" tabindex="-1"><slot /></main>
     <SiteFooter />
-    <MobileTabBar client:load currentPath={Astro.url.pathname} />
-    <CookieConsent client:idle />
-    <WebMCPTools client:load />
+    <nav class="mobile-tabs" aria-label="Mobile navigation">
+      {mobileItems.map((item) => {
+        const active = Astro.url.pathname === item.href || (
+          item.href === '/tools/' && Astro.url.pathname.startsWith('/tools/') &&
+          Astro.url.pathname !== '/tools/convert-image.html'
+        );
+        return <a href={item.href} class:list={{ 'is-active': active }} aria-current={Astro.url.pathname === item.href ? 'page' : active ? 'location' : undefined}>
+          <span aria-hidden="true">{item.glyph}</span><span>{item.label}</span>
+        </a>;
+      })}
+      <button type="button" data-mobile-more aria-expanded="false" aria-controls="mobile-more-menu">
+        <span aria-hidden="true">•••</span><span>More</span>
+      </button>
+      <div class="mobile-tabs__more" id="mobile-more-menu" hidden>
+        {moreItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+    </nav>
+    <aside class="cookie-banner" aria-label="Cookie preferences" data-cookie-banner hidden>
+      <div>
+        <strong>Privacy choices</strong>
+        <p>XConvert Pro uses essential browser storage for preferences. Optional analytics are not enabled by this rebuild.</p>
+        <a href="/pages/cookie-policy.html">Cookie policy</a>
+      </div>
+      <div class="cookie-banner__actions">
+        <button type="button" class="button button--quiet" data-cookie-choice="necessary">Necessary only</button>
+        <button type="button" class="button button--primary" data-cookie-choice="accepted">Accept</button>
+      </div>
+    </aside>
+    <script is:inline>
+      const themeButton = document.querySelector('[data-theme-toggle]');
+      const themeIcon = themeButton?.querySelector('[data-theme-icon]');
+      const themeLabel = themeButton?.querySelector('[data-theme-label]');
+      const applyTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        if (themeButton) themeButton.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+        if (themeIcon) themeIcon.textContent = theme === 'dark' ? '☼' : '◐';
+        if (themeLabel) themeLabel.textContent = theme === 'dark' ? 'Light' : 'Dark';
+      };
+      applyTheme(document.documentElement.dataset.theme || 'light');
+      themeButton?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        try { localStorage.setItem('xconvert-theme', next); } catch { /* Theme still works without storage. */ }
+      });
+
+      const moreButton = document.querySelector('[data-mobile-more]');
+      const moreMenu = document.getElementById('mobile-more-menu');
+      moreButton?.addEventListener('click', () => {
+        const expanded = moreButton.getAttribute('aria-expanded') === 'true';
+        moreButton.setAttribute('aria-expanded', String(!expanded));
+        if (moreMenu) moreMenu.hidden = expanded;
+      });
+      document.addEventListener('click', (event) => {
+        if (moreMenu && moreButton && !moreMenu.hidden && !moreMenu.contains(event.target) && !moreButton.contains(event.target)) {
+          moreMenu.hidden = true;
+          moreButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      const cookieBanner = document.querySelector('[data-cookie-banner]');
+      if (cookieBanner) {
+        let hasChoice = false;
+        try { hasChoice = Boolean(localStorage.getItem('xconvert-cookie-choice')); } catch { /* Show the choice if storage is unavailable. */ }
+        if (!hasChoice) window.setTimeout(() => { cookieBanner.hidden = false; }, 1600);
+        cookieBanner.querySelectorAll('[data-cookie-choice]').forEach((button) => {
+          button.addEventListener('click', () => {
+            try { localStorage.setItem('xconvert-cookie-choice', button.dataset.cookieChoice); } catch { /* Choice remains dismissible. */ }
+            cookieBanner.hidden = true;
+          });
+        });
+      }
+    </script>
     <script>
       if ('serviceWorker' in navigator && location.protocol === 'https:') {
         window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}), { once: true });
