@@ -18,7 +18,7 @@ export default function CookieConsent() {
   }, []);
 
   function choose(choice: Choice) {
-    try { localStorage.setItem('xconvert-cookie-choice', choice); } catch {}
+    try { localStorage.setItem('xconvert-cookie-choice', choice); } catch { /* Storage may be unavailable in private browsing. */ }
     setVisible(false);
   }
 

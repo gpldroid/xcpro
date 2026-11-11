@@ -105,7 +105,7 @@ export default function ToolWorkspace({ tool }: Props) {
   return (
     <div className="workspace">
       <div className="workspace__top"><div><span className="eyebrow">PRIVATE BROWSER WORKSPACE</span><h2>{tool.shortTitle}</h2><p>{tool.summary}</p></div>{file && <button className="button button--quiet" type="button" onClick={() => inputRef.current?.click()}>Replace image</button>}</div>
-      <input ref={inputRef} className="sr-only" type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp" onChange={(event) => { const selected = event.target.files?.[0]; if (selected) acceptFile(selected); event.currentTarget.value = ''; }} />
+      <input ref={inputRef} className="sr-only" type="file" aria-label="Choose an image file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp" onChange={(event) => { const selected = event.target.files?.[0]; if (selected) acceptFile(selected); event.currentTarget.value = ''; }} />
       {!file ? (
         <div className={`upload-zone ${dragging ? 'is-dragging' : ''}`} onDragOver={(event) => { event.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={onDrop}>
           <div className="upload-zone__icon" aria-hidden="true">↥</div><h3>Drop an image here</h3><p>Or select a file from your device. Files stay in this browser session.</p><button type="button" className="button button--primary" onClick={() => inputRef.current?.click()}>Choose image</button><small>PNG, JPEG, WebP, AVIF, GIF or BMP · Up to 40 MB</small>

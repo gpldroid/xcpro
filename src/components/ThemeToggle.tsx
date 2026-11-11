@@ -6,7 +6,7 @@ function readTheme(): Theme {
   try {
     const saved = localStorage.getItem('xconvert-theme');
     if (saved === 'light' || saved === 'dark') return saved;
-  } catch {}
+  } catch { /* Storage may be unavailable in private browsing. */ }
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
