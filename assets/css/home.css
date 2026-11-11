@@ -490,3 +490,41 @@ transition: none;
 
 
 }
+
+
+/* Homepage grid and typography alignment across all viewport sizes */
+html,body { max-width:100%; overflow-x:clip; }
+.home-main,.home-hero,.home-tools-wrap,.home-trust { min-width:0; max-width:100%; }
+.home-hero-inner { width:min(100%,56.25rem); padding-inline:clamp(1rem,3vw,2rem); }
+.home-hero h1 { font-size:clamp(2.15rem,1.5rem + 3.3vw,3.75rem); line-height:1.08; text-wrap:balance; }
+.home-hero p { max-width:65ch; font-size:clamp(.96rem,.9rem + .25vw,1.12rem); line-height:1.72; }
+.home-tools-wrap,.home-trust { width:min(100% - 2rem,73.75rem); }
+.home-tools-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(.7rem,1.5vw,1.125rem); }
+.home-tool-card { min-width:0; min-height:0; height:100%; justify-content:flex-start; padding:clamp(1rem,1.7vw,1.4rem); }
+.home-tool-card h2 { font-size:clamp(.98rem,.92rem + .2vw,1.12rem); line-height:1.3; text-wrap:balance; }
+.home-tool-card p { font-size:clamp(.84rem,.8rem + .12vw,.92rem); line-height:1.65; }
+.home-tool-link { margin-top:auto; padding-top:1rem; }
+.home-points { grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(.75rem,1.5vw,1.125rem); }
+.home-point { min-width:0; height:100%; padding:clamp(1rem,1.7vw,1.4rem); }
+.home-point strong { font-size:clamp(.98rem,.92rem + .2vw,1.12rem); line-height:1.3; }
+.home-point span { font-size:clamp(.84rem,.8rem + .12vw,.92rem); line-height:1.65; }
+@media(max-width:1050px) {
+  .home-tools-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media(max-width:760px) {
+  .home-hero { padding:clamp(3rem,8vw,4rem) 1rem 6rem; }
+  .home-tools-wrap { width:calc(100% - 1.5rem); padding:clamp(1rem,3vw,1.4rem); margin-top:-3rem; }
+  .home-tools-grid,.home-points { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .home-tool-card { min-height:0; }
+}
+@media(max-width:480px) {
+  .home-hero { padding:3rem 1rem 5.5rem; }
+  .home-hero h1 { font-size:clamp(2rem,10vw,2.65rem); }
+  .home-hero p { font-size:.96rem; }
+  .home-hero-inner::before { width:3.5rem; height:3.5rem; left:-1.1rem; }
+  .home-hero-inner::after { width:4.5rem; height:4.5rem; right:-1rem; }
+  .home-tools-wrap { width:calc(100% - 1.25rem); padding:1rem; border-radius:1.1rem; }
+  .home-tools-grid,.home-points { grid-template-columns:minmax(0,1fr); gap:.75rem; }
+  .home-tool-card { padding:1.1rem; }
+  .home-trust { width:calc(100% - 1.25rem); }
+}
