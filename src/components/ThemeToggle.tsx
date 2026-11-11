@@ -23,7 +23,7 @@ export default function ThemeToggle() {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('xconvert-theme', next); } catch {}
+    try { localStorage.setItem('xconvert-theme', next); } catch { /* The visual theme still works without persistence. */ }
   }
 
   return (
