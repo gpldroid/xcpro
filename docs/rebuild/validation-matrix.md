@@ -2,7 +2,7 @@
 
 ## Automated checks
 
-Run `npm run validate` in Node.js 22.23.4 or later. This executes Astro and TypeScript diagnostics, ESLint, Prettier verification, Vitest unit tests, and a complete static Astro production build. The GitHub Actions workflow runs the same sequence on pushes to the rebuild branch.
+Run `npm run validate` in Node.js 22.23.4 or later. This executes Astro and TypeScript diagnostics, ESLint, Vitest unit tests, and a complete static Astro production build. Run `npm run format:check` separately after formatting with `npm run format`. The GitHub Actions workflow runs the same sequence on pushes to the rebuild branch.
 
 ## Browser verification still required
 

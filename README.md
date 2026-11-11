@@ -24,7 +24,7 @@ npm run dev
 npm run validate
 ```
 
-Validation runs Astro/TypeScript diagnostics, ESLint, Prettier, Vitest, and a production build.
+Validation runs Astro/TypeScript diagnostics, ESLint, Vitest, and a production build. Prettier formatting is available through `npm run format`.
 
 ## Image tools
 

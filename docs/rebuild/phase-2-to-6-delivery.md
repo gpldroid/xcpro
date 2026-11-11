@@ -32,7 +32,7 @@
 
 - Vitest tests for image math, MIME selection, file-name/size helpers, and tool route inventory.
 - GitHub Actions validation workflow on the rebuild branch.
-- Local dependency installation, lockfile generation, typecheck, lint, tests, and production build could not be executed in the authoring environment because outbound package-registry/GitHub access was unavailable.
+- The first GitHub Actions install attempt exposed a non-existent @eslint/js version. That dependency and the WebMCP hook version were corrected; a successful CI run is still required to verify the complete dependency graph and build.
 - CI must pass before runtime verification. Real browser E2E, screen-reader, cross-browser, and Lighthouse/Core Web Vitals checks remain release requirements.
 
 ## Migration safeguards
