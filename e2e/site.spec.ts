@@ -48,3 +48,53 @@ test('theme switch and mobile navigation work', async ({ page }) => {
   await expect(mobileNav.locator('.is-active')).toHaveCount(1);
   await expect(mobileNav.getByRole('link', { name: 'About' })).toBeVisible();
 });
+
+
+test('text and interactive color tokens meet WCAG AA contrast in both themes', async ({ page }) => {
+  const contrast = (foreground: string, background: string) => {
+    const luminance = (color: string) => {
+      const channels = color.match(/[\d.]+/g)?.slice(0, 3).map(Number) ?? [];
+      const linear = channels.map((value) => {
+        const normalized = value / 255;
+        return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+      });
+      return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+    };
+    const a = luminance(foreground);
+    const b = luminance(background);
+    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+  };
+
+  await page.goto('/');
+  for (const theme of ['light', 'dark']) {
+    await page.locator('html').evaluate((element, value) => {
+      (element as HTMLElement).dataset.theme = value;
+    }, theme);
+    const tokens = await page.locator('html').evaluate((element) => {
+      const styles = getComputedStyle(element);
+      return Object.fromEntries(['--muted', '--bg', '--surface', '--surface-soft', '--brand', '--accent', '--brand-button', '--success', '--danger']
+        .map((name) => [name, styles.getPropertyValue(name).trim()]));
+    });
+    const resolve = (name: string) => tokens[name];
+    const rgb = (hex: string) => {
+      const value = hex.replace('#', '');
+      const normalized = value.length === 3 ? value.split('').map((channel) => channel + channel).join('') : value;
+      return `rgb(${parseInt(normalized.slice(0,2),16)}, ${parseInt(normalized.slice(2,4),16)}, ${parseInt(normalized.slice(4,6),16)})`;
+    };
+    for (const surface of ['--bg', '--surface', '--surface-soft']) {
+      expect(contrast(rgb(resolve('--muted')), rgb(resolve(surface))), `${theme}: muted text on ${surface}`).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(rgb(resolve('--brand')), rgb(resolve(surface))), `${theme}: brand text on ${surface}`).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(rgb(resolve('--accent')), rgb(resolve(surface))), `${theme}: accent text on ${surface}`).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(rgb(resolve('--success')), rgb(resolve(surface))), `${theme}: success text on ${surface}`).toBeGreaterThanOrEqual(4.5);
+      expect(contrast(rgb(resolve('--danger')), rgb(resolve(surface))), `${theme}: error text on ${surface}`).toBeGreaterThanOrEqual(4.5);
+    }
+    expect(contrast('rgb(255, 255, 255)', rgb(resolve('--brand-button'))), `${theme}: primary button text`).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
+
+test('homepage avoids hydrating global React islands', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('astro-island')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Switch to dark theme' })).toBeVisible();
+});
