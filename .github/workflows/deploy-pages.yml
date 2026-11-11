@@ -16,6 +16,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
     permissions:
       contents: read
     steps:
@@ -32,9 +34,6 @@ jobs:
 
       - name: Validate Astro application
         run: npm run validate
-
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
 
       - name: Run browser tests
         run: npx playwright test
