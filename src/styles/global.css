@@ -458,3 +458,55 @@ p { line-height:1.7; text-wrap:pretty; }
 }
 @media(hover:none) { .tool-card:hover,.feature:hover { transform:none; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+
+/* Homepage section headings: restrained scale on desktop and tablet. */
+@media (min-width: 641px) {
+  .section-heading--toolkit h2,
+  .section-heading--workflow h2 {
+    font-size: clamp(1.55rem, 1.35rem + 1.05vw, 2.15rem);
+    line-height: 1.16;
+  }
+  .section-heading--toolkit > p,
+  .section-heading--workflow > p {
+    max-width: 48ch;
+    font-size: clamp(.88rem, .84rem + .16vw, .98rem);
+    line-height: 1.65;
+  }
+}
+@media (min-width: 641px) and (max-width: 960px) {
+  .section-heading--toolkit h2,
+  .section-heading--workflow h2 {
+    font-size: clamp(1.5rem, 1.35rem + .65vw, 1.8rem);
+  }
+  .section-heading--toolkit > p,
+  .section-heading--workflow > p {
+    font-size: .9rem;
+  }
+}
+
+
+/* Final, page-scoped type scale for the two homepage intro blocks. */
+@media (min-width: 641px) {
+  .section .container > .section-heading.section-heading--toolkit h2,
+  .section .container > .section-heading.section-heading--workflow h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: -.025em;
+  }
+  .section .container > .section-heading.section-heading--toolkit > p,
+  .section .container > .section-heading.section-heading--workflow > p {
+    max-width: 46ch;
+    font-size: .86rem !important;
+    line-height: 1.65 !important;
+  }
+}
+@media (min-width: 641px) and (max-width: 960px) {
+  .section .container > .section-heading.section-heading--toolkit h2,
+  .section .container > .section-heading.section-heading--workflow h2 {
+    font-size: 1.4rem !important;
+  }
+  .section .container > .section-heading.section-heading--toolkit > p,
+  .section .container > .section-heading.section-heading--workflow > p {
+    font-size: .82rem !important;
+  }
+}
